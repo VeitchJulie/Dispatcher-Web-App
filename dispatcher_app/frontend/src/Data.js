@@ -11,7 +11,6 @@ class Data extends React.Component {
 
     componentDidMount() {
         axios.get('http://localhost:8000/teams/?format=json').then((response) => {
-            console.log(response.data)
             this.setState({teams: response.data})
         })
     }
