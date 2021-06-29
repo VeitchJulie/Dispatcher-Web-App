@@ -1,3 +1,8 @@
+from typing import Any
 from django.db import models
 
-# Create your models here.
+class Team(models.Model):
+    top_id = models.CharField(max_length=20, unique = True)
+    
+    def __str__(self):
+        return self.top_id

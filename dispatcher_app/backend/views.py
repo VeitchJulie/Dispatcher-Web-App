@@ -1,8 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from backend.serializers import TeamSerializer
+from backend.models import Team
+from rest_framework import generics
 
-# def home(request):
-#     return HttpResponse("Hello, Django")
 
-def home(request):
-    return render(request, 'index.html')
+class TeamView(generics.ListAPIView):
+    queryset = Team.objects.all()
+    serializer_class = TeamSerializer
