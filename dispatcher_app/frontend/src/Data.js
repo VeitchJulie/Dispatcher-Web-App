@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import './Data.css'
 
 class Data extends React.Component {
     constructor(props){
@@ -17,7 +18,7 @@ class Data extends React.Component {
 
     render(){
         return(
-        <div> 
+        <div > 
             <h3> Ambulance teams ID </h3>
         <table> 
             {this.state.teams.map((team) => {
