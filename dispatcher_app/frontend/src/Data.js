@@ -18,10 +18,19 @@ class Data extends React.Component {
     render(){
         return(
         <div> 
-            <h1> Ambulance teams ID: </h1>
+            <h3> Ambulance teams ID </h3>
+        <table> 
             {this.state.teams.map((team) => {
-                return <p key={team.id}> {team.top_id} </p>
+                return(
+                    <tbody key={team.id}> 
+                        <tr key={team.id}> 
+                            <td key={team.id}> {team.id} </td>
+                            <td key={team.id + 1}> {team.top_id} </td>
+                        </tr>
+                    </tbody>
+                )
             })}
+        </table>
         </div>
         )}
 }
