@@ -1,3 +1,20 @@
-/* .data-frame {
+.data-table{
+    width: 100%;
     
-} */
+}
+
+
+td{
+    border: 1px solid white;
+    padding: 10px 10px;
+    border-radius: 15px;
+}
+td:hover{
+    background-color: rgba(255, 255, 255, 0.322);
+}
+
+caption {
+    height: 7vh;
+    padding-top: 20px;
+    font-size: calc(10px + 2vh);
+}
