@@ -1,5 +1,6 @@
 import React from 'react'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer} from 'react-leaflet'
+import './Map.css'
 
 class Map extends React.Component{
     constructor(props){
@@ -11,16 +12,12 @@ class Map extends React.Component{
 
     render(){
         return(
-            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-            integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-            crossorigin=""/>,
-            <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-            crossorigin=""></script>,
-            <div className="mapid"> 
-                <MapContainer>
-                </MapContainer>
-            </div>
+            <MapContainer className='mapid' center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+                <TileLayer
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+            </MapContainer>
         )
     }
 }

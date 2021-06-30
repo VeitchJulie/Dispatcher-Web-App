@@ -3,7 +3,6 @@
   background-color: #282c34;
   color: white;
   position: relative;
-  border: 3px solid orange;
 }
 
 .grid{
@@ -22,15 +21,12 @@
   text-align: left;
   padding-left: 30px;
   height: 10vh;
-  border: 3px solid purple;
 }
 
 .data-frame{
-  border: 3px solid beige;
   align-items: center;
 }
 
 .map-frame{
-  border: 3px solid brown;
   align-items: center;
 }
