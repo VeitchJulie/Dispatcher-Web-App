@@ -4,4 +4,4 @@ from backend.models import Team
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ("id", "top_id", "state")
+        fields = ("id", "top_id", "state", "lat", "long")

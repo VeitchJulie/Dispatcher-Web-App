@@ -5,15 +5,12 @@ import Map from './Map'
 // body cant appear as a child of div
 function App() {
 
-  
-
   let showTime = function(){
     let showDate = new Date()
     return <div className='right'> 
       {showDate.getDate() + '.' + showDate.getMonth()+ '.' + showDate.getFullYear() + ' ' + showDate.getHours() + ':' + showDate.getMinutes()} 
     </div>
   }
-
 
   return (
     <div className="App">
@@ -23,7 +20,7 @@ function App() {
       </header>
       <body className="grid"> 
         <div className='map-box'> <Map /> </div>
-        <div className='data-box'> <Data />  </div>
+        <div className='data-box'> <Data /> </div>
       </body>
     </div>
   );

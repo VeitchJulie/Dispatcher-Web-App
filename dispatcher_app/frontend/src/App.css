@@ -3,7 +3,6 @@
   background-color: #282c34;
   color: white;
 }
-
 .grid{
   height: 90vh;
 } 
@@ -26,7 +25,6 @@
   height: inherit;
   font-size: calc(10px + 4vmin);
 }
-
 .map-box{
   position: relative;
   z-index: 1;
@@ -37,13 +35,12 @@
   z-index: 2;
   top: 12vh;
   left: 2vh;
-  height: 88vh;
+  height: 85vh;
   width: 40vh;
   background-color: #282c34;
   border-radius: 20px;
+  padding: 1vh 1vh;
 }
-
-
 
 .data-frame{
   align-items: center;
