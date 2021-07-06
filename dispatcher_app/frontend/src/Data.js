@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import './Data.css'
+import './styles/Data.css'
 // import Map from './Map'
 
 class Data extends React.Component {
@@ -52,10 +52,10 @@ class Data extends React.Component {
                         let colour = ''
                         team.state === 'Free' ? colour='rgb(148, 199, 148)' : colour='rgb(233, 167, 167)'
                         return(
-                            <div key={team.id} style={{"backgroundColor": colour}}> 
-                                <div className = 'table-row' key={team.id} 
+                            <div key={team.id} style={{"backgroundColor": colour}} className='box'> 
+                                <button className = 'table-row' key={team.id} 
                                     // onClick={this.handleClick(team)}
-                                    > {team.top_id} </div>
+                                    > {team.top_id} </button>
                                 <div className = 'more-inf' key={team.id + 1}> Status: {team.state}, Lat: {team.lat}, Long: {team.long} </div>
                             </div>
                         )}

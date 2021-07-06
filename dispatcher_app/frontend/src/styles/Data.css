@@ -9,14 +9,20 @@
 }
 
 .table-row{
-    /* border: 1px solid rgb(233, 167, 167); */
     padding: 10px 10px;
     margin-top: 3px;
-    /* border-radius: 15px; */
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    color: white;
+    font-size: calc(7px + 1vh);
 }
-.table-row:hover{
+.box{
+    margin-top: 2px;
+}
+/* .table-row:hover{
     background-color: rgba(255, 255, 255, 0.322);
-}
+} */
 
 .more-inf{
     display: none;
