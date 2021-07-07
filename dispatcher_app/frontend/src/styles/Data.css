@@ -16,12 +16,17 @@
     border: none;
     color: white;
     font-size: calc(7px + 1vh);
+    cursor: pointer;
 }
 .box{
     margin-top: 2px;
 }
-/* .table-row:hover{
+.table-row:hover{
     background-color: rgba(255, 255, 255, 0.322);
+}
+
+/* .table-row:active{
+    background-color: black;
 } */
 
 .more-inf{
