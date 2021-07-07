@@ -2,7 +2,6 @@ import './styles/App.css';
 import Data from './Data'
 import Map from './Map'
 
-// body cant appear as a child of div
 function App() {
 
   let showTime = function(){
@@ -18,10 +17,10 @@ function App() {
         <div className='left'> Dispatcher App   </div>
         {showTime()}
       </header>
-      <body className="grid"> 
+      <div className="grid"> 
         <div className='map-box'> <Map /> </div>
         <div className='data-box'> <Data /> </div>
-      </body>
+      </div>
     </div>
   );
 }

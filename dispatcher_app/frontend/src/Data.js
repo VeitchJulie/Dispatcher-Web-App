@@ -85,9 +85,6 @@ class Data extends React.Component {
     componentDidMount() {
         axios.get('http://localhost:8000/teams/?format=json').then((response) => {
             this.setState({teams: response.data})
-            // for (let i in this.state.teams){
-            //     this.props.dispatch(downloadTeam({id: this.state.teams[i].top_id, lat: this.state.teams[i].lat, long: this.state.teams[i].long}))
-            // }
         })
     }
 
@@ -126,7 +123,7 @@ class Data extends React.Component {
                                 <button type="button" className = 'table-row' key={team.id} 
                                     onClick={() => this.handleClick(team)}
                                     > {team.top_id} </button>
-                                <div className = 'more-inf' key={team.id + 1}> Status: {team.state}, Lat: {team.lat}, Long: {team.long} </div>
+                                <div className = 'more-inf' key={team.id + 1}> More info </div>
                             </div>
                         )}
                     )}

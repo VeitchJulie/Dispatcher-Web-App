@@ -21,9 +21,9 @@
 .box{
     margin-top: 2px;
 }
-.table-row:hover{
+/* .table-row:hover{
     background-color: rgba(255, 255, 255, 0.322);
-}
+} */
 
 /* .table-row:active{
     background-color: black;

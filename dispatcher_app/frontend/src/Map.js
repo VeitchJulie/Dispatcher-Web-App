@@ -4,8 +4,10 @@ import { MapContainer, TileLayer, ZoomControl, Marker, Tooltip} from 'react-leaf
 import L from 'leaflet'
 import './styles/Map.css'
 import { connect } from 'react-redux'
+// import {SearchControl, OpenStreetMapProvider} from 'react-leaflet-geosearch'
 import ambulanceIcon from './images/ambulance.png'
-import ambulanceOnIcon from './images/ambulance-on.png'
+// import ambulanceOnIcon from './images/ambulance-on.png'
+import './styles/example.css'
 
 class Map extends React.Component{
     state = {
@@ -25,18 +27,32 @@ class Map extends React.Component{
         iconSize: [35,35]
     })
 
-    ambulanceOn = L.icon({
-        iconUrl: ambulanceOnIcon,
-        iconSize: [35,35]
-    })
+    // ambulanceOn = L.icon({
+    //     iconUrl: ambulanceOnIcon,
+    //     iconSize: [35,35]
+    // })
 
     render(){
+        // const prov = OpenStreetMapProvider()
+        // const GeoSearchControlElement = SearchControl;
         return(
-            <MapContainer className='mapid' center={[52.229, 20.990]} zoom={12} scrollWheelZoom={false} zoomControl={false}>
+            <MapContainer className='mapid' center={[52.229, 20.970]} zoom={12} scrollWheelZoom={true} zoomControl={false}>
                 <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                {/* <GeoSearchControlElement
+                    provider={prov}
+                    showMarker={true}
+                    showPopup={false}
+                    maxMarkers={3}
+                    retainZoomLevel={false}
+                    animateZoom={true}
+                    autoClose={false}
+                    searchLabel={"Enter address, please"}
+                    keepResult={true}
+                    popupFormat={({ query, result }) => result.label}
+                    /> */}
                 {this.state.teams.map((team) =>
                     <Marker position={[team.lat, team.long]} key={team.id} icon = {this.ambulance}>
                     </Marker>
