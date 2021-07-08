@@ -104,7 +104,7 @@ class Data extends React.Component {
             <div className='data-table-box'> 
                 <div className='search-team-form-text'> Search Team </div>
                 <form className='search-team-form'>
-                    <input type='text' className='search-team' placeholder="enter team's ID" value={this.state.search} onChange={(e) => this.handleSearch(e)}/>
+                    <input type='text' className='search-team' placeholder="Enter team's ID" value={this.state.search} onChange={(e) => this.handleSearch(e)}/>
                 </form>
                 <div className = "data-table">
                     {this.state.teams.filter((team) => {
@@ -120,10 +120,15 @@ class Data extends React.Component {
                         team.state === 'Free' ? colour='rgb(148, 199, 148)' : colour='rgb(233, 167, 167)'
                         return(
                             <div key={team.id} style={{"backgroundColor": colour}} className='box'> 
-                                <button type="button" className = 'table-row' key={team.id} 
+                                {/* <button type="button" className = 'table-row' key={team.id} 
                                     onClick={() => this.handleClick(team)}
-                                    > {team.top_id} </button>
-                                <div className = 'more-inf' key={team.id + 1}> More info </div>
+                                    > {team.top_id} </button> */}
+                                <div className='table-row' key={team.id}> {team.top_id} <br/> 
+                                    {/* <button className='show-on-map' onClick={() => this.handleClick(team)}> show on map </button> */}
+                                </div>
+                                <div className = 'more-inf' key={team.id + 1}> 
+                                    <button type='button' onClick={() => this.handleClick(team)}> show on map </button>
+                                </div>
                             </div>
                         )}
                     )}

@@ -10,10 +10,9 @@
 
 .table-row{
     padding: 10px 10px;
-    margin-top: 3px;
+    /* margin-top: 3px; */
     width: 100%;
     background-color: rgba(255, 255, 255, 0);
-    border: none;
     color: white;
     font-size: calc(7px + 1vh);
     cursor: pointer;
@@ -21,6 +20,15 @@
 .box{
     margin-top: 2px;
 }
+
+.box .show-on-map{
+    display: none;
+}
+
+.box:hover + .show-on-map{
+    display: block;
+}
+
 /* .table-row:hover{
     background-color: rgba(255, 255, 255, 0.322);
 } */
@@ -30,10 +38,12 @@
 } */
 
 .more-inf{
-    display: none;
-}
+    /* display: none; */
+    background-color: aqua;
+    height: 100%;
+}  
 
-.table-row:hover + .more-inf{
+.table-row:hover + .more-inf {
     display: block;
 }
 
@@ -50,3 +60,5 @@ input[type=text] {
     font-size: calc(10px + 1vh);
     margin-left: 2vh;
 }
+
+

@@ -3,12 +3,13 @@
 .leaflet-control-geosearch *:before,
 .leaflet-control-geosearch *:after {
   box-sizing: border-box;
-}
+} 
 
 /* leaflet button styling */
 .leaflet-control-geosearch .leaflet-bar-part {
   border-radius: 4px;
   border-bottom: none;
+
 }
 
 .leaflet-control-geosearch a.leaflet-bar-part:before,
@@ -84,6 +85,7 @@
   height: auto;
   margin: 0;
   padding: 0 8px;
+  color: black;
 }
 
 .leaflet-control-geosearch.active form {
@@ -95,9 +97,9 @@
   width: 100%;
   border: none;
   outline: none;
-  margin: 0;
-  padding: 0;
-  font-size: 12px;
+  margin: 8px 0;
+  padding: 10px 10px;
+  font-size: 16px;
   height: 30px;
   border-radius: 0 4px 4px 0;
   text-indent: 8px;
@@ -152,12 +154,13 @@
   display: none;
 }
 
+/* zmiany połozenia!! */
 .leaflet-control-geosearch.bar {
   position: relative;
   display: block;
   height: auto;
   width: 400px;
-  margin: 10px auto 0;
+  margin: 45px 350px;
   cursor: auto;
   z-index: 1000;
 }
@@ -192,7 +195,7 @@
   color: black;
   position: absolute;
   line-height: 30px;
-  padding: 0 8px;
+  padding: 8px 8px;
   right: 0;
   top: 0;
   cursor: pointer;
