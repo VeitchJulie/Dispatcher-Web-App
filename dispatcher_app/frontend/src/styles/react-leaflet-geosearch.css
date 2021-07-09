@@ -24,7 +24,7 @@
   top: 19px;
   left: 16px;
   width: 8px;
-  border-top: 2px solid #555;
+  /* border-top: 2px solid #555; */
   transform: rotateZ(45deg);
 }
 
@@ -34,7 +34,7 @@
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  border: 2px solid #555;
+  /* border: 2px solid #555; */
 }
 
 /* resets for pending and error icons */
@@ -56,8 +56,8 @@
 /* pending icon */
 .leaflet-control-geosearch.pending a.leaflet-bar-part:after {
   content: '';
-  border: 2px solid #555;
-  border-top: 2px solid #f3f3f3;
+  /* border: 2px solid #555; */
+  /* border-top: 2px solid #f3f3f3; */
   animation: spin 1s linear infinite;
 }
 
@@ -77,15 +77,15 @@
   top: -2px;
   left: 28px;
   border-radius: 0 4px 4px 0;
-  border: 2px solid rgba(0, 0, 0, 0.2);
+  /* border: 2px solid rgba(0, 0, 0, 0.2); */
   border-left: none;
-  background-color: #fff;
+  background-color: #3D405B;
   background-clip: padding-box;
   z-index: -1;
   height: auto;
   margin: 0;
   padding: 0 8px;
-  color: black;
+  color: #F4F1DE;
 }
 
 .leaflet-control-geosearch.active form {
@@ -103,10 +103,11 @@
   height: 30px;
   border-radius: 0 4px 4px 0;
   text-indent: 8px;
+  background-color: #3D405B;
 }
 
 .leaflet-control-geosearch .results {
-  background: #fff;
+  background: #3D405B;
 }
 
 .leaflet-control-geosearch .results > * {
@@ -121,12 +122,15 @@
 
 .leaflet-control-geosearch .results.active {
   padding: 8px 0;
-  border-top: 1px solid #c6c6c6;
+  border-top: 1px solid #F4F1DE;
+  border-top-width: 2px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 
 .leaflet-control-geosearch .results > .active,
 .leaflet-control-geosearch .results > :hover {
-  background-color: #f8f8f8;
+  background-color: #282c34;
   border-color: #c6c6c6;
   cursor: pointer;
 }
@@ -170,8 +174,19 @@
   top: 0;
   left: 0;
   display: block;
-  border: 2px solid rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  /* border: 2px solid rgb(255, 0, 0); */
+  border-radius: 20px;
+  border-width: 3px;
+}
+input::placeholder {
+  color: #F4F1DE;
+}
+
+input {
+  caret-color: #F4F1DE;
+  color: #F4F1DE;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #F2CC8F,#F4F1DE);
 }
 
 .leaflet-control-geosearch.bar form input {
@@ -192,7 +207,7 @@
 }
 
 .leaflet-control-geosearch a.reset {
-  color: black;
+  color: #F4F1DE;
   position: absolute;
   line-height: 30px;
   padding: 8px 8px;
@@ -203,5 +218,9 @@
 }
 
 .leaflet-control-geosearch a.reset:hover {
-  background: #f5f5f5;
+  background: #fffefe2a;
+}
+
+.bar::placeholder{
+  color: white;
 }

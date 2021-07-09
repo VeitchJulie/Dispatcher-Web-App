@@ -56,6 +56,7 @@ class Map extends React.Component{
                 />
                 {this.state.teams.map((team) =>
                     <Marker position={[team.lat, team.long]} key={team.id} icon = {this.ambulance}>
+                        <Tooltip > {team.top_id} </Tooltip>
                     </Marker>
                 )}
                     <Marker position={[this.props.location.lat, this.props.location.long]} icon = {this.ambulance}>

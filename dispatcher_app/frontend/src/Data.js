@@ -102,9 +102,10 @@ class Data extends React.Component {
     render(){
         return(
             <div className='data-table-box'> 
-                <div className='search-team-form-text'> Search Team </div>
+                {/* <div className='search-team-form-text'> Search Team </div> */}
                 <form className='search-team-form'>
-                    <input type='text' className='search-team' placeholder="Enter team's ID" value={this.state.search} onChange={(e) => this.handleSearch(e)}/>
+                    <input name='label-name' type='text' className='search-team' placeholder="Enter team's ID" value={this.state.search} onChange={(e) => this.handleSearch(e)}/>
+                    <label htmlFor='label-name' className='label'> Search </label>
                 </form>
                 <div className = "data-table">
                     {this.state.teams.filter((team) => {
@@ -117,18 +118,18 @@ class Data extends React.Component {
                         }
                     }).map((team) => {
                         let colour = ''
-                        team.state === 'Free' ? colour='rgb(148, 199, 148)' : colour='rgb(233, 167, 167)'
+                        team.state === 'Free' ? colour='#81B29A' : colour='#E07A5F'
                         return(
                             <div key={team.id} style={{"backgroundColor": colour}} className='box'> 
                                 {/* <button type="button" className = 'table-row' key={team.id} 
                                     onClick={() => this.handleClick(team)}
                                     > {team.top_id} </button> */}
                                 <div className='table-row' key={team.id}> {team.top_id} <br/> 
-                                    {/* <button className='show-on-map' onClick={() => this.handleClick(team)}> show on map </button> */}
+                                   <div className='show-on-map'> <button type='button' className='show-button' onClick={() => this.handleClick(team)}> show on map </button> </div>
                                 </div>
-                                <div className = 'more-inf' key={team.id + 1}> 
+                                {/* <div className = 'more-inf' key={team.id + 1}> 
                                     <button type='button' onClick={() => this.handleClick(team)}> show on map </button>
-                                </div>
+                                </div> */}
                             </div>
                         )}
                     )}

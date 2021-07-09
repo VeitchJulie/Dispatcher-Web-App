@@ -5,60 +5,122 @@
 
 .data-table-box{
     height: 74vh;
-    /* border: solid white; */
+    font-family: 'Poppins', sans-serif; 
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.5rem;
 }
 
 .table-row{
     padding: 10px 10px;
-    /* margin-top: 3px; */
     width: 100%;
     background-color: rgba(255, 255, 255, 0);
-    color: white;
-    font-size: calc(7px + 1vh);
+    color: #F4F1DE;
+    font-size: 1rem;
     cursor: pointer;
+    width: auto;
+    height: 20px;
 }
 .box{
     margin-top: 2px;
+    border-radius:5px;
+    /* border-width: 2px;
+    border-style: solid; */
 }
 
-.box .show-on-map{
+.show-button{
+    border: none;
+    background-color: #F4F1DE;
+    margin-top: 5px;
+    color: #3D405B;
+    border-radius: 3px;
+}
+
+.show-on-map{
     display: none;
 }
 
-.box:hover + .show-on-map{
+.table-row:hover  .show-on-map{
     display: block;
+    border-top: 2px solid #9b9b9b;
 }
 
-/* .table-row:hover{
-    background-color: rgba(255, 255, 255, 0.322);
-} */
-
-/* .table-row:active{
-    background-color: black;
-} */
-
-.more-inf{
-    /* display: none; */
-    background-color: aqua;
-    height: 100%;
-}  
-
-.table-row:hover + .more-inf {
-    display: block;
+.table-row:hover{
+    height: 40px;
 }
 
 input[type=text] {
-    width: 95%;
+    width: 100%;
     padding: 10px 10px;
     margin: 8px 0;
     box-sizing: border-box;
     font-size: 16px;
 }
 
-.search-team-form-text{
-    text-align: left;
-    font-size: calc(10px + 1vh);
-    margin-left: 2vh;
+.search-team-form{
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 100%;
 }
+
+.search-team{
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #F4F1DE;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.search-team::placeholder {
+    color: transparent;
+}
+
+.search-team:placeholder-shown ~ .label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+}
+
+
+.label{
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 16px;
+    color: #F4F1DE;
+}
+
+.search-team:focus ~ .label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #F4F1DE;
+    font-weight: 700;
+}
+
+.search-team:focus{
+    padding-bottom: 6px;  
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, #F2CC8F,#F4F1DE);
+    border-image-slice: 1;
+}
+
+
+.search-team:required + .search-team:invalid{
+    box-shadow: none;
+}
+
+
+
 
 
