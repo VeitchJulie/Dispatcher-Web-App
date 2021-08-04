@@ -3,10 +3,13 @@
   /* background-color: #282c34; */
   color: #EDF5E1;
   background-color: #3D405B;
+  height: 100vh;
+  position: relative;
 }
 .grid{
   height: 90vh;
 } 
+
 .App-header {
   height: 10vh;
   display: inline-block;
@@ -22,7 +25,7 @@
 .left{
   float: left;
   padding-top: 1%;
-  padding-left: 2.5%;
+  padding-left: 2%;
   height: inherit;
   font-size: calc(10px + 4vmin);
   background-image: linear-gradient(to right, #F2CC8F,#F4F1DE);
@@ -32,18 +35,42 @@
 .map-box{
   position: relative;
   z-index: 1;
-  height: 100%;
+  height: 90vh;
 }
 .data-box{
   position: absolute;
   z-index: 2;
   top: 12vh;
   left: 2vh;
+  right: 2vh;
   height: 85vh;
-  width: 40vh;
+  width: 30vh;
   background-color: #3D405B;
   border-radius: 20px;
   padding: 1vh 1vh;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0px;
+  left: 0px;
+}
+
+.operation-box{
+  position: absolute;
+  opacity: 1;
+  top:  13%;
+  left: 6%;
+  height: 80%;
+  width: 88%;
+  background-color: #3D405B;
+  color: #F4F1DE;
+  border-color: 3px solid pink;
+  margin: auto;
 }
 
 .data-frame{
@@ -54,3 +81,10 @@
   align-items: center;
 }
 
+img {
+  width: calc(22px + 4vmin);
+  float: left;
+  padding-top: 1%;
+  padding-left: 2%;
+  height: inherit;
+}

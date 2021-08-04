@@ -9309,6 +9309,11 @@
   dependencies:
     "@react-leaflet/core" "^1.1.0"
 
+"react-native-locationiq@^0.2.0":
+  "integrity" "sha512-S5Dbwtor83HQwlO6K02lbWbfRRo+UXmnz9xP2hdrJ4egPUmEh4U8zqKRAd0oMvmII9ydJ5eenKEoR87xLoTBag=="
+  "resolved" "https://registry.npmjs.org/react-native-locationiq/-/react-native-locationiq-0.2.0.tgz"
+  "version" "0.2.0"
+
 "react-redux@^7.2.4":
   "integrity" "sha512-hOQ5eOSkEJEXdpIKbnRyl04LhaWabkDPV+Ix97wqQX3T3d2NQ8DUblNXXtNMavc7DpswyQM6xfaN4HQDKNY2JA=="
   "resolved" "https://registry.npmjs.org/react-redux/-/react-redux-7.2.4.tgz"

@@ -74,6 +74,8 @@ import axios from 'axios'
 import './styles/Data.css'
 import {connect} from 'react-redux'
 import {setLocation} from './actions/location'
+import {setSend} from './actions/operation'
+
 // import {downloadTeam} from './actions/teams'
 
 class Data extends React.Component {
@@ -94,9 +96,12 @@ class Data extends React.Component {
         })
     }
 
-    handleClick(team){
+    handleShowClick(team){
         this.props.dispatch(setLocation({id: team.top_id, lat: team.lat, long: team.long}))
-        //this.props.dispatch(setLocation({id: team.top_id, lat: 52.200, long: 21.00}))
+    }
+
+    handleSendClick(team){
+        this.props.dispatch(setSend({sendTeam: true, teamId: team.top_id}))
     }
 
     render(){
@@ -125,7 +130,10 @@ class Data extends React.Component {
                                     onClick={() => this.handleClick(team)}
                                     > {team.top_id} </button> */}
                                 <div className='table-row' key={team.id}> {team.top_id} <br/> 
-                                   <div className='show-on-map'> <button type='button' className='show-button' onClick={() => this.handleClick(team)}> show on map </button> </div>
+                                    <div className='show-on-map'> 
+                                        <button type='button' className='show-button' onClick={() => this.handleShowClick(team)}> show on map </button> 
+                                        <button type='button' className='send-button' onClick={() => this.handleSendClick(team)}> send </button> 
+                                    </div>
                                 </div>
                                 {/* <div className = 'more-inf' key={team.id + 1}> 
                                     <button type='button' onClick={() => this.handleClick(team)}> show on map </button>
@@ -141,6 +149,7 @@ class Data extends React.Component {
 const mapStateToProps = (state) => {
     return {
         location: state.location,
+        operation: state.teamState
         // teams: state.teams
     }
 }

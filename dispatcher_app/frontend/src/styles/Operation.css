@@ -1,0 +1,12 @@
+.main{ 
+    position: relative;
+}
+
+.header {
+    margin: 1vh;
+}
+
+.close-button{
+    position: absolute;
+    right: 1vh;
+}

@@ -28,15 +28,16 @@
     border-style: solid; */
 }
 
-.show-button{
+.show-button, .send-button{
     border: none;
     background-color: #F4F1DE;
-    margin-top: 5px;
+    margin: 5px;
     color: #3D405B;
     border-radius: 3px;
+    display: inline-block;
 }
 
-.show-on-map{
+.show-on-map, .send{
     display: none;
 }
 
@@ -49,13 +50,13 @@
     height: 40px;
 }
 
-input[type=text] {
+/* input[type=text] {
     width: 100%;
     padding: 10px 10px;
     margin: 8px 0;
     box-sizing: border-box;
     font-size: 16px;
-}
+} */
 
 .search-team-form{
     position: relative;
@@ -119,8 +120,4 @@ input[type=text] {
 .search-team:required + .search-team:invalid{
     box-shadow: none;
 }
-
-
-
-
 
