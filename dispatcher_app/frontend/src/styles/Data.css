@@ -88,7 +88,6 @@
     top: 20px;
 }
 
-
 .label{
     position: absolute;
     top: 0;
@@ -111,11 +110,10 @@
 .search-team:focus{
     padding-bottom: 6px;  
     font-weight: 700;
-    border-width: 3px;
+    /* border-width: 3px;
     border-image: linear-gradient(to right, #F2CC8F,#F4F1DE);
-    border-image-slice: 1;
+    border-image-slice: 1; */
 }
-
 
 .search-team:required + .search-team:invalid{
     box-shadow: none;

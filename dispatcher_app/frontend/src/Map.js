@@ -6,15 +6,16 @@ import './styles/Map.css'
 import { connect } from 'react-redux'
 import ambulanceIcon from './images/ambulance.png'
 // import ambulanceOnIcon from './images/ambulance-on.png'
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
+
 
 class Map extends React.Component{
     state = {
         lat: '',
         long: '',
         teams: [],
-        search: '',
-        searchResults: [],
+        showMarkers: this.props.showMarkers,
+        // search: '',
+        // searchResults: [],
     }
 
     componentDidMount() {
@@ -33,17 +34,6 @@ class Map extends React.Component{
     //     iconSize: [35,35]
     // })
 
-    async searchLocation(event){
-        this.setState({
-            search: event.target.value
-        })
-        const prov = new OpenStreetMapProvider()
-        const results = await prov.search({ query: event.target.value })
-        this.setState({
-            searchResults: results
-        })
-        console.log(this.state.searchResults)
-    }
 
     render(){
         return(
@@ -52,29 +42,21 @@ class Map extends React.Component{
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {/* <div className='search-box'> 
-                    <form className='search-box-form'> 
-                        <input name='searchLocation' type='text' className='search-input' minlength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
-                        <label htmlFor='searchLocation' className='search-label'> Search Address </label>
-                    </form>
-                    {this.state.search.length > 4 && 
-                    <div className='search-results'> 
-                        {this.state.searchResults.map((result) => 
-                            <button className='search-chosen'> {result.label} </button>
-                        )}
-                    </div>
-                    }
-                </div> */}
-                {this.state.teams.map((team) =>
-                <Marker position={[team.lat, team.long]} key={team.id} icon = {this.ambulance}>
-                    <Tooltip > {team.top_id} </Tooltip>
-                </Marker>
-                )}
-                <Marker position={[this.props.location.lat, this.props.location.long]} icon = {this.ambulance}>
-                    <Tooltip direction="top" opacity={0.75} permanent>
-                       {this.props.location.id}
-                    </Tooltip>
-                </Marker>
+                {this.state.showMarkers === true && 
+                    this.state.teams.map((team) =>
+                        <Marker position={[team.lat, team.long]} key={team.id} icon = {this.ambulance}>
+                            <Tooltip > {team.top_id} </Tooltip>
+                        </Marker>
+                    )
+                }
+                {/* połączyć te dwa warunki? */}
+                {this.state.showMarkers === true && 
+                    <Marker position={[this.props.location.lat, this.props.location.long]} icon = {this.ambulance}>
+                        <Tooltip direction="top" opacity={0.75} permanent>
+                            {this.props.location.id}
+                        </Tooltip>
+                    </Marker>
+                }
                 
                 {/* {this.state.searchLon !== '' & this.state.searchLat !== '' &&
                     <Marker position={[this.state.searchLat, this.state.searchLon]}> 

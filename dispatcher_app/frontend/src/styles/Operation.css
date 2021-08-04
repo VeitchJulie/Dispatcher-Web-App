@@ -4,9 +4,73 @@
 
 .header {
     margin: 1vh;
+    display: inline-block;
 }
 
 .close-button{
     position: absolute;
     right: 1vh;
+    display: inline-block;
+}
+
+.team-id{
+    position: absolute;
+    display: inline-block;
+    font-size: 4vh;
+    left: 1vh;
+}
+
+.map{
+    position: relative;
+    z-index: 1;
+    height: 70vh;
+    width: 130vh;
+    left: 40vh;
+}
+
+.search-box{
+    top: 1vh;
+    margin: 3vh 1vh;
+    width: 38vh;
+    position: relative;
+}
+
+.search-input{
+    width: 200px;
+    height: fit-content;
+    margin: 1vh;
+    position: absolute;
+    top: 2vh;
+    left: 0vh;
+    border: 0;
+    border-bottom: 2px solid #F4F1DE;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #F4F1DE;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.search-input::placeholder{
+    color: transparent;
+}
+
+.search-results{
+    position: absolute;
+    top: 9vh;
+    height: 63vh;
+    overflow: auto;
+}
+
+.search-label{
+    position: absolute;
+    left: 2vh;
+}
+
+.search-chosen{
+    background-color: transparent;
+    font-size: 12px;
+    color: #F4F1DE;
+    border: 1px solid rgba(0, 0, 0, 0.37);
 }

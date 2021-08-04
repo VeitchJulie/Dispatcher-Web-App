@@ -15,6 +15,7 @@ class App extends React.Component {
     // this.props.dispatch(setSend())
     // console.log(this.props.teamState.sendTeam)
   }
+  
 
   showTime = function(){
     let showDate = new Date()
@@ -45,7 +46,7 @@ class App extends React.Component {
           {this.showTime()}
         </header>
         <div className="grid"> 
-          <div className='map-box'> <Map /> </div>
+          <div className='map-box'> <Map showMarkers={true}/> </div>
           <div className='data-box'> <Data /> </div>
           {this.props.teamState.sendTeam === true && 
           <div className='cover'> 
