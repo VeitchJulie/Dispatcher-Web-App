@@ -46,7 +46,11 @@ class App extends React.Component {
           {this.showTime()}
         </header>
         <div className="grid"> 
-          <div className='map-box'> <Map showMarkers={true}/> </div>
+          <div className='map-box'> 
+          <Map 
+            showMarkers={true}
+            position = {[52.229, 20.970]}
+          /> </div>
           <div className='data-box'> <Data /> </div>
           {this.props.teamState.sendTeam === true && 
           <div className='cover'> 
@@ -63,7 +67,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-      teamState: state.teamState
+    teamState: state.teamState
   }
 }
 

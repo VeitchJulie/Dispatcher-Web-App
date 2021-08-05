@@ -10,18 +10,16 @@ import ambulanceIcon from './images/ambulance.png'
 
 class Map extends React.Component{
     state = {
-        lat: '',
-        long: '',
         teams: [],
         showMarkers: this.props.showMarkers,
-        // search: '',
-        // searchResults: [],
+        position: [52.229, 20.970],
     }
 
     componentDidMount() {
         axios.get('http://localhost:8000/teams/?format=json').then((response) => {
             this.setState({teams: response.data})
         })
+        
     }
 
     ambulance = L.icon({
@@ -37,7 +35,7 @@ class Map extends React.Component{
 
     render(){
         return(
-            <MapContainer className='mapid' center={[52.229, 20.970]} zoom={12} scrollWheelZoom={true} zoomControl={false}>
+            <MapContainer className='mapid' center={this.state.position} zoom={12} scrollWheelZoom={true} zoomControl={false}>
                 <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -49,7 +47,6 @@ class Map extends React.Component{
                         </Marker>
                     )
                 }
-                {/* połączyć te dwa warunki? */}
                 {this.state.showMarkers === true && 
                     <Marker position={[this.props.location.lat, this.props.location.long]} icon = {this.ambulance}>
                         <Tooltip direction="top" opacity={0.75} permanent>
@@ -57,12 +54,11 @@ class Map extends React.Component{
                         </Tooltip>
                     </Marker>
                 }
+
+                {this.state.showMarkers === false  &&
+                    <Marker position={[this.props.location.lat, this.props.location.long]} icon = {this.ambulance} > </Marker>
+                }
                 
-                {/* {this.state.searchLon !== '' & this.state.searchLat !== '' &&
-                    <Marker position={[this.state.searchLat, this.state.searchLon]}> 
-                    </Marker>
-                } */}
-                    
                 <ZoomControl position="topright" />
             </MapContainer>
         )
