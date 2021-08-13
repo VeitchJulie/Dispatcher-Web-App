@@ -5,6 +5,7 @@ import L from 'leaflet'
 import './styles/Map.css'
 import { connect } from 'react-redux'
 import ambulanceIcon from './images/ambulance.png'
+import iconRed from './images/icon-red.png'
 // import ambulanceOnIcon from './images/ambulance-on.png'
 
 
@@ -125,14 +126,19 @@ function Map(props) {
     useEffect(() => {
         if(map !== null){
             if(props.teamState.sendTeam === true & visibleMarkers === false){
-                map.panInside({lat: props.location.lat, lng: props.location.long})
+                map.panTo({lat: props.teamState.searchLat, lng: props.teamState.searchLong})
             }
         }
-    }, [props.location.lat, props.location.long])
+    }, [props.teamState.searchLat, props.teamState.searchLong])
     
     const ambulance = L.icon({
         iconUrl: ambulanceIcon,
         iconSize: [35,35]
+    })
+
+    const redIcon = L.icon({
+        iconUrl: iconRed,
+        iconSize: [35,45]
     })
 
     return(
@@ -153,8 +159,11 @@ function Map(props) {
                     </Tooltip>
                 </Marker>
             }
-            {visibleMarkers === false &&
+            {visibleMarkers === false & props.teamState.sendTeam === true &&
                 <Marker position={[props.location.lat, props.location.long]} icon = {ambulance} > </Marker>
+            }
+            {visibleMarkers === false & props.teamState.sendTeam === true &&
+                <Marker position={[props.teamState.searchLat, props.teamState.searchLong]} icon = {redIcon} > </Marker>
             }
                 <ZoomControl position="topright" />
             </MapContainer>

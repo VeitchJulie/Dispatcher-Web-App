@@ -10,9 +10,8 @@ to do:
 5. stworzyć zakladke operation
 6. polaczyc markery z zakladka operation = pokazac aktualna pozycje wybranej karetki
 7. dodac przycisk do dodania addresu koncowego
-8. dodac input na address koncowy
-9. css!
-10. routing zainstalować
+8. css!
+9. routing zainstalować
 
 
 // location - current location of ambulance

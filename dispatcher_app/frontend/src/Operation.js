@@ -1,7 +1,6 @@
 import React from 'react';
 import './styles/Operation.css'
 import {setSend} from './actions/operation'
-import {setLocation} from './actions/location'
 import {connect} from 'react-redux'
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import Map from './Map'
@@ -20,7 +19,7 @@ class Operation extends React.Component{
     }
 
     handleSearch(result){
-        this.props.dispatch(setLocation({id: this.state.teamId, lat: result.y , long: result.x}))
+        this.props.dispatch(setSend({sendTeam: true, teamId: this.state.teamId, searchLat: result.y , searchLong: result.x}))
         this.setState({display: "none"})
     }
 
@@ -41,14 +40,19 @@ class Operation extends React.Component{
         <div className='main'> 
             <header className='header'> 
                 <div className='team-id'> {this.state.teamId} </div>
+                <div className='team-status'> status: </div>
                 <button className='close-button' onClick={() => this.handleClose()}> X </button>
             </header>
+            <div className='operation-body'> 
                 <div className='search-box'> 
                     <form className='search-box-form'> 
                         <label htmlFor='searchLocation' className='search-label'> Search Address </label>
-                        <input name='searchLocation' placeholder='enter address' type='text' className='search-input' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
+                        <div className='inputs'> 
+                            <input name='searchLocation' placeholder='enter address' type='text' className='search-input' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
+                            <input className='go-button' type='button' value='go'/>
+                        </div>
                     </form>
-                    {this.state.search.length > 4 && 
+                    {this.state.search.length > 3 && 
                     <div className='search-results' style={{"display": this.state.display}}> 
                         {this.state.searchResults.map((result, key) => 
                             <button key={key} className='search-chosen' onClick={() => this.handleSearch(result)}> {result.label} </button>
@@ -60,10 +64,11 @@ class Operation extends React.Component{
                     <Map 
                     visibleMarkers={false}
                     position = {[this.props.location.lat, this.props.location.long]}
-                    zoom = {15}
+                    zoom = {13}
                     />
                 </div>
             </div>
+        </div>
     )}
 }
 
