@@ -12,7 +12,7 @@ class Operation extends React.Component{
         teamId: this.props.teamId,
         search: '',
         searchResults: [],
-        chosenPosition: [52.229, 20.970],
+        display: "block",
     }
 
     handleClose(){
@@ -21,12 +21,11 @@ class Operation extends React.Component{
 
     handleSearch(result){
         this.props.dispatch(setLocation({id: this.state.teamId, lat: result.y , long: result.x}))
-        this.setState({
-            chosenPosition: [result.y, result.x],
-        })
+        this.setState({display: "none"})
     }
 
     async searchLocation(event){
+        this.setState({display: "block"})
         this.setState({
             search: event.target.value
         })
@@ -50,7 +49,7 @@ class Operation extends React.Component{
                         <input name='searchLocation' placeholder='enter address' type='text' className='search-input' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
                     </form>
                     {this.state.search.length > 4 && 
-                    <div className='search-results'> 
+                    <div className='search-results' style={{"display": this.state.display}}> 
                         {this.state.searchResults.map((result, key) => 
                             <button key={key} className='search-chosen' onClick={() => this.handleSearch(result)}> {result.label} </button>
                         )}
@@ -59,8 +58,9 @@ class Operation extends React.Component{
                 </div>
                 <div className='map'>
                     <Map 
-                    showMarkers={false}
-                    position = {this.state.chosenPosition}
+                    visibleMarkers={false}
+                    position = {[this.props.location.lat, this.props.location.long]}
+                    zoom = {15}
                     />
                 </div>
             </div>

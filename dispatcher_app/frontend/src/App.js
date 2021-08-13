@@ -48,8 +48,9 @@ class App extends React.Component {
         <div className="grid"> 
           <div className='map-box'> 
           <Map 
-            showMarkers={true}
+            visibleMarkers={true}
             position = {[52.229, 20.970]}
+            zoom = {12}
           /> </div>
           <div className='data-box'> <Data /> </div>
           {this.props.teamState.sendTeam === true && 

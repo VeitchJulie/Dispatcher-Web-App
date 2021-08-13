@@ -1,6 +1,8 @@
 const teamState = {
     sendTeam: false,
     teamId: '',
+    searchLat: '',
+    searchLong: '',
 }
 
 const sendReducer =  (state = teamState, action) => {
@@ -10,6 +12,8 @@ const sendReducer =  (state = teamState, action) => {
                 ...state,
                 sendTeam: action.teamState.sendTeam,
                 teamId: action.teamState.teamId,
+                searchLat: action.teamState.searchLat,
+                searchLong: action.teamState.searchLong,
             }
         default:
             return state

@@ -13,3 +13,7 @@ to do:
 8. dodac input na address koncowy
 9. css!
 10. routing zainstalować
+
+
+// location - current location of ambulance
+// operation - where we wish to send the ambulance
