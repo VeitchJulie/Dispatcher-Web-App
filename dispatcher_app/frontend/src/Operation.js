@@ -4,11 +4,12 @@ import {setSend} from './actions/operation'
 import {connect} from 'react-redux'
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import Map from './Map'
+// var openrouteservice = require("openrouteservice-js");
+
 
 class Operation extends React.Component{
     
     state = {
-        teamId: this.props.teamId,
         search: '',
         searchResults: [],
         display: "block",
@@ -39,8 +40,8 @@ class Operation extends React.Component{
         return (
         <div className='main'> 
             <header className='header'> 
-                <div className='team-id'> {this.state.teamId} </div>
-                <div className='team-status'> status: </div>
+                <div className='team-id'> ID: {this.props.location.id} </div>
+                <div className='team-status'> Status: {this.props.location.state} </div>
                 <button className='close-button' onClick={() => this.handleClose()}> X </button>
             </header>
             <div className='operation-body'> 
@@ -49,7 +50,7 @@ class Operation extends React.Component{
                         <label htmlFor='searchLocation' className='search-label'> Search Address </label>
                         <div className='inputs'> 
                             <input name='searchLocation' placeholder='enter address' type='text' className='search-input' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
-                            <input className='go-button' type='button' value='go'/>
+                            {/* <input className='go-button' type='button' value='go' onClick={() => this.handleGo()}/> */}
                         </div>
                     </form>
                     {this.state.search.length > 3 && 

@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   /* background-color: #282c34; */
-  color: #EDF5E1;
+  /* color: #EDF5E1; */
   background-color: #3D405B;
   height: 100vh;
   position: relative;
@@ -15,6 +15,7 @@
   display: inline-block;
   width: 100%;
   font-family: Verdana, Tahoma, sans-serif;
+  color: #EDF5E1;
 }
 .right{
   float: right;
@@ -68,7 +69,7 @@
   height: 80%;
   width: 88%;
   background-color: #3D405B;
-  color: #F4F1DE;
+  /* color: #F4F1DE; */
   border-color: 3px solid pink;
   margin: auto;
 }

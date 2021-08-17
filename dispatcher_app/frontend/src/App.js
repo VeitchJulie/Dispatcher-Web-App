@@ -56,9 +56,8 @@ class App extends React.Component {
           {this.props.teamState.sendTeam === true && 
           <div className='cover'> 
             <div className='operation-box' > 
-              <Operation 
-                teamId = {this.props.teamState.teamId}
-              /> </div>
+              <Operation /> 
+            </div>
           </div>
           }
         </div>
@@ -68,6 +67,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    // location: state.location,
     teamState: state.teamState
   }
 }

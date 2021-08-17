@@ -24,11 +24,11 @@
     position: absolute;
     display: inline-block;
     font-size: 4vh;
-    left: 35vh;
+    left: 37vh;
     border-radius: 3px;
     background-color: #F4F1DE;
     color: #3D405B;
-    padding: 0vh 10vh;
+    padding: 0vh 8vh;
 }
 
 .team-id{
@@ -39,7 +39,7 @@
     border-radius: 3px;
     background-color: #F4F1DE;
     color: #3D405B;
-    padding: 0vh 10vh;
+    padding: 0vh 8vh;
 }
 
 .map{
@@ -113,6 +113,7 @@
 .search-label{
     position: absolute;
     left: 2vh;
+    color: #F4F1DE;
 }
 
 .search-chosen{

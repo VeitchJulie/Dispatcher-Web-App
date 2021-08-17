@@ -28,19 +28,19 @@ class Data extends React.Component {
 
     handleShowClick(team){
         if(this.state.buttonClicked === false & this.props.location.id === ''){
-            this.props.dispatch(setLocation({id: team.top_id, lat: team.lat, long: team.long}))
+            this.props.dispatch(setLocation({id: team.top_id, lat: team.lat, long: team.long, state: team.state}))
             this.setState({buttonClicked: true})
 
         }else if(this.state.buttonClicked === true & this.props.location.id === team.top_id){
-            this.props.dispatch(setLocation({id: '', lat: '', long: ''}))
+            this.props.dispatch(setLocation({id: '', lat: '', long: '', state: ''}))
             this.setState({buttonClicked: false})
         }else{
-            this.props.dispatch(setLocation({id: team.top_id, lat: team.lat, long: team.long}))
+            this.props.dispatch(setLocation({id: team.top_id, lat: team.lat, long: team.long, state: team.state}))
         }
     }
 
     handleSendClick(team){
-        this.props.dispatch(setLocation({id: team.top_id, lat: team.lat, long: team.long}))
+        this.props.dispatch(setLocation({id: team.top_id, lat: team.lat, long: team.long, state: team.state}))
         this.props.dispatch(setSend({sendTeam: true, teamId: team.top_id}))
     }
 

@@ -2,6 +2,7 @@ const locationDefaultState = {
     id: '',
     lat: '',
     long:  '',
+    state: '',
 };
 
 const locationReducer =  (state = locationDefaultState, action) => {
@@ -11,7 +12,8 @@ const locationReducer =  (state = locationDefaultState, action) => {
                 ...state,
                 id: action.location.id,
                 lat: action.location.lat,
-                long: action.location.long
+                long: action.location.long,
+                state: action.location.state
             }
         default:
             return state
