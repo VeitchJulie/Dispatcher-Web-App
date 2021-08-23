@@ -5,18 +5,20 @@ import { connect } from 'react-redux'
 // import iconRed from './images/icon-red.png'
 
 const createRoutineMachineLayer = (props) => {
-    let startLat = props.location.lat
-    let startLng = props.location.long
-    let endLat = ''
-    let endLng = ''
+    let startLat = props.startLat
+    let startLng = props.startLng
+    let endLat = props.endLat
+    let endLng = props.endLng
 
-    if(props.teamState.searchLat === ''){
-        endLat = 52.300
-        endLng = 21.050
-    }else{
-        endLat = props.teamState.searchLat
-        endLng = props.teamState.searchLong
-    }
+    const show = props.showRoute
+
+    // if(props.teamState.searchLat === ''){
+    //     endLat = 52.300
+    //     endLng = 21.050
+    // }else{
+    //     endLat = props.teamState.searchLat
+    //     endLng = props.teamState.searchLong
+    // }
     
     // const redIcon = L.icon({
     //     iconUrl: iconRed,
@@ -24,15 +26,17 @@ const createRoutineMachineLayer = (props) => {
     // })
 
     const instance = L.Routing.control({
+      position: 'topleft',
       waypoints: [
         L.latLng(startLat, startLng),
         L.latLng(endLat, endLng)
       ],
-      routeWhileDragging: false,
+      // routeWhileDragging: true,
     //   showAlternatives: true,
-      show: true,
+      show: show,
       autoRoute: true,
       collapsible: true,
+      addWaypoints: true,
     });
     
     return instance;

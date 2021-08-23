@@ -13,6 +13,13 @@ to do:
 8. css!
 9. routing zainstalować
 
+---
+- zmieniać status karetki
+- markery podczas routingu (nie chce aby się dublowało)
+- usunąć albo zapisywać gdzieś indziej wskazówki dojazdu
+- panTo/panInside przy routingu
+- lepsze wpisywanie adresu docelowego
+- wybranie opcji wpisania adresu początkowego (najlepiej te opcje wkleić z biblioteki routing)
 
 // location - current location of ambulance
 // operation - where we wish to send the ambulance

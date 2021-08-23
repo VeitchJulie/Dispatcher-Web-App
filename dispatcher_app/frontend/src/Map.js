@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import axios from 'axios'
 import { MapContainer, TileLayer, ZoomControl, Marker, Tooltip} from 'react-leaflet'
 import L from 'leaflet'
 import './styles/Map.css'
 import { connect } from 'react-redux'
 import ambulanceIcon from './images/ambulance.png'
-import iconRed from './images/icon-red.png'
+// import iconRed from './images/icon-red.png'
 import RoutingMachine from './Routing'
 
 // import ambulanceOnIcon from './images/ambulance-on.png'
@@ -50,10 +50,10 @@ class Map extends React.Component{
                         </Marker>
                     )
                 }
-                {this.props.teamState.sendTeam === false && 
+                {(this.props.teamState.sendTeam === false & this.props.location.id !== '') && 
                     <Marker position={[this.props.location.lat, this.props.location.long]} icon = {this.ambulance}>
                         <Tooltip direction="top" opacity={0.75} permanent>
-                            {this.props.location.id}
+                            {this.props.location.top_id}
                         </Tooltip>
                     </Marker>
                 }
@@ -61,8 +61,14 @@ class Map extends React.Component{
                 {this.props.teamState.sendTeam === true &&
                     <Marker position={[this.props.location.lat, this.props.location.long]}> </Marker>
                 }
-                {this.props.teamState.searchLat !== "" &&
-                    <RoutingMachine />
+                {(this.state.showMarkers === false & this.props.teamState.sendTeam === true & this.props.location.endLat !== '') &&
+                    <RoutingMachine 
+                    startLat = {this.props.location.lat}
+                    startLng = {this.props.location.long}
+                    endLat = {this.props.location.endLat}
+                    endLng = {this.props.location.endLong}
+                    showRoute = {true}
+                    />
                 }
                 <ZoomControl position="topright" />
             </MapContainer>

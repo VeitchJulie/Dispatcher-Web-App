@@ -4,6 +4,8 @@ import {setSend} from './actions/operation'
 import {connect} from 'react-redux'
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import Map from './Map'
+import axios from 'axios'
+import { setOperation } from './actions/location';
 // var openrouteservice = require("openrouteservice-js");
 
 
@@ -20,16 +22,36 @@ class Operation extends React.Component{
     }
 
     handleSearch(result){
-        this.props.dispatch(setSend({sendTeam: true, teamId: this.state.teamId, searchLat: result.y , searchLong: result.x}))
+        this.props.dispatch(setOperation({id: this.state.teamId, endLat: result.y , endLong: result.x}))
         this.setState({display: "none"})
     }
+
+    handleGo = async () => {
+
+        const product = {
+            "id": this.props.location.id,
+            "top_id": this.props.location.top_id,
+            "state": "Busy",
+            "lat": this.props.location.lat,
+            "long": this.props.location.long
+        }
+
+        axios.put(`http://localhost:8000/teams/${this.props.location.id}/`, product)
+        window.location.reload()
+    }
+    
 
     async searchLocation(event){
         this.setState({display: "block"})
         this.setState({
             search: event.target.value
         })
-        const prov = new OpenStreetMapProvider()
+        const prov = new OpenStreetMapProvider({
+            params: {
+                'accept-language': 'pl,en',
+                countrycodes: 'pl'
+            },
+        })
         const results = await prov.search({ query: event.target.value })
         this.setState({
             searchResults: results
@@ -40,7 +62,7 @@ class Operation extends React.Component{
         return (
         <div className='main'> 
             <header className='header'> 
-                <div className='team-id'> ID: {this.props.location.id} </div>
+                <div className='team-id'> ID: {this.props.location.top_id} </div>
                 <div className='team-status'> Status: {this.props.location.state} </div>
                 <button className='close-button' onClick={() => this.handleClose()}> X </button>
             </header>
@@ -50,7 +72,7 @@ class Operation extends React.Component{
                         <label htmlFor='searchLocation' className='search-label'> Search Address </label>
                         <div className='inputs'> 
                             <input name='searchLocation' placeholder='enter address' type='text' className='search-input' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
-                            {/* <input className='go-button' type='button' value='go' onClick={() => this.handleGo()}/> */}
+                            <input className='go-button' type='button' value='go' onClick={() => this.handleGo()}/>
                         </div>
                     </form>
                     {this.state.search.length > 3 && 

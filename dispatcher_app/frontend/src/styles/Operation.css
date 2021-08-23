@@ -15,9 +15,6 @@
 .close-button{
     position: absolute;
     right: 1vh;
-    display: inline-block;
-    width: fit-content;
-    height: fit-content;
 }
 
 .team-status{
@@ -91,11 +88,6 @@
 
 .go-button{
     position: relative;
-    display: inline-block;
-    border: 0;
-    background-color: white;
-    width: fit-content;
-    height: fit-content;
     left: 1vh;
 }
 
@@ -121,4 +113,14 @@
     font-size: 12px;
     color: #F4F1DE;
     border: 1px solid rgba(0, 0, 0, 0.37);
+}
+
+.go-button, .close-button{
+    border: none;
+    background-color: #F4F1DE;
+    color: #3D405B;
+    border-radius: 3px;
+    display: inline-block;
+    width: fit-content;
+    height: fit-content;
 }

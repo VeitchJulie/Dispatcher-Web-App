@@ -28,7 +28,7 @@
     border-style: solid; */
 }
 
-.show-button, .send-button{
+.show-button, .send-button, .end-button{
     border: none;
     background-color: #F4F1DE;
     margin: 5px;
