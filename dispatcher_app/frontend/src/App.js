@@ -53,7 +53,7 @@ class App extends React.Component {
             zoom = {12}
           /> </div>
           <div className='data-box'> <Data /> </div>
-          {this.props.teamState.sendTeam === true && 
+          {this.props.team.sendTeam === true && 
           <div className='cover'> 
             <div className='operation-box' > 
               <Operation /> 
@@ -68,7 +68,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     // location: state.location,
-    teamState: state.teamState
+    team: state.team
   }
 }
 

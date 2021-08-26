@@ -2,9 +2,9 @@ import React from 'react'
 import axios from 'axios'
 import './styles/Data.css'
 import {connect} from 'react-redux'
-import {setLocation} from './actions/location'
-import {setSend} from './actions/operation'
-import RoutingMachine from './Routing'
+import {setCurrentTeam, sendTeam} from './actions/team'
+// import {setSend} from './actions/operation'
+// import RoutingMachine from './Routing'
 
 // import {downloadTeam} from './actions/teams'
 
@@ -28,29 +28,20 @@ class Data extends React.Component {
     }
 
     handleShowClick(team){
-        if(this.state.buttonClicked === false & this.props.location.id === ''){
-            this.props.dispatch(setLocation({id: team.id ,top_id: team.top_id, lat: team.lat, long: team.long, state: team.state}))
+        if(this.state.buttonClicked === false){
+            this.props.dispatch(setCurrentTeam({id: team.id}))
             this.setState({buttonClicked: true})
 
-        }else if(this.state.buttonClicked === true & this.props.location.id === team.top_id){
-            this.props.dispatch(setLocation({id: '', lat: '', long: '', state: ''}))
+        }else if(this.state.buttonClicked === true & team.id === this.props.team.id){
+            this.props.dispatch(setCurrentTeam({id: ''}))
             this.setState({buttonClicked: false})
         }else{
-            this.props.dispatch(setLocation({id: team.id ,top_id: team.top_id, lat: team.lat, long: team.long, state: team.state}))
+            this.props.dispatch(setCurrentTeam({id: team.id}))
         }
-
-        // return <RoutingMachine 
-        // startLat = {this.props.location.lat}
-        // startLng = {this.props.location.long}
-        // endLat = {this.props.teamState.searchLat}
-        // endLng = {this.props.teamState.searchLong}
-        // showRoute = {false}
-        // />
     }
 
     handleSendClick(team){
-        this.props.dispatch(setLocation({id: team.id, top_id: team.top_id, lat: team.lat, long: team.long, state: team.state}))
-        this.props.dispatch(setSend({sendTeam: true, teamId: team.top_id}))
+        this.props.dispatch(sendTeam({id: team.id}))
     }
 
     handleEndClick = async (team) => {
@@ -60,7 +51,9 @@ class Data extends React.Component {
             "top_id": team.top_id,
             "state": "Free",
             "lat": team.lat,
-            "long": team.long
+            "long": team.long,
+            "endLat": 0.0,
+            "endLong": 0.0,
         }
 
         axios.put(`http://localhost:8000/teams/${team.id}/`, object).then(response => {
@@ -113,7 +106,7 @@ class Data extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        location: state.location,
+        team: state.team,
         operation: state.teamState
         // teams: state.teams
     }

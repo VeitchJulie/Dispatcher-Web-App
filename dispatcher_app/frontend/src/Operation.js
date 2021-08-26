@@ -1,11 +1,10 @@
 import React from 'react';
 import './styles/Operation.css'
-import {setSend} from './actions/operation'
 import {connect} from 'react-redux'
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import Map from './Map'
 import axios from 'axios'
-import { setOperation } from './actions/location';
+import { cancelTeam } from './actions/team';
 // var openrouteservice = require("openrouteservice-js");
 
 
@@ -15,32 +14,47 @@ class Operation extends React.Component{
         search: '',
         searchResults: [],
         display: "block",
+        sendLocation: [],
+        team: this.getTeam(this.props.team.id),
     }
+
+    // componentDidMount(){
+    //     console.log(this.state.team)
+    // }
 
     handleClose(){
-        this.props.dispatch(setSend({sendTeam: false}))
+        this.props.dispatch(cancelTeam({id: ''}))
     }
 
-    handleSearch(result){
-        this.props.dispatch(setOperation({id: this.state.teamId, endLat: result.y , endLong: result.x}))
-        this.setState({display: "none"})
+    handleSearch = (result) => {
+        this.setState({
+            sendLocation: [result.y, result.x],
+            display: "none"
+        })
+    }
+
+    getTeam(id){
+        axios.get(`http://localhost:8000/teams/${id}/`).then((response) => {
+            this.setState({team: response.data})
+        })
     }
 
     handleGo = async () => {
 
-        const product = {
-            "id": this.props.location.id,
-            "top_id": this.props.location.top_id,
+        const object = {
+            "id": this.state.team.id,
+            "top_id": this.state.team.top_id,
             "state": "Busy",
-            "lat": this.props.location.lat,
-            "long": this.props.location.long
+            "lat": this.state.team.lat,
+            "long": this.state.team.long,
+            "endLat": this.state.sendLocation[0],
+            "endLong": this.state.sendLocation[1],
         }
 
-        axios.put(`http://localhost:8000/teams/${this.props.location.id}/`, product)
+        await axios.put(`http://localhost:8000/teams/${this.state.team.id}/`, object)
         window.location.reload()
     }
     
-
     async searchLocation(event){
         this.setState({display: "block"})
         this.setState({
@@ -62,8 +76,10 @@ class Operation extends React.Component{
         return (
         <div className='main'> 
             <header className='header'> 
-                <div className='team-id'> ID: {this.props.location.top_id} </div>
-                <div className='team-status'> Status: {this.props.location.state} </div>
+            {this.state.team !== undefined && 
+                <div className='team-id'> ID: {this.state.team.id} </div> 
+                // <div className='team-status'> Status: {this.state.team.state} </div>
+            }
                 <button className='close-button' onClick={() => this.handleClose()}> X </button>
             </header>
             <div className='operation-body'> 
@@ -86,7 +102,7 @@ class Operation extends React.Component{
                 <div className='map'>
                     <Map 
                     visibleMarkers={false}
-                    position = {[this.props.location.lat, this.props.location.long]}
+                    position = {[this.props.team.lat, this.props.team.long]}
                     zoom = {13}
                     />
                 </div>
@@ -97,7 +113,7 @@ class Operation extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-        location: state.location,
+        team: state.team,
         teamState: state.teamState
     }
 }

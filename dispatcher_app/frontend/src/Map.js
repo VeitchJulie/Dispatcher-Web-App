@@ -16,12 +16,49 @@ class Map extends React.Component{
         teams: [],
         showMarkers: this.props.visibleMarkers,
         position: [52.229, 20.970],
+        team: '',
     }
 
     componentDidMount() {
         axios.get('http://localhost:8000/teams/?format=json').then((response) => {
             this.setState({teams: response.data})
         })
+    }
+
+    setMarker(){
+        if(this.props.team.id !== this.state.team.id){
+            axios.get(`http://localhost:8000/teams/${this.props.team.id}/`).then((response) => {
+                this.setState({team: response.data})
+            })
+        }
+        if(this.state.team.id !== undefined){
+            return(
+                <Marker position={[this.state.team.lat, this.state.team.long]} icon = {this.ambulance}>
+                    <Tooltip direction="top" opacity={0.75} permanent>
+                        {this.state.team.top_id}
+                    </Tooltip>
+                </Marker>
+            )
+        }
+    }
+
+
+    setRouting(){
+        if(this.props.team.id !== this.state.team.id){
+            axios.get(`http://localhost:8000/teams/${this.props.team.id}/`).then((response) => {
+                this.setState({team: response.data})
+            })
+        }
+        if(this.state.team.endLat !== undefined){
+            return(
+                <RoutingMachine 
+                    startLat = {this.state.team.lat}
+                    startLng = {this.state.team.long}
+                    endLat = {this.state.team.endLat}
+                    endLng = {this.state.team.endLong}
+                />
+            )
+        }
     }
 
     ambulance = L.icon({
@@ -35,40 +72,30 @@ class Map extends React.Component{
     // })
     
     render(){
-        let pos = ''
-        this.props.location.id === '' ? pos = this.state.position : pos = [this.props.location.lat, this.props.location.long]
+        // let pos = ''
+        // this.props.team.id === '' ? pos = this.state.position : pos = [this.props.location.lat, this.props.location.long]
         return(
-            <MapContainer className='mapid' center={pos} zoom={12} scrollWheelZoom={true} zoomControl={false}>
+            <MapContainer className='mapid' center={this.state.position} zoom={11} scrollWheelZoom={true} zoomControl={false}>
                 <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {this.props.teamState.sendTeam === false && 
+                {this.props.team.sendTeam === false && 
                     this.state.teams.map((team) =>
                         <Marker position={[team.lat, team.long]} key={team.id} icon = {this.ambulance}>
                             <Tooltip > {team.top_id} </Tooltip>
                         </Marker>
                     )
                 }
-                {(this.props.teamState.sendTeam === false & this.props.location.id !== '') && 
-                    <Marker position={[this.props.location.lat, this.props.location.long]} icon = {this.ambulance}>
-                        <Tooltip direction="top" opacity={0.75} permanent>
-                            {this.props.location.top_id}
-                        </Tooltip>
-                    </Marker>
+                {/* jeśli chce wyświetlać w zakładce 'send' ambulans, to usunąć trzeba 'this.props.team.sendTeam === false' */}
+                {(this.props.team.id !== "" & this.props.team.sendTeam === false) && 
+                    this.setMarker()
                 }
-
-                {this.props.teamState.sendTeam === true &&
-                    <Marker position={[this.props.location.lat, this.props.location.long]}> </Marker>
-                }
-                {(this.state.showMarkers === false & this.props.teamState.sendTeam === true & this.props.location.endLat !== '') &&
-                    <RoutingMachine 
-                    startLat = {this.props.location.lat}
-                    startLng = {this.props.location.long}
-                    endLat = {this.props.location.endLat}
-                    endLng = {this.props.location.endLong}
-                    showRoute = {true}
-                    />
+                {/* {(this.props.team.id !== "" & this.props.team.sendTeam === true) &&
+                    this.getMarker()
+                } */}
+                {(this.props.team.id !== "" & this.props.team.sendTeam === true) &&
+                    this.setRouting()
                 }
                 <ZoomControl position="topright" />
             </MapContainer>
@@ -78,14 +105,16 @@ class Map extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-        location: state.location,
-        teamState: state.teamState
+        team: state.team,
+        // teamState: state.teamState
         // teams: state.teams
     }
 }
 
 export default connect(mapStateToProps)(Map)
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // function Map(props) {
 
 //     const [map, setMap] = useState(null)
