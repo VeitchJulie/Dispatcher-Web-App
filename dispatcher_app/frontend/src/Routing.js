@@ -28,7 +28,7 @@ const createRoutineMachineLayer = (props) => {
       ],
       // routeWhileDragging: true,
     //   showAlternatives: true,
-      show: true,
+      show: false,
       autoRoute: true,
       collapsible: true,
       addWaypoints: true,

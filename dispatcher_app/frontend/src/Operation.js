@@ -5,6 +5,7 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import Map from './Map'
 import axios from 'axios'
 import { cancelTeam } from './actions/team';
+
 // var openrouteservice = require("openrouteservice-js");
 
 
@@ -52,6 +53,15 @@ class Operation extends React.Component{
         }
 
         await axios.put(`http://localhost:8000/teams/${this.state.team.id}/`, object)
+
+        // let found = this.state.teams.findIndex((fTeam, index) => fTeam.id === team.id)
+        // let teams = [...this.state.teams]
+        // let sTeam = {
+        //     ...teams[found],
+        //     state: 'Busy'
+        // }
+        // teams[found] = sTeam
+        // this.setState({teams: teams})
         window.location.reload()
     }
     
@@ -75,20 +85,17 @@ class Operation extends React.Component{
     render(){
         return (
         <div className='main'> 
-            <header className='header'> 
+            <div className='header'> 
             {this.state.team !== undefined && 
-                <div className='team-id'> ID: {this.state.team.id} </div> 
+                <div className='team-id'> {this.state.team.id} </div> 
                 // <div className='team-status'> Status: {this.state.team.state} </div>
             }
-                <button className='close-button' onClick={() => this.handleClose()}> X </button>
-            </header>
-            <div className='operation-body'> 
-                <div className='search-box'> 
+            <div className='search-box'> 
                     <form className='search-box-form'> 
                         <label htmlFor='searchLocation' className='search-label'> Search Address </label>
                         <div className='inputs'> 
                             <input name='searchLocation' placeholder='enter address' type='text' className='search-input' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
-                            <input className='go-button' type='button' value='go' onClick={() => this.handleGo()}/>
+                            <button className='go-button' value='go' onClick={() => this.handleGo()}> </button>
                         </div>
                     </form>
                     {this.state.search.length > 3 && 
@@ -99,6 +106,10 @@ class Operation extends React.Component{
                     </div>
                     }
                 </div>
+                <button className='close-button' onClick={() => this.handleClose()}> X </button>
+            </div>
+            <div className='operation-body'> 
+                
                 <div className='map'>
                     <Map 
                     visibleMarkers={false}

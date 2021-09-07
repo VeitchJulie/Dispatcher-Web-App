@@ -5,9 +5,8 @@ import L from 'leaflet'
 import './styles/Map.css'
 import { connect } from 'react-redux'
 import ambulanceIcon from './images/ambulance.png'
-// import iconRed from './images/icon-red.png'
 import RoutingMachine from './Routing'
-
+// import iconRed from './images/icon-red.png'
 // import ambulanceOnIcon from './images/ambulance-on.png'
 
 
@@ -42,7 +41,6 @@ class Map extends React.Component{
         }
     }
 
-
     setRouting(){
         if(this.props.team.id !== this.state.team.id){
             axios.get(`http://localhost:8000/teams/${this.props.team.id}/`).then((response) => {
@@ -65,11 +63,6 @@ class Map extends React.Component{
         iconUrl: ambulanceIcon,
         iconSize: [35,35]
     })
-
-    // ambulanceOn = L.icon({
-    //     iconUrl: ambulanceOnIcon,
-    //     iconSize: [35,35]
-    // })
     
     render(){
         // let pos = ''

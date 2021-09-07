@@ -5,49 +5,69 @@
 
 .data-table-box{
     height: 74vh;
-    font-family: 'Poppins', sans-serif; 
-    align-items: center;
-    min-height: 100vh;
-    font-size: 1.5rem;
 }
 
 .table-row{
     padding: 10px 10px;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0);
-    color: #F4F1DE;
-    font-size: 1rem;
-    cursor: pointer;
-    width: auto;
     height: 20px;
+    position: relative;
 }
+
+.status{
+    background: #E3E7E8;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    border-radius: 50%;
+    margin-left: 30px;
+    top: 17px;
+}
+
+
+.team_id{
+    color: #FFFFFF;
+    font-family: 'Poppins';
+    font-weight: medium;
+    font-size: 20px;
+    position: absolute;
+    margin-left: 35%;
+    letter-spacing: 2%;
+}
+
 .box{
     margin-top: 2px;
-    border-radius:5px;
+    border-radius: 15px;
+    background-color: #67BAC3;
+    width: 100%;
     /* border-width: 2px;
     border-style: solid; */
 }
 
 .show-button, .send-button, .end-button{
     border: none;
-    background-color: #F4F1DE;
-    margin: 5px;
-    color: #3D405B;
+    background-color: #EEBAA3;
+    /* margin: 5px; */
+    color: #ffffff;
     border-radius: 3px;
     display: inline-block;
 }
 
-.show-on-map, .send{
+.show-on-map{
     display: none;
+    position: absolute;
+    top: 40px;
+    font-family: 'Poppins';
+    font-weight: 700;
+    text-align: center;
+    margin: 0 15%;
 }
 
 .table-row:hover  .show-on-map{
     display: block;
-    border-top: 2px solid #9b9b9b;
 }
 
 .table-row:hover{
-    height: 40px;
+    height: 50px;
 }
 
 /* input[type=text] {
@@ -61,7 +81,7 @@
 .search-team-form{
     position: relative;
     padding: 15px 0 0;
-    margin-top: 10px;
+    margin-top: 0px;
     width: 100%;
 }
 
@@ -69,7 +89,7 @@
     font-family: inherit;
     width: 100%;
     border: 0;
-    border-bottom: 2px solid #F4F1DE;
+    border-bottom: 2px solid #EEBAA3;
     outline: 0;
     font-size: 1.3rem;
     color: #fff;
@@ -94,7 +114,8 @@
     display: block;
     transition: 0.2s;
     font-size: 16px;
-    color: #F4F1DE;
+    color: #95ADBF;
+    font-weight: bold;
 }
 
 .search-team:focus ~ .label {
@@ -103,7 +124,7 @@
     display: block;
     transition: 0.2s;
     font-size: 1rem;
-    color: #F4F1DE;
+    color: #95ADBF;
     font-weight: 700;
 }
 

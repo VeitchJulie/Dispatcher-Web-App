@@ -1,20 +1,24 @@
 .main{ 
     position: relative;
+    font-family: 'Poppins';
 }
 
-.operation-body{
+/* .operation-body{
     display: flex;
-}
+} */
 
 .header {
-    margin: 1vh;
     display: inline-block;
-    /* border-bottom: 2px solid #F4F1DE; */
+    width: 100%;
+    height: 5vh;
 }
 
 .close-button{
     position: absolute;
-    right: 1vh;
+    right: -1vh;
+    top: -1vh;
+    border-radius: 10px;
+    background-color: #F4F1DE;
 }
 
 .team-status{
@@ -30,65 +34,76 @@
 
 .team-id{
     position: absolute;
-    display: inline-block;
     font-size: 4vh;
-    left: 1vh;
-    border-radius: 3px;
-    background-color: #F4F1DE;
-    color: #3D405B;
-    padding: 0vh 8vh;
+    left: 0vh;
+    background-color: transparent;
+    color: #ffffff;
+    padding: 1vh 3vh;
 }
 
 .map{
-    border: 2px solid #F4F1DE;
     position: relative;
-    /* z-index: 1; */
-    height: 70vh;
-    top: 4vh;
+    z-index: 1;
+    height: 75vh;
+    top: 1vh;
     /* width: 130vh; */
     /* left: 40vh; */
     /* right: 10vh; */
     width: 100%;
-    flex: 4;
-    margin-right: 3vh;
+    /* margin-right: 3vh; */
 }
 
 .search-box{
-    border: 2px solid #F4F1DE;
-    top: 1vh;
-    margin: 3vh 1vh;
-    width: 38vh;
-    position: relative;
-    flex: 1;
-    height: 70vh;
+    width: 40vh;
+    height: 5vh;
+    position: absolute;
+    right: 1vh;
 }
 
 .inputs{
     position: absolute;
-    /* margin-top: 4vh; */
+    left: 0vh;
+    width: 40vh;
+    height: 4vh;
     top: 2vh;
-    margin: 1vh;
+    /* border: solid pink; */
+    /* margin-top: 4vh; */
+    /* top: 2vh;
+    margin: 1vh; */
 }
 
 .search-input{
-    width: 185px;
-    height: fit-content;
-    position: relative;
+    position: absolute;
     left: 0vh;
-    border: 0;
-    border-bottom: 2px solid #F4F1DE;
-    outline: 0;
-    font-size: 1.3rem;
-    color: #F4F1DE;
-    padding: 7px 0;
-    background: transparent;
-    transition: border-color 0.2s;
+    width: 30vh;
+    height: 3vh;
+    background: rgba(227, 231, 232, 0.47);
+    border: none;
+    margin-top: 0.5vh;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 1.5vh;
+    padding-left: 1vh;
+}
 
+.search-input:focus{
+    outline: none;
 }
 
 .go-button{
-    position: relative;
-    left: 1vh;
+    position: absolute;
+    left: 32vh;
+    margin-top: 0.60vh;
+    background: url('../images/arrow/chevron_right.png');
+    background-color: rgba(227, 231, 232, 0.47);
+    width: 3vh;
+    height: 3vh;
+    background-size: 3vh 3vh;
+    border-radius: 4px;
+}
+
+.go-button:hover{
+    background-color: rgba(227, 231, 232, 0.2);
 }
 
 .search-input::placeholder{
@@ -97,30 +112,41 @@
 
 .search-results{
     position: absolute;
-    top: 9vh;
-    height: 63vh;
+    top: 6vh;
+    z-index: 2;
+    /* top: 9vh;
+    height: 63vh; */
     overflow: auto;
+    background-color: #67BAC3;
+    border-radius: 10px;
 }
 
 .search-label{
+    left: 0vh;
     position: absolute;
-    left: 2vh;
-    color: #F4F1DE;
+    /* left: 2vh; */
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.5vh;
 }
 
 .search-chosen{
     background-color: transparent;
     font-size: 12px;
-    color: #F4F1DE;
-    border: 1px solid rgba(0, 0, 0, 0.37);
+    color: #ffffff;
+    border: 1px solid  rgba(227, 231, 232, 0.37);
+    border-radius: 10px;
+}
+
+.search-chosen:hover{
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .go-button, .close-button{
     border: none;
-    background-color: #F4F1DE;
+    
     color: #3D405B;
-    border-radius: 3px;
+    
     display: inline-block;
-    width: fit-content;
-    height: fit-content;
+
 }

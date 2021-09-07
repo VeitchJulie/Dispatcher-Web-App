@@ -5,7 +5,7 @@ import Operation from './Operation'
 import { connect } from 'react-redux'
 // import {useState} from 'react'
 // import axios from 'axios'
-import ambulanceIcon from './images/ambulance.png'
+// import ambulanceIcon from './images/ambulance.png'
 import React from 'react';
 
 class App extends React.Component {
@@ -17,12 +17,12 @@ class App extends React.Component {
   }
   
 
-  showTime = function(){
-    let showDate = new Date()
-    return <div className='right'> 
-      {showDate.getDate() + '.' + (showDate.getMonth()+ 1 ) + '.' + showDate.getFullYear() + ' ' + showDate.getHours() + ':' + showDate.getMinutes()} 
-    </div>
-  }
+  // showTime = function(){
+  //   let showDate = new Date()
+  //   return <div className='right'> 
+  //     {showDate.getDate() + '.' + (showDate.getMonth()+ 1 ) + '.' + showDate.getFullYear() + ' ' + showDate.getHours() + ':' + showDate.getMinutes()} 
+  //   </div>
+  // }
 
   // za często się pobiera
   // const [teams, setTeams] = useState([]);
@@ -40,18 +40,18 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <div>
-            <img src={ambulanceIcon} alt='icon'/> 
+            {/* <img src={ambulanceIcon} alt='icon'/>  */}
             <div className='left'> Dispatcher App </div>   
           </div>
-          {this.showTime()}
+          {/* {this.showTime()} */}
         </header>
         <div className="grid"> 
           <div className='map-box'> 
           <Map 
             visibleMarkers={true}
             position = {[52.229, 20.970]}
-            zoom = {12}
-          /> </div>
+            zoom = {12}/> 
+          </div>
           <div className='data-box'> <Data /> </div>
           {this.props.team.sendTeam === true && 
           <div className='cover'> 

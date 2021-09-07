@@ -18,8 +18,10 @@ class Data extends React.Component {
     componentDidMount() {
         axios.get('http://localhost:8000/teams/?format=json').then((response) => {
             this.setState({teams: response.data})
-        })
+        })   
     }
+
+    
 
     handleSearch(event){
         this.setState({
@@ -44,7 +46,7 @@ class Data extends React.Component {
         this.props.dispatch(sendTeam({id: team.id}))
     }
 
-    handleEndClick = async (team) => {
+    handleEndClick = (team) => {
 
         const object = {
             "id": team.id,
@@ -56,10 +58,18 @@ class Data extends React.Component {
             "endLong": 0.0,
         }
 
-        axios.put(`http://localhost:8000/teams/${team.id}/`, object).then(response => {
-            console.log(response.data)
-        })
-        window.location.reload()
+        axios.put(`http://localhost:8000/teams/${team.id}/`, object)
+        
+        let found = this.state.teams.findIndex((fTeam, index) => fTeam.id === team.id)
+        let teams = [...this.state.teams]
+        let sTeam = {
+            ...teams[found],
+            state: 'Free'
+        }
+        teams[found] = sTeam
+        this.setState({teams: teams})
+        
+        // window.location.reload()
     }
 
     render(){
@@ -67,7 +77,7 @@ class Data extends React.Component {
             <div className='data-table-box'> 
                 <form className='search-team-form'>
                     <input name='label-name' type='text' className='search-team' placeholder="Enter team's ID" value={this.state.search} onChange={(e) => this.handleSearch(e)}/>
-                    <label htmlFor='label-name' className='label'> Search </label>
+                    <label htmlFor='label-name' className='label'> Search Team </label>
                 </form>
                 <div className = "data-table">
                     {this.state.teams.filter((team) => {
@@ -80,15 +90,17 @@ class Data extends React.Component {
                         }
                     }).map((team) => {
                         let colour = ''
-                        team.state === 'Free' ? colour='#81B29A' : colour='#E07A5F'
+                        team.state === 'Free' ? colour='#E3E7E8' : colour='#EB8E68'
                         return(
-                            <div key={team.id} style={{"backgroundColor": colour}} className='box'> 
+                            <div key={team.id} className='box'> 
                                 {/* <button type="button" className = 'table-row' key={team.id} 
                                     onClick={() => this.handleClick(team)}
                                     > {team.top_id} </button> */}
-                                <div className='table-row' key={team.id}> {team.top_id} <br/> 
+                                <div className='table-row' key={team.id}>
+                                    <div className='status' style={{"backgroundColor": colour}}>  </div> 
+                                    <div className='team_id'> {team.top_id}  </div>  <br/> 
                                     <div className='show-on-map'> 
-                                        <button type='button' className='show-button' onClick={() => this.handleShowClick(team)}> show on map </button> 
+                                        <button type='button' className='show-button' onClick={() => this.handleShowClick(team)}> show </button> 
                                         <button type='button' className='send-button' onClick={() => this.handleSendClick(team)}> send </button> 
                                         <button type='button' className='end-button' onClick={() => this.handleEndClick(team)}> end </button> 
                                     </div>
