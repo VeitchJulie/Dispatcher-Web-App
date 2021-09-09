@@ -10,18 +10,20 @@ import {setCurrentTeam, sendTeam} from './actions/team'
 
 class Data extends React.Component {
     state = {
+        // teams: this.props.allTeams,
         teams: [],
         search: '',
         buttonClicked: false,
     }
 
+
     componentDidMount() {
         axios.get('http://localhost:8000/teams/?format=json').then((response) => {
             this.setState({teams: response.data})
         })   
+        // console.log(this.props.teams[0])
+        // this.setState({teams: this.props.teams})
     }
-
-    
 
     handleSearch(event){
         this.setState({
@@ -33,7 +35,6 @@ class Data extends React.Component {
         if(this.state.buttonClicked === false){
             this.props.dispatch(setCurrentTeam({id: team.id}))
             this.setState({buttonClicked: true})
-
         }else if(this.state.buttonClicked === true & team.id === this.props.team.id){
             this.props.dispatch(setCurrentTeam({id: ''}))
             this.setState({buttonClicked: false})
@@ -46,6 +47,17 @@ class Data extends React.Component {
         this.props.dispatch(sendTeam({id: team.id}))
     }
 
+    updateTeams = (id, state) =>{
+        let found = this.state.teams.findIndex((fTeam, index) => fTeam.id === id)
+        let teams = [...this.state.teams]
+        let sTeam = {
+            ...teams[found],
+            state: state
+        }
+        teams[found] = sTeam
+        this.setState({teams: teams})
+    }
+
     handleEndClick = (team) => {
 
         const object = {
@@ -54,22 +66,12 @@ class Data extends React.Component {
             "state": "Free",
             "lat": team.lat,
             "long": team.long,
-            "endLat": 0.0,
-            "endLong": 0.0,
+            "endLat": 0,
+            "endLong": 0,
         }
 
-        axios.put(`http://localhost:8000/teams/${team.id}/`, object)
-        
-        let found = this.state.teams.findIndex((fTeam, index) => fTeam.id === team.id)
-        let teams = [...this.state.teams]
-        let sTeam = {
-            ...teams[found],
-            state: 'Free'
-        }
-        teams[found] = sTeam
-        this.setState({teams: teams})
-        
-        // window.location.reload()
+        axios.put(`http://localhost:8000/teams/${team.id}/`, object)       
+        this.updateTeams(team.id, 'Free')
     }
 
     render(){
@@ -119,8 +121,8 @@ class Data extends React.Component {
 const mapStateToProps = (state) => {
     return {
         team: state.team,
-        operation: state.teamState
-        // teams: state.teams
+        operation: state.teamState,
+        teams: state.teams
     }
 }
 

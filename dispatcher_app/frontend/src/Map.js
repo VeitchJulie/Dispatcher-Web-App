@@ -16,12 +16,46 @@ class Map extends React.Component{
         showMarkers: this.props.visibleMarkers,
         position: [52.229, 20.970],
         team: '',
+        searchedLocation: this.props.searchedLocation,
     }
 
     componentDidMount() {
         axios.get('http://localhost:8000/teams/?format=json').then((response) => {
             this.setState({teams: response.data})
         })
+    }
+
+    showMarker(){
+        if(this.props.team.id !== this.state.team.id){
+            axios.get(`http://localhost:8000/teams/${this.props.team.id}/`).then((response) => {
+                this.setState({team: response.data})
+            })
+        }
+        if(this.state.team.id !== undefined){
+            if(this.state.team.state === 'Free'){
+                return(
+                    <Marker position={[this.state.team.lat, this.state.team.long]} icon = {this.ambulance}>
+                        <Tooltip direction="top" opacity={0.75} permanent>
+                            {this.state.team.top_id}
+                        </Tooltip>
+                    </Marker>
+            )}else if(this.state.team.state === 'Busy'){
+                return(
+                    <Marker position={[this.state.team.lat, this.state.team.long]} icon = {this.ambulance}>
+                        <Tooltip direction="top" opacity={0.75} permanent>
+                            {this.state.team.top_id}
+                        </Tooltip>
+                    </Marker>,
+                    <RoutingMachine 
+                        startLat = {this.state.team.lat}
+                        startLng = {this.state.team.long}
+                        endLat = {this.state.team.endLat}
+                        endLng = {this.state.team.endLong}   
+                        show = {false}
+                    />
+                )
+            }
+        }
     }
 
     setMarker(){
@@ -32,11 +66,7 @@ class Map extends React.Component{
         }
         if(this.state.team.id !== undefined){
             return(
-                <Marker position={[this.state.team.lat, this.state.team.long]} icon = {this.ambulance}>
-                    <Tooltip direction="top" opacity={0.75} permanent>
-                        {this.state.team.top_id}
-                    </Tooltip>
-                </Marker>
+                <Marker position={[this.state.team.lat, this.state.team.long]} icon = {this.ambulance}> </Marker>
             )
         }
     }
@@ -47,15 +77,20 @@ class Map extends React.Component{
                 this.setState({team: response.data})
             })
         }
-        if(this.state.team.endLat !== undefined){
-            return(
-                <RoutingMachine 
-                    startLat = {this.state.team.lat}
-                    startLng = {this.state.team.long}
-                    endLat = {this.state.team.endLat}
-                    endLng = {this.state.team.endLong}
-                />
-            )
+        if(this.props.team.showRouting === true){
+            console.log(this.state.searchedLocation)
+            if(this.state.searchedLocation !== undefined){
+                return(
+                    <Marker position={[this.state.searchedLocation[0], this.state.searchedLocation[1]]}> </Marker>
+                    // <RoutingMachine 
+                    //     startLat = {this.state.team.lat}
+                    //     startLng = {this.state.team.long}
+                    //     endLat = {this.state.searchedLocation[0]}
+                    //     endLng = {this.state.searchedLocation[1]}   
+                    //     show = {true}
+                    // />
+                )
+            }
         }
     }
 
@@ -82,12 +117,15 @@ class Map extends React.Component{
                 }
                 {/* jeśli chce wyświetlać w zakładce 'send' ambulans, to usunąć trzeba 'this.props.team.sendTeam === false' */}
                 {(this.props.team.id !== "" & this.props.team.sendTeam === false) && 
-                    this.setMarker()
+                    this.showMarker()
                 }
                 {/* {(this.props.team.id !== "" & this.props.team.sendTeam === true) &&
                     this.getMarker()
                 } */}
-                {(this.props.team.id !== "" & this.props.team.sendTeam === true) &&
+                {this.props.team.sendTeam === true &&
+                    this.setMarker()
+                }
+                {(this.props.team.sendTeam === true & this.props.team.showRouting === true) &&
                     this.setRouting()
                 }
                 <ZoomControl position="topright" />

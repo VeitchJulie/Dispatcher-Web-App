@@ -1,16 +1,16 @@
-// const teamsDefaultState = [];
+const teamsDefaultState = [];
 
-// const teamReducer =  (state = teamsDefaultState, action) => {
-//     switch(action.type){
-//         case 'DOWNLOAD_TEAMS':
-//             return [
-//                 ...state, 
-//                 action.teams
-//             ];
-//         default:
-//             return state
-//     }
-// }
+const teamsReducer =  (state = teamsDefaultState, action) => {
+    switch(action.type){
+        case 'DOWNLOAD_TEAMS':
+            return [
+                ...state, 
+                action.payload
+            ];
+        default:
+            return state
+    }
+}
 
-// export default teamReducer
+export default teamsReducer
 

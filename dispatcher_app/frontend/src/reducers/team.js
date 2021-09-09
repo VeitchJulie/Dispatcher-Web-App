@@ -1,6 +1,7 @@
 const teamDefaultState = {
     id: '',
     sendTeam: false,
+    showRouting: false,
 }
 
 const teamReducer = (state = teamDefaultState, action) => {
@@ -21,6 +22,18 @@ const teamReducer = (state = teamDefaultState, action) => {
                 ...state,
                 id: action.team.id,
                 sendTeam: false
+            }
+        case 'SHOW ROUTING':
+            return{
+                ...state,
+                id: action.team.id,
+                showRouting: true
+            }
+        case 'HIDE ROUTING':
+            return{
+                ...state,
+                id:action.team.id,
+                showRouting: false
             }
         default:
             return state

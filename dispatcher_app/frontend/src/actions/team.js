@@ -35,6 +35,31 @@ export const cancelTeam = (
     }
 })
 
+export const showRouting = (
+    {
+        id = null,
+        showRouting = true,
+    }= {}
+) =>  ({
+    type: 'SHOW ROUTING',
+    team: {
+        id,
+        showRouting
+    }
+})
+
+export const hideRouting = (
+    {
+        id = null,
+        showRouting = false,
+    }= {}
+) =>  ({
+    type: 'HIDE ROUTING',
+    team: {
+        id,
+        showRouting
+    }
+})
 
 // export const setLocation =  (
 //     {

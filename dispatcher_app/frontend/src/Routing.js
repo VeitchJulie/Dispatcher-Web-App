@@ -8,32 +8,23 @@ const createRoutineMachineLayer = (props) => {
 
     let startLat = props.startLat
     let startLng = props.startLng
-    // let endLat = props.endLat
-    // let endLng = props.endLng
-
-    // const show = props.showRoute
-
-    
-    // const redIcon = L.icon({
-    //     iconUrl: iconRed,
-    //     iconSize: [35,50]
-    // })
-
+    let endLat = props.endLat
+    let endLng = props.endLng
+    let show = props.show
 
     const instance = L.Routing.control({
       position: 'topleft',
       waypoints: [
         L.latLng(startLat, startLng),
-        L.latLng(52.1, 21.1)
+        L.latLng(endLat, endLng)
       ],
       // routeWhileDragging: true,
     //   showAlternatives: true,
-      show: false,
+      show: show,
       autoRoute: true,
-      collapsible: true,
-      addWaypoints: true,
+      // collapsible: true,
+      // addWaypoints: true,
     });
-    
     return instance;
   };
 

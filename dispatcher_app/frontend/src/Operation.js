@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import Map from './Map'
 import axios from 'axios'
-import { cancelTeam } from './actions/team';
+import { cancelTeam, hideRouting, showRouting } from './actions/team';
 
 // var openrouteservice = require("openrouteservice-js");
 
@@ -15,22 +15,23 @@ class Operation extends React.Component{
         search: '',
         searchResults: [],
         display: "block",
-        sendLocation: [],
         team: this.getTeam(this.props.team.id),
+        searchedLocation: undefined,
     }
-
-    // componentDidMount(){
-    //     console.log(this.state.team)
-    // }
 
     handleClose(){
         this.props.dispatch(cancelTeam({id: ''}))
+        // this.props.dispatch(hideRouting({id: this.state.team.id}))
     }
 
     handleSearch = (result) => {
         this.setState({
-            sendLocation: [result.y, result.x],
-            display: "none"
+            display: "none",
+            search: result.label,
+            searchedLocation: [result.y, result.x]
+        },() => {
+            console.log(this.state.searchedLocation)
+            this.props.dispatch(showRouting({id: this.state.team.id}))
         })
     }
 
@@ -40,28 +41,19 @@ class Operation extends React.Component{
         })
     }
 
-    handleGo = async () => {
-
+    handleGo =  () => {
         const object = {
             "id": this.state.team.id,
             "top_id": this.state.team.top_id,
             "state": "Busy",
             "lat": this.state.team.lat,
             "long": this.state.team.long,
-            "endLat": this.state.sendLocation[0],
-            "endLong": this.state.sendLocation[1],
+            "endLat": this.state.searchedLocation[0],
+            "endLong": this.state.searchedLocation[1],
         }
-
-        await axios.put(`http://localhost:8000/teams/${this.state.team.id}/`, object)
-
-        // let found = this.state.teams.findIndex((fTeam, index) => fTeam.id === team.id)
-        // let teams = [...this.state.teams]
-        // let sTeam = {
-        //     ...teams[found],
-        //     state: 'Busy'
-        // }
-        // teams[found] = sTeam
-        // this.setState({teams: teams})
+        axios.put(`http://localhost:8000/teams/${object.id}/`, object).then(() => {
+            this.setState({team: object})
+        })
         window.location.reload()
     }
     
@@ -95,7 +87,7 @@ class Operation extends React.Component{
                         <label htmlFor='searchLocation' className='search-label'> Search Address </label>
                         <div className='inputs'> 
                             <input name='searchLocation' placeholder='enter address' type='text' className='search-input' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
-                            <button className='go-button' value='go' onClick={() => this.handleGo()}> </button>
+                            <button className='go-button' type='button' value='go' onClick={() => this.handleGo()}> </button>
                         </div>
                     </form>
                     {this.state.search.length > 3 && 
@@ -109,12 +101,13 @@ class Operation extends React.Component{
                 <button className='close-button' onClick={() => this.handleClose()}> X </button>
             </div>
             <div className='operation-body'> 
-                
                 <div className='map'>
                     <Map 
+                    key = {this.state.searchedLocation}
                     visibleMarkers={false}
                     position = {[this.props.team.lat, this.props.team.long]}
                     zoom = {13}
+                    searchedLocation = {this.state.searchedLocation}
                     />
                 </div>
             </div>

@@ -1,14 +1,8 @@
 export const downloadTeam =  (
     {
-        id = 'default',
-        lat = '',
-        long ='',
+        teams,
         } = {}
 ) => ({
     type: 'DOWNLOAD_TEAMS',
-    teams : {
-        id,
-        lat,
-        long
-    }
+    payload: teams
 });

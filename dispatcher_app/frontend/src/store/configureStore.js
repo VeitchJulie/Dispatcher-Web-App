@@ -1,14 +1,14 @@
 import {createStore, combineReducers} from 'redux'
 import teamReducer from '../reducers/team'
 // import sendReducer from '../reducers/operation'
-// import teamReducer from '../reducers/teams'
+import teamsReducer from '../reducers/teams'
 
 const store  =  () => {
     const store = createStore(
         combineReducers({
             team: teamReducer,
             // teamState: sendReducer,
-            // teams: teamReducer,
+            teams: teamsReducer,
         })
     )
 

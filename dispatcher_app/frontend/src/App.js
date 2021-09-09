@@ -3,18 +3,18 @@ import Data from './Data'
 import Map from './Map'
 import Operation from './Operation'
 import { connect } from 'react-redux'
-// import {useState} from 'react'
+// import {downloadTeam} from './actions/teams'
 // import axios from 'axios'
 // import ambulanceIcon from './images/ambulance.png'
 import React from 'react';
 
 class App extends React.Component {
 
-  componentDidMount(){
-    // console.log(this.props.teamState.sendTeam)
-    // this.props.dispatch(setSend())
-    // console.log(this.props.teamState.sendTeam)
-  }
+  // componentDidMount(){
+  //   axios.get('http://localhost:8000/teams/?format=json').then((response) => {
+  //     this.props.dispatch(downloadTeam({teams: response.data}))
+  //   }) 
+  // }
   
 
   // showTime = function(){
@@ -24,6 +24,14 @@ class App extends React.Component {
   //   </div>
   // }
 
+//     useEffect(() => {
+//         const axiosTeams = async () => {
+//             const response = await axios('http://localhost:8000/teams/?format=json')
+//             setTeams(response.data)
+//         }
+//         axiosTeams()
+//     }, [])
+  
   // za często się pobiera
   // const [teams, setTeams] = useState([]);
   // axios.get('http://localhost:8000/teams/?format=json').then((response) => {
@@ -33,7 +41,6 @@ class App extends React.Component {
   // window.setInterval(function(){
   //   showTime()
   // }, 5000);
-
 
   render(){
     return (
@@ -47,12 +54,24 @@ class App extends React.Component {
         </header>
         <div className="grid"> 
           <div className='map-box'> 
-          <Map 
+          {/* {
+            this.props.teams[0] !== undefined && */}
+            <Map 
+            // allTeams = {this.props.teams[0]}
             visibleMarkers={true}
             position = {[52.229, 20.970]}
             zoom = {12}/> 
+          {/* } */}
+         
           </div>
-          <div className='data-box'> <Data /> </div>
+          <div className='data-box'>
+            {/* {
+              this.props.teams[0] !== undefined && */}
+              <Data 
+                // allTeams = {this.props.teams[0]}
+              />
+            {/* } */}
+           </div>
           {this.props.team.sendTeam === true && 
           <div className='cover'> 
             <div className='operation-box' > 
@@ -68,7 +87,8 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     // location: state.location,
-    team: state.team
+    team: state.team,
+    teams: state.teams
   }
 }
 
