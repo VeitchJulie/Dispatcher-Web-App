@@ -1,22 +1,5 @@
-# from django.db.models.query import QuerySet
-# from backend.serializers import TeamSerializer
-# from backend.models import Team
-# from rest_framework import generics
-
-
-# class TeamView(generics.ListAPIView):
-#     queryset = Team.objects.all()
-#     serializer_class = TeamSerializer
-
-# class SpecificTeam(generics.ListAPIView):
-#     serializer_class = TeamSerializer
-
-#     def get_queryset(self):
-#         top_idX = self.kwargs['top_id']
-#         return Team.objects.filter(top_id = top_idX)
-
-from backend.models import Team
-from backend.serializers import TeamSerializer
+from backend.models import Team, Case
+from backend.serializers import TeamSerializer, CaseSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -35,12 +18,27 @@ class TeamList(APIView):
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+class CaseList(APIView):
+    
+    def get(self, request, format=None):
+        cases = Case.objects.all()
+        serializer = CaseSerializer(cases, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, format = None):
+        serializer = CaseSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
 class TeamDetail(APIView):
 
     def get_object(self, pk):
         try:
             return Team.objects.get(pk = pk)
+            # return Team.objects.get(pk = pk)
         except Team.DoesNotExist:
             raise Http404
     

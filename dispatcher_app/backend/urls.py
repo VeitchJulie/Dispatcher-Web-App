@@ -12,5 +12,6 @@ from backend import views
 
 urlpatterns = [
     path('teams/', views.TeamList.as_view()),
+    path('cases/', views.CaseList.as_view()),
     path('teams/<int:pk>/', views.TeamDetail.as_view()),
 ]

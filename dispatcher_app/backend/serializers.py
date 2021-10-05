@@ -1,7 +1,12 @@
 from rest_framework import serializers
-from backend.models import Team
+from backend.models import Team, Case
 
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ("id", "top_id", "state", "lat", "long", "endLat", "endLong")
+        fields = ("id", "state", "lat", "long", "endLat", "endLong")
+
+class CaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Case
+        fields = ("id", "name", "surname", "date", "team")

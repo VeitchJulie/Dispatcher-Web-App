@@ -6,7 +6,6 @@ import Map from './Map'
 import axios from 'axios'
 import { cancelTeam, hideRouting, showRouting } from './actions/team';
 
-// var openrouteservice = require("openrouteservice-js");
 
 
 class Operation extends React.Component{
@@ -17,7 +16,15 @@ class Operation extends React.Component{
         display: "block",
         team: this.getTeam(this.props.team.id),
         searchedLocation: undefined,
+        zoom: 11,
+        position: [52.229, 20.970],
     }
+
+    // componentDidMount(){
+    //     this.setState({
+    //         position: [this.state.team.lat, this.state.team.long]
+    //     })
+    // }
 
     handleClose(){
         this.props.dispatch(cancelTeam({id: ''}))
@@ -28,10 +35,9 @@ class Operation extends React.Component{
         this.setState({
             display: "none",
             search: result.label,
-            searchedLocation: [result.y, result.x]
-        },() => {
-            console.log(this.state.searchedLocation)
-            this.props.dispatch(showRouting({id: this.state.team.id}))
+            searchedLocation: [result.y, result.x],
+            zoom: 13,
+            position: [result.y, result.x]
         })
     }
 
@@ -44,7 +50,7 @@ class Operation extends React.Component{
     handleGo =  () => {
         const object = {
             "id": this.state.team.id,
-            "top_id": this.state.team.top_id,
+            // "top_id": this.state.team.top_id,
             "state": "Busy",
             "lat": this.state.team.lat,
             "long": this.state.team.long,
@@ -56,11 +62,16 @@ class Operation extends React.Component{
         })
         window.location.reload()
     }
+
+    handleRoute = () => {
+        this.props.dispatch(showRouting({id: this.state.team.id}))
+    }
     
     async searchLocation(event){
-        this.setState({display: "block"})
+
         this.setState({
-            search: event.target.value
+            search: event.target.value,
+            display: "block"
         })
         const prov = new OpenStreetMapProvider({
             params: {
@@ -72,6 +83,10 @@ class Operation extends React.Component{
         this.setState({
             searchResults: results
         })
+        if(event.target.value === ''){
+            this.setState({searchedLocation: undefined})
+            this.props.dispatch(hideRouting({id: this.state.team.id}))
+        }
     }
 
     render(){
@@ -86,7 +101,8 @@ class Operation extends React.Component{
                     <form className='search-box-form'> 
                         <label htmlFor='searchLocation' className='search-label'> Search Address </label>
                         <div className='inputs'> 
-                            <input name='searchLocation' placeholder='enter address' type='text' className='search-input' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
+                            <input name='searchLocation' placeholder='enter address' type='search' className='search-input' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
+                            <button type='button' className='route-button' onClick={()=> this.handleRoute()}> </button>
                             <button className='go-button' type='button' value='go' onClick={() => this.handleGo()}> </button>
                         </div>
                     </form>
@@ -105,8 +121,8 @@ class Operation extends React.Component{
                     <Map 
                     key = {this.state.searchedLocation}
                     visibleMarkers={false}
-                    position = {[this.props.team.lat, this.props.team.long]}
-                    zoom = {13}
+                    position = {this.state.position}
+                    zoom = {this.state.zoom}
                     searchedLocation = {this.state.searchedLocation}
                     />
                 </div>

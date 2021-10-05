@@ -4,7 +4,7 @@
 }
 
 .data-table-box{
-    height: 74vh;
+    height: 74%;
 }
 
 .table-row{
@@ -24,7 +24,7 @@
 }
 
 
-.team_id{
+.id{
     color: #FFFFFF;
     font-family: 'Poppins';
     font-weight: medium;
@@ -55,11 +55,15 @@
 .show-on-map{
     display: none;
     position: absolute;
-    top: 40px;
+    top: 50%;
+    left: 50%;
     font-family: 'Poppins';
     font-weight: 700;
     text-align: center;
-    margin: 0 15%;
+    /* margin: 0 15%; */
+    justify-content: center;
+    transform: translate(-50%, 15%);
+    width: 100%;
 }
 
 .table-row:hover  .show-on-map{
@@ -92,7 +96,7 @@
     border-bottom: 2px solid #EEBAA3;
     outline: 0;
     font-size: 1.3rem;
-    color: #fff;
+    color: #FB745C;
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;

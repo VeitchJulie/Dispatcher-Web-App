@@ -6,7 +6,7 @@ class Team(models.Model):
         ('Free', 'Free'),
         ('Busy', 'Busy'),
     )
-    top_id = models.CharField(max_length=20, unique = True)
+    id = models.CharField(max_length = 20, primary_key=True)
     state = models.CharField(max_length=4, choices=STATES, default='F')
     lat = models.DecimalField(max_digits=40, decimal_places=30, blank=False, default=52.198)
     long = models.DecimalField(max_digits=40, decimal_places=30, blank=False, default=20.998)
@@ -14,4 +14,28 @@ class Team(models.Model):
     endLong = models.DecimalField(max_digits=40, decimal_places=30, blank=True)
     
     def __str__(self):
-        return self.top_id
+        return self.id
+
+class Case(models.Model):
+    STATES =(
+        ('ONGOING', 'ONGOING'),
+        ('PAST', 'PAST'),
+    )
+    id = models.AutoField(primary_key=True)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, default = 1234)
+    state = models.CharField(max_length=7, choices=STATES, default='d')
+    lat = models.DecimalField(max_digits=40, decimal_places=30, blank=True)
+    long = models.DecimalField(max_digits=40, decimal_places=30, blank=True)   
+    name = models.CharField(max_length=50, blank=True)
+    phone = models.CharField(max_length=12, blank=True)
+    extra_information = models.CharField(max_length=256, blank=True)
+    date = models.DateField(auto_now_add=True)
+
+
+    def __str__(self):
+        return self.surname
+
+
+    # class Meta:
+    #     ordering = ['date']
+    

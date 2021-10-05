@@ -3,6 +3,7 @@ import axios from 'axios'
 import './styles/Data.css'
 import {connect} from 'react-redux'
 import {setCurrentTeam, sendTeam} from './actions/team'
+// import fetch from  'fetch'
 // import {setSend} from './actions/operation'
 // import RoutingMachine from './Routing'
 
@@ -20,10 +21,18 @@ class Data extends React.Component {
     componentDidMount() {
         axios.get('http://localhost:8000/teams/?format=json').then((response) => {
             this.setState({teams: response.data})
-        })   
+        })
+
         // console.log(this.props.teams[0])
         // this.setState({teams: this.props.teams})
     }
+
+    // componentDidUpdate(){
+    //     setInterval(() => {
+    //         axios.get('http://localhost:8000/teams/?format=json').then((response) => {
+    //         this.setState({teams: response.data})
+    //     })}, 10000)  
+    // }
 
     handleSearch(event){
         this.setState({
@@ -62,7 +71,7 @@ class Data extends React.Component {
 
         const object = {
             "id": team.id,
-            "top_id": team.top_id,
+            // "top_id": team.top_id,
             "state": "Free",
             "lat": team.lat,
             "long": team.long,
@@ -85,7 +94,7 @@ class Data extends React.Component {
                     {this.state.teams.filter((team) => {
                         if(this.state.search === ''){
                             return team
-                        }else if(team.top_id.toLowerCase().includes(this.state.search.toLowerCase())){
+                        }else if(team.id.toLowerCase().includes(this.state.search.toLowerCase())){
                             return team
                         }else{
                             return null
@@ -97,10 +106,10 @@ class Data extends React.Component {
                             <div key={team.id} className='box'> 
                                 {/* <button type="button" className = 'table-row' key={team.id} 
                                     onClick={() => this.handleClick(team)}
-                                    > {team.top_id} </button> */}
+                                    > {team.id} </button> */}
                                 <div className='table-row' key={team.id}>
                                     <div className='status' style={{"backgroundColor": colour}}>  </div> 
-                                    <div className='team_id'> {team.top_id}  </div>  <br/> 
+                                    <div className='id'> {team.id}  </div>  <br/> 
                                     <div className='show-on-map'> 
                                         <button type='button' className='show-button' onClick={() => this.handleShowClick(team)}> show </button> 
                                         <button type='button' className='send-button' onClick={() => this.handleSendClick(team)}> send </button> 
