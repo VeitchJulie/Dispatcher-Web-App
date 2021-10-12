@@ -58,7 +58,7 @@ class App extends React.Component {
             this.props.teams[0] !== undefined && */}
             <Map 
             // allTeams = {this.props.teams[0]}
-            zoom = {11}
+            zoom = {12}
             visibleMarkers={true}
             position = {[52.229, 20.970]}/> 
           {/* } */}

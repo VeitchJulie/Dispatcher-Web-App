@@ -18,6 +18,7 @@ class Operation extends React.Component{
         searchedLocation: undefined,
         zoom: 11,
         position: [52.229, 20.970],
+        showQuestionare: false,
     }
 
     // componentDidMount(){
@@ -28,6 +29,7 @@ class Operation extends React.Component{
 
     handleClose(){
         this.props.dispatch(cancelTeam({id: ''}))
+        this.setState({showQuestionare: false})
         // this.props.dispatch(hideRouting({id: this.state.team.id}))
     }
 
@@ -37,7 +39,7 @@ class Operation extends React.Component{
             search: result.label,
             searchedLocation: [result.y, result.x],
             zoom: 13,
-            position: [result.y, result.x]
+            position: [result.y, result.x],
         })
     }
 
@@ -60,8 +62,9 @@ class Operation extends React.Component{
         axios.put(`http://localhost:8000/teams/${object.id}/`, object).then(() => {
             this.setState({team: object})
         })
-        window.location.reload()
+        this.setState({showQuestionare: true})
     }
+
 
     handleRoute = () => {
         this.props.dispatch(showRouting({id: this.state.team.id}))
@@ -104,6 +107,19 @@ class Operation extends React.Component{
                             <input name='searchLocation' placeholder='enter address' type='search' className='search-input' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
                             <button type='button' className='route-button' onClick={()=> this.handleRoute()}> </button>
                             <button className='go-button' type='button' value='go' onClick={() => this.handleGo()}> </button>
+                            {this.state.showQuestionare === true && 
+                                <div className='questionare'> 
+                                    <button className='close-button' onClick={() => this.handleClose()}> X </button>
+                                    <form> 
+                                        <label> Name and Surname </label> <br />
+                                        <input type='text' /> <br />
+                                        <label> Phone number </label> <br />
+                                        <input type='tel' /> <br />
+                                        <label> Extra information </label> <br />
+                                        <input type = 'text' />
+                                    </form>
+                                </div>
+                            }
                         </div>
                     </form>
                     {this.state.search.length > 3 && 

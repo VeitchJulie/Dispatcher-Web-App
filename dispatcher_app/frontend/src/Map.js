@@ -21,9 +21,10 @@ class Map extends React.Component{
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8000/teams/?format=json').then((response) => {
+        setInterval(() => {
+            axios.get('http://localhost:8000/teams/?format=json').then((response) => {
             this.setState({teams: response.data})
-        })
+        })}, 1000)  
     }
 
     showMarker(){

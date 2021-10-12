@@ -118,7 +118,7 @@
 }
 
 .search-input::placeholder{
-    color: #FB745C;
+    color: #ffffff;
 }
 
 .search-results{
@@ -156,9 +156,17 @@
 
 .go-button, .close-button{
     border: none;
-    
     color: #3D405B;
-    
     display: inline-block;
+}
 
+.questionare{
+    padding: 20px;
+    position: absolute;
+    width: 400px;
+    height: 450px;
+    left: -550px;
+    top: 50px;
+    background-color: #FB745C;
+    z-index: 30;
 }
