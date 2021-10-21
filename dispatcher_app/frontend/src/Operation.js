@@ -7,7 +7,6 @@ import axios from 'axios'
 import { cancelTeam, hideRouting, showRouting } from './actions/team';
 
 
-
 class Operation extends React.Component{
     
     state = {
@@ -26,6 +25,8 @@ class Operation extends React.Component{
     //         position: [this.state.team.lat, this.state.team.long]
     //     })
     // }
+
+
 
     handleClose(){
         this.props.dispatch(cancelTeam({id: ''}))

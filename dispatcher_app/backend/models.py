@@ -7,6 +7,7 @@ class Team(models.Model):
         ('Busy', 'Busy'),
     )
     id = models.CharField(max_length = 20, primary_key=True)
+    token = models.CharField(max_length=200, blank=False, default="token")
     state = models.CharField(max_length=4, choices=STATES, default='F')
     lat = models.DecimalField(max_digits=40, decimal_places=30, blank=False, default=52.198)
     long = models.DecimalField(max_digits=40, decimal_places=30, blank=False, default=20.998)
