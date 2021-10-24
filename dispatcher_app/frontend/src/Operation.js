@@ -54,6 +54,7 @@ class Operation extends React.Component{
         const object = {
             "id": this.state.team.id,
             // "top_id": this.state.team.top_id,
+            "token": this.state.team.token,
             "state": "Busy",
             "lat": this.state.team.lat,
             "long": this.state.team.long,

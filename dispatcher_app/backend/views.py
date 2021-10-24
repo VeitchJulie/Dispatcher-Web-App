@@ -4,7 +4,8 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-# import FCMManager as fcm
+from backend.FCMManager import sendPush
+
 
 class TeamList(APIView):
     
@@ -17,7 +18,7 @@ class TeamList(APIView):
         serializer = TeamSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
-            # print(request.data['token']) token doesnt show ? 
+            # print(request.data['token']) 
             # fcm.sendPush('Test', 'Hello there ;)', registration_token=[''])
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
@@ -55,6 +56,7 @@ class TeamDetail(APIView):
         serializer = TeamSerializer(team, data = request.data)
         if serializer.is_valid():
             serializer.save()
+            sendPush('Test', 'Hello there ;)', registration_token=request.data['token'])
             return Response(serializer.data)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     

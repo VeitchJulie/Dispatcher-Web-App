@@ -77,6 +77,7 @@ class Data extends React.Component {
         const object = {
             "id": team.id,
             // "top_id": team.top_id,
+            "token": team.token,
             "state": "Free",
             "lat": team.lat,
             "long": team.long,
