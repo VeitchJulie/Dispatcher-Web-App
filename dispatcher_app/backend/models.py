@@ -24,7 +24,7 @@ class Case(models.Model):
     )
     id = models.AutoField(primary_key=True)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, default = 1234)
-    state = models.CharField(max_length=7, choices=STATES, default='d')
+    state = models.CharField(max_length=7, choices=STATES, default='default')
     lat = models.DecimalField(max_digits=40, decimal_places=30, blank=True)
     long = models.DecimalField(max_digits=40, decimal_places=30, blank=True)   
     name = models.CharField(max_length=50, blank=True)
@@ -34,7 +34,7 @@ class Case(models.Model):
 
 
     def __str__(self):
-        return self.surname
+        return self.name
 
 
     # class Meta:

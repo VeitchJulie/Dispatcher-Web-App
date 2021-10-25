@@ -71,6 +71,24 @@ class Operation extends React.Component{
     handleRoute = () => {
         this.props.dispatch(showRouting({id: this.state.team.id}))
     }
+
+    handleSendTeam = () => {
+        let name = document.getElementsByClassName('nameInput')[0].value
+        let phone = document.getElementsByClassName('phoneInput')[0].value
+        let extraInformation = document.getElementsByClassName('extraInput')[0].value
+
+        const object = {
+            "team" : this.state.team.id,
+            "state": "ONGOING",
+            "lat" : this.state.searchedLocation[0],
+            "long": this.state.searchedLocation[1],
+            "name": name,
+            "phone": phone,
+            "extra information": extraInformation,
+        }
+
+        axios.post(`http://localhost:8000/cases/`, object)
+    }
     
     async searchLocation(event){
 
@@ -114,11 +132,13 @@ class Operation extends React.Component{
                                     <button className='close-button' onClick={() => this.handleClose()}> X </button>
                                     <form> 
                                         <label> Name and Surname </label> <br />
-                                        <input type='text' /> <br />
+                                        <input type='text' className='nameInput'/> <br />
                                         <label> Phone number </label> <br />
-                                        <input type='tel' /> <br />
+                                        <input type='tel' className='phoneInput'/> <br />
                                         <label> Extra information </label> <br />
-                                        <input type = 'text' />
+                                        <input type = 'text' className='extraInput'/>
+                                        <br />
+                                        <input type='button' value='Send Team' onClick={()=> this.handleSendTeam()}/>
                                     </form>
                                 </div>
                             }

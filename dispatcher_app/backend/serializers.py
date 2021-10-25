@@ -9,4 +9,4 @@ class TeamSerializer(serializers.ModelSerializer):
 class CaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Case
-        fields = ("id", "name", "surname", "date", "team")
+        fields = ("id", "name", "date", "team", "lat", "long", "phone")
