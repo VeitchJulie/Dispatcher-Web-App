@@ -11,7 +11,10 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from backend import views
 
 urlpatterns = [
-    path('teams/', views.TeamList.as_view()),
-    path('cases/', views.CaseList.as_view()),
-    path('teams/<int:pk>/', views.TeamDetail.as_view()),
+    path('teams/', views.TeamList.as_view(), name='teams'),
+    path('cases/', views.CaseList.as_view(), name='cases'),
+    path('cases/<int:pk>/', views.OneCase.as_view(), name='one-case'),
+    path('teams/<int:pk>/', views.TeamDetail.as_view(), name='team-detail'),
+    path('teams/<int:pk>/cases/', views.TeamWithCases.as_view(), name='team-and-cases')
+    # path('cases/<int:pk>/', views.CaseDetail.as_view()),
 ]

@@ -88,6 +88,7 @@ class Operation extends React.Component{
         }
 
         axios.post(`http://localhost:8000/cases/`, object)
+        this.handleClose()
     }
     
     async searchLocation(event){

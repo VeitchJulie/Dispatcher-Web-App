@@ -23,7 +23,7 @@ class Case(models.Model):
         ('PAST', 'PAST'),
     )
     id = models.AutoField(primary_key=True)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, default = 1234)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, default = 0000, related_name='cases')
     state = models.CharField(max_length=7, choices=STATES, default='default')
     lat = models.DecimalField(max_digits=40, decimal_places=30, blank=True)
     long = models.DecimalField(max_digits=40, decimal_places=30, blank=True)   
@@ -32,11 +32,9 @@ class Case(models.Model):
     extra_information = models.CharField(max_length=256, blank=True)
     date = models.DateField(auto_now_add=True)
 
-
     def __str__(self):
         return self.name
 
-
-    # class Meta:
-    #     ordering = ['date']
+    class Meta:
+        ordering = ['date']
     
