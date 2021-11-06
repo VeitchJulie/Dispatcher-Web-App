@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from backend.FCMManager import sendPush
+import requests
 
 
 class TeamList(APIView):
@@ -30,10 +31,14 @@ class CaseList(APIView):
         serializer = CaseSerializer(cases, many=True, context={'request':request})
         return Response(serializer.data)
     
-    def post(self, request, format = None):
-        serializer = CaseSerializer(data = request.data)
+    def post(self, req, format = None):
+        serializer = CaseSerializer(data = req.data)
+        teamId = req.data['team']
+        team = requests.get(f"http://localhost:8000/teams/{teamId}/")
+        token = team.json()['token']
         if serializer.is_valid():
             serializer.save()
+            sendPush('New Case for ' + req.data['team'], 'Check app and respond ASAP', registration_token=token)
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
@@ -55,7 +60,15 @@ class TeamDetail(APIView):
         serializer = TeamSerializer(team, data = request.data)
         if serializer.is_valid():
             serializer.save()
-            sendPush('New Case for ' + request.data['id'], 'Check app and respond ASAP', registration_token=request.data['token'])
+            # sendPush('New Case for ' + request.data['id'], 'Check app and respond ASAP', registration_token=request.data['token'])
+            return Response(serializer.data)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    
+    def patch(self, request, pk, format = None):
+        team = self.get_object(pk)
+        serializer = TeamSerializer(team, data = request.data, partial = True)
+        if serializer.is_valid():
+            serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
@@ -75,6 +88,14 @@ class TeamWithCases(APIView):
         team = self.get_object(pk)
         serializer = DetailedTeamSerializer(team, context={'request':request})
         return Response(serializer.data)
+
+    def put(self, request, pk, format = None):
+        team = self.get_object(pk)
+        serializer = DetailedTeamSerializer(team, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 class OneCase(APIView):
     def get_object(self, pk):

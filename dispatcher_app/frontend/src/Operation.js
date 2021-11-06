@@ -5,7 +5,7 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import Map from './Map'
 import axios from 'axios'
 import { cancelTeam, hideRouting, showRouting } from './actions/team';
-
+// import { initializeApp} from 'firebase-admin/app';
 
 class Operation extends React.Component{
     
@@ -26,7 +26,8 @@ class Operation extends React.Component{
     //     })
     // }
 
-
+    
+    // app = initializeApp()
 
     handleClose(){
         this.props.dispatch(cancelTeam({id: ''}))
@@ -51,20 +52,21 @@ class Operation extends React.Component{
     }
 
     handleGo =  () => {
-        const object = {
-            "id": this.state.team.id,
-            // "top_id": this.state.team.top_id,
-            "token": this.state.team.token,
-            "state": "Busy",
-            "lat": this.state.team.lat,
-            "long": this.state.team.long,
-            "endLat": this.state.searchedLocation[0],
-            "endLong": this.state.searchedLocation[1],
-        }
-        axios.put(`http://localhost:8000/teams/${object.id}/`, object).then(() => {
-            this.setState({team: object})
-        })
         this.setState({showQuestionare: true})
+        // const object = {
+        //     "id": this.state.team.id,
+        //     // "top_id": this.state.team.top_id,
+        //     "token": this.state.team.token,
+        //     "state": "Busy",
+        //     "lat": this.state.team.lat,
+        //     "long": this.state.team.long,
+        //     "endLat": this.state.searchedLocation[0],
+        //     "endLong": this.state.searchedLocation[1],
+        // }
+        // axios.put(`http://localhost:8000/teams/${object.id}/`, object).then(() => {
+        //     this.setState({team: object})
+        // })
+        // this.setState({showQuestionare: true})
     }
 
 
@@ -77,17 +79,31 @@ class Operation extends React.Component{
         let phone = document.getElementsByClassName('phoneInput')[0].value
         let extraInformation = document.getElementsByClassName('extraInput')[0].value
 
-        const object = {
+        const request = {
             "team" : this.state.team.id,
             "state": "ONGOING",
             "lat" : this.state.searchedLocation[0],
-            "long": this.state.searchedLocation[1],
+            "lng": this.state.searchedLocation[1],
             "name": name,
             "phone": phone,
-            "extra information": extraInformation,
+            "extraInformation": extraInformation,
         }
 
-        axios.post(`http://localhost:8000/cases/`, object)
+        // const object = {
+        //     "id": this.state.team.id,
+        //     "token": this.state.team.token,
+        //     "state": "Free",
+        //     "lat": this.state.team.lat,
+        //     "long": this.state.team.long,
+        //     "endLat": this.state.searchedLocation[0],
+        //     "endLong": this.state.searchedLocation[1],
+        // }
+        // axios.put(`http://localhost:8000/teams/${object.id}/`, object).then(() => {
+        //     this.setState({team: object})
+        // })
+        axios.post(`http://localhost:8000/cases/`, request)
+
+        // axios.post(`http://localhost:8000/cases/`, object)
         this.handleClose()
     }
     
@@ -133,11 +149,11 @@ class Operation extends React.Component{
                                     <button className='close-button' onClick={() => this.handleClose()}> X </button>
                                     <form> 
                                         <label> Name and Surname </label> <br />
-                                        <input type='text' className='nameInput'/> <br />
+                                        <input type='text' className='nameInput' defaultValue="James Bond"/> <br />
                                         <label> Phone number </label> <br />
-                                        <input type='tel' className='phoneInput'/> <br />
+                                        <input type='tel' className='phoneInput' defaultValue="678564987"/> <br />
                                         <label> Extra information </label> <br />
-                                        <input type = 'text' className='extraInput'/>
+                                        <input type = 'text' className='extraInput' defaultValue="2nd floor"/>
                                         <br />
                                         <input type='button' value='Send Team' onClick={()=> this.handleSendTeam()}/>
                                     </form>

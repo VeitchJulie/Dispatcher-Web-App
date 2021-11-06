@@ -26,10 +26,10 @@ class Case(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE, default = 0000, related_name='cases')
     state = models.CharField(max_length=7, choices=STATES, default='default')
     lat = models.DecimalField(max_digits=40, decimal_places=30, blank=True)
-    long = models.DecimalField(max_digits=40, decimal_places=30, blank=True)   
+    lng = models.DecimalField(max_digits=40, decimal_places=30, blank=True)   
     name = models.CharField(max_length=50, blank=True)
     phone = models.CharField(max_length=12, blank=True)
-    extra_information = models.CharField(max_length=256, blank=True)
+    extraInformation = models.CharField(max_length=256, blank=True)
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):
