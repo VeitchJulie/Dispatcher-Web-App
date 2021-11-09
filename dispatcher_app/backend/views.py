@@ -74,8 +74,9 @@ class TeamDetail(APIView):
     
     def delete(self, request, pk, format=None):
         team = self.get_object(pk)
-        team.delete()
-        return Response(status = status.HTTP_204_NO_CONTENT)
+        if team.delete():
+            return Response(status = status.HTTP_204_NO_CONTENT)
+        return Response(status = status.HTTP_400_BAD_REQUEST)
 
 class TeamWithCases(APIView):
     def get_object(self, pk):
@@ -108,6 +109,14 @@ class OneCase(APIView):
         case = self.get_object(pk)
         serializer = CaseSerializer(case)
         return Response(serializer.data)
+
+    def patch(self, request, pk, format = None):
+        case = self.get_object(pk)
+        serializer = CaseSerializer(case, data = request.data, partial = True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
 # class CaseDetail(APIView):
