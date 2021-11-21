@@ -1,0 +1,64 @@
+.Past{
+    text-align: center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+.App-name{
+    float: left;
+    padding-left: 3%;
+    height: inherit;
+    font-size: calc(10px + 4vmin);
+}
+
+.App-header {
+    height: 8vh;
+    display: inline-block;
+    width: 100%;
+    font-family: 'Poppins';
+    color: #ffffff;
+    background-color: #67BAC3;
+}
+
+.home{
+  float: right;
+  padding-right: 20px;
+  padding-top: 0px;
+  font-size: calc(10px + 1vmin);
+}
+
+table {
+    caption-side: bottom;
+    border-collapse: collapse;
+}
+
+.table {
+    --bs-table-hover-color: #212529;
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: #dee2e6;
+  }
+  .table > :not(caption) > * > * {
+    padding: 0.5rem 0.5rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+  }
+  .table > tbody {
+    vertical-align: inherit;
+  }
+  .table > thead {
+    vertical-align: bottom;
+  }
+  .table > :not(:first-child) {
+    border-top: 2px solid currentColor;
+  }
+
+.table-hover > tbody > tr:hover > * {
+    --bs-table-accent-bg: var(--bs-table-hover-bg);
+    color: var(--bs-table-hover-color);
+}

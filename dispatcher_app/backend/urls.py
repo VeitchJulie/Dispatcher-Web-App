@@ -16,5 +16,4 @@ urlpatterns = [
     path('cases/<int:pk>/', views.OneCase.as_view(), name='one-case'),
     path('teams/<int:pk>/', views.TeamDetail.as_view(), name='team-detail'),
     path('teams/<int:pk>/cases/', views.TeamWithCases.as_view(), name='team-and-cases')
-    # path('cases/<int:pk>/', views.CaseDetail.as_view()),
 ]

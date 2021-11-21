@@ -3,6 +3,7 @@ import Data from './Data'
 import Map from './Map'
 import Operation from './Operation'
 import { connect } from 'react-redux'
+import {Link} from 'react-router-dom'
 // import {downloadTeam} from './actions/teams'
 // import axios from 'axios'
 // import ambulanceIcon from './images/ambulance.png'
@@ -50,7 +51,10 @@ class App extends React.Component {
             {/* <img src={ambulanceIcon} alt='icon'/>  */}
             <div className='left'> Dispatcher App </div>   
           </div>
-          {/* {this.showTime()} */}
+          <div className="past-cases">
+            <Link to="/past"> Past Cases </Link> < br />  
+            <Link to="CreateCase"> Create a new Case </Link>
+          </div>
         </header>
         <div className="grid"> 
           <div className='map-box'> 

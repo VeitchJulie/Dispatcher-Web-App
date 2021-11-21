@@ -81,7 +81,7 @@ class Operation extends React.Component{
 
         const request = {
             "team" : this.state.team.id,
-            "state": "ONGOING",
+            "state": "TOACCEPT",
             "lat" : this.state.searchedLocation[0],
             "lng": this.state.searchedLocation[1],
             "name": name,
@@ -193,5 +193,5 @@ const mapStateToProps = (state) => {
     }
 }
   
-  export default connect(mapStateToProps)(Operation)
+export default connect(mapStateToProps)(Operation)
   

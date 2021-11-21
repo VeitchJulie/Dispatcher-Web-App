@@ -1,0 +1,59 @@
+import axios from 'axios';
+import React from 'react';
+import {Link} from 'react-router-dom'
+import './styles/Past.css'
+
+class Past extends React.Component{
+    state = {
+        cases: []
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:8000/cases/?format=json').then((response) => {
+            this.setState({cases: response.data})
+        })
+    }
+
+    render(){
+        return(
+            <div className = "Past">
+                <header className="App-header">
+                    <div>
+                        <div className='App-name'> Dispatcher App </div>   
+                    </div>
+                    <div className="home">
+                        <Link to="/"> Home </Link>
+                    </div>
+                </header>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> Name </th>
+                            <th> State </th>
+                            <th> Date </th>
+                            <th> Team </th>
+                            <th> Phone </th>
+                            <th> Extra Information </th>
+                        </tr>
+                    </thead>
+                    {this.state.cases.map((teamCase) => {
+                        return(
+                            <tbody> 
+                                <tr key = {teamCase.id}> 
+                                    <td> {teamCase.name}  </td>
+                                    <td> {teamCase.state}  </td>
+                                    <td> {teamCase.date}  </td>
+                                    <td> {teamCase.team}  </td>
+                                    <td> {teamCase.phone}  </td>
+                                    <td> {teamCase.extraInformation}  </td>
+                                </tr>
+                            </tbody>
+                        )
+                    })}
+                </table>
+            </div>
+        )
+    }
+}
+
+export default Past
