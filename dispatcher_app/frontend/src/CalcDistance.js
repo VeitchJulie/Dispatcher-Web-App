@@ -1,16 +1,17 @@
 import React from 'react'
 import L from 'leaflet'
+import {choseTeam} from './actions/team'
+import {connect} from 'react-redux'
 
 class CalcDistance extends React.Component{
     state = {
         result: this.props.result,
         teams: this.props.teams,
         showTeams: false,
-        map: this.props.map,
+        map: this.props.routingMap,
     }
 
     
-
     componentDidMount(){
         this.state.teams.map((team) => {
             const routeControl = L.Routing.control({
@@ -30,6 +31,10 @@ class CalcDistance extends React.Component{
         })
     }
 
+    handleClick(team){
+        this.props.dispatch(choseTeam({id: team.id}))
+    }
+
     render(){
         return(
             this.state.showTeams === true && 
@@ -43,9 +48,10 @@ class CalcDistance extends React.Component{
                     {this.state.teams.map((team) => {
                         return(
                             <tbody> 
-                                <tr key = {team.id}> 
+                                <tr key = {team.id} onClick={() => this.handleClick(team)}> 
                                     <td> {team.id}  </td>
                                     <td> {team.distance} </td>
+                                    {/* <td> <button> Send </button> </td> */}
                                 </tr>
                             </tbody>
                         )
@@ -55,5 +61,10 @@ class CalcDistance extends React.Component{
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        team: state.team
+    }
+}
 
-export default CalcDistance
+export default connect(mapStateToProps)(CalcDistance)

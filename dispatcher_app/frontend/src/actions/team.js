@@ -22,16 +22,31 @@ export const sendTeam = (
     }
 })
 
+export const choseTeam = (
+    {
+        id = null,
+        choseTeam = true,
+    } = {}
+) => ({
+    type: 'CHOSE_TEAM',
+    team: {
+        id,
+        choseTeam
+    }
+})
+
 export const cancelTeam = (
     {
         id = null,
         sendTeam = false,
+        choseTeam = false,
     } = {}
 ) => ({
     type: 'CANCEL_TEAM',
     team: {
         id, 
-        sendTeam
+        sendTeam,
+        choseTeam
     }
 })
 

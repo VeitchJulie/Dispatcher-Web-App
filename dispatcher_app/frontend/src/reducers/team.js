@@ -2,6 +2,7 @@ const teamDefaultState = {
     id: '',
     sendTeam: false,
     showRouting: false,
+    choseTeam: false,
 }
 
 const teamReducer = (state = teamDefaultState, action) => {
@@ -34,6 +35,12 @@ const teamReducer = (state = teamDefaultState, action) => {
                 ...state,
                 id:action.team.id,
                 showRouting: false
+            }
+        case 'CHOSE_TEAM':
+            return{
+                ...state,
+                id:action.team.id,
+                choseTeam: true
             }
         default:
             return state

@@ -5,8 +5,20 @@
     overflow: hidden;
 }
 
-#map { 
-    height: 90vh; 
+.mapContainer{
+  /* position: absolute; */
+  /* width:  */
+}
+
+.mapid { 
+  height: 100vh; 
+  z-index: 1;
+  position: relative;
+}
+
+.address-input {
+  z-index: 2;
+  position: relative;
 }
 
 #route-map { 

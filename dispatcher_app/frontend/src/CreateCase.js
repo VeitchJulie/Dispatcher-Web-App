@@ -6,6 +6,9 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import 'leaflet-routing-machine'
 import L from 'leaflet'
 import CalcDistance from './CalcDistance'
+import {connect} from 'react-redux'
+import { cancelTeam } from './actions/team';
+import { MapContainer, TileLayer, ZoomControl, Marker, Tooltip} from 'react-leaflet'
 
 class CreateCase extends React.Component{
 
@@ -18,7 +21,7 @@ class CreateCase extends React.Component{
         distances: [],
         showTeams: false,
         result: "",
-        map: undefined
+        routingMap: undefined
         // routeControl: undefined,
     }
 
@@ -26,33 +29,11 @@ class CreateCase extends React.Component{
         axios.get('http://localhost:8000/teams/?format=json').then((response) => {
             this.setState({
                 teams: response.data,
-                map: L.map('route-map').setView([52.237049, 21.017532], 11) 
+                routingMap: L.map('route-map').setView([52.237049, 21.017532], 11) 
             })
         })
     }
 
-    
-
-
-    // calculateDistance(result){
-    //     let map = L.map('route-map').setView([52.237049, 21.017532], 11);
-    //     this.state.teams.map(function(team){
-    //         const routeControl = L.Routing.control({
-    //             waypoints: [
-    //                 L.latLng(team.lat, team.long),
-    //                 L.latLng(result.y, result.x)
-    //             ],
-    //             show: true,
-    //         }).addTo(map)
-    //         routeControl.on('routesfound', (e) => {
-    //             let routes = e.routes;
-    //             let dist = routes[0].summary.totalDistance;
-    //             team.distance = dist.toString()  
-    //             // this.setState({showTeams: true})              
-    //         })
-    //     return team
-    //     })
-    // }
 
     async searchLocation(event){
 
@@ -85,36 +66,31 @@ class CreateCase extends React.Component{
             search: result.label,
             searchedLocation: [result.y, result.x]
         })
-        // document.getElementsByClassName('result-label')[0].appendChild(
-        //     <CalcDistance 
-        //         result = {result}
-        //         teams = {this.state.teams} />
-        // )
-        // await this.calculateDistance(result).then((res) => {
-        //     this.setState({
-        //         teams: res,
-        //         display: "none",
-        //         search: result.label,
-        //         searchedLocation: [result.y, result.x],
-        //     })
-        // })
-        // console.log(results)
-        // this.setState({
-        //     display: "none",
-        //     search: result.label,
-        //     searchedLocation: [result.y, result.x],
-        //     // teams: results
-        // })
-        
-        // , () => {
-        //     // document.getElementsByClassName('result-label')[0].innerHTML = result.label
-        //     const newTeams = this.calculateDistance(result)
-        //     this.setState({teams: newTeams})
-        // })
-        // console.log(result.label)
-        
     }
 
+    handleSendTeam = () => {
+        let id = document.getElementsByClassName('questionare-teamId')[0].value
+        let name = document.getElementsByClassName('questionare-callersPhone')[0].value
+        let phone = document.getElementsByClassName('questionare-callersName')[0].value
+        let extraInformation = document.getElementsByClassName('questionare-additionalInformation')[0].value
+
+        const request = {
+            "team" : id,
+            "state": "TOACCEPT",
+            "lat" : this.state.searchedLocation[0],
+            "lng": this.state.searchedLocation[1],
+            "name": name,
+            "phone": phone,
+            "extraInformation": extraInformation,
+        }
+
+        axios.post(`http://localhost:8000/cases/`, request)
+        this.handleClose()
+    }
+
+    handleClose(){
+        this.props.dispatch(cancelTeam({id: ''}))
+    }
 
     render(){
         return(
@@ -130,15 +106,28 @@ class CreateCase extends React.Component{
                 <div className = "container">
                     <div className="row">
                         <div className="col">
-                            <input name='searchLocation' placeholder='enter address' type='search' className='input-location' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
-                            {this.state.search.length > 3 && 
-                            <div className='results' style={{"display": this.state.display}}> 
-                                {this.state.searchResults.map((result, key) => 
-                                    <button key={key} className='chosen-address' onClick={() => this.handleSearch(result)}> {result.label} </button>
-                                )}
+                            <div className="mapContainer">
+                                <div className="address-input">
+                                    <input name='searchLocation' placeholder='enter address' type='search' className='input-location' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
+                                    {this.state.search.length > 3 && 
+                                    <div className='results' style={{"display": this.state.display}}> 
+                                        {this.state.searchResults.map((result, key) => 
+                                            <button key={key} className='chosen-address' onClick={() => this.handleSearch(result)}> {result.label} </button>
+                                        )}
+                                    </div>
+                                    }
+                                </div>
+                                <MapContainer className='mapid' center={[52.229, 20.970]} zoom={13} scrollWheelZoom={true} zoomControl={false}> 
+                                    <TileLayer
+                                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        />
+                                    {this.state.searchedLocation !== undefined &&
+                                        <Marker position={[this.state.searchedLocation[0], this.state.searchedLocation[1]]}> 
+                                        </Marker>
+                                    }
+                                </MapContainer>
                             </div>
-                            }
-                            <div id="map"> </div>
                             <div id="route-map"> </div> 
                         </div>
                         <div className="col">
@@ -147,34 +136,28 @@ class CreateCase extends React.Component{
                                 <CalcDistance
                                     result = {this.state.result}
                                     teams = {this.state.teams} 
-                                    map = {this.state.map} />
+                                    routingMap = {this.state.routingMap} />
                             }
-                                {/* {this.state.showTeams == true &&
-                                    this.listTeams(this.state.teams) 
-                                } */}
-                                {/* {this.state.showTeams === true && 
-                                <table className="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th> Id </th>
-                                            <th> Distance </th>
-                                        </tr>
-                                    </thead>
-                                    {this.state.teams.map((team) => {
-                                        return(
-                                            <tbody> 
-                                                <tr key = {team.id}> 
-                                                    <td> {team.id}  </td>
-                                                    <td> {team.distance} </td>
-                                                </tr>
-                                            </tbody>
-                                        )
-                                    })}
-                                </table>
-                                } */}
                             </div>
                         <div className="col">
-                            Send Form
+                            {/* { this.props.team.choseTeam === true &&  */}
+                                {/* <p> {this.props.team.id } </p>, */}
+                                <div className="questionare-inputs"> < br/>
+                                    <label className="labels"> Team ID </label> < br/>
+                                    <input type="text" value={this.props.team.id} className="questionare-teamId"/> < br/>
+                                    <label className="labels"> Address </label> < br/>
+                                    <input type="text" value={this.state.result.label} className="questionare-address"/> < br/>
+                                    <label className="labels"> Callers Name </label> < br/>
+                                    <input type="text" className="questionare-callersName"/> < br/>
+                                    <label className="labels"> Callers Phone </label> < br/>
+                                    <input type="tel" className="questionare-callersPhone"/> < br/>
+                                    <label className="labels"> Additional Information </label> < br/>
+                                    <input type="text" className="questionare-additionalInformation"/> < br/>
+                                    <br />
+                                    <br />
+                                    <input type='button' value='Send Team' onClick={()=> this.handleSendTeam()}/>
+                                </div>
+                            {/* } */}
                         </div>
                     </div>
                 </div>
@@ -183,5 +166,10 @@ class CreateCase extends React.Component{
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        team: state.team
+    }
+}
 
-export default CreateCase
+export default connect(mapStateToProps)(CreateCase)

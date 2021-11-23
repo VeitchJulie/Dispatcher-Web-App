@@ -5,7 +5,6 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import Map from './Map'
 import axios from 'axios'
 import { cancelTeam, hideRouting, showRouting } from './actions/team';
-// import { initializeApp} from 'firebase-admin/app';
 
 class Operation extends React.Component{
     
