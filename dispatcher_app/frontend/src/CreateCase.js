@@ -7,8 +7,8 @@ import 'leaflet-routing-machine'
 import L from 'leaflet'
 import CalcDistance from './CalcDistance'
 import {connect} from 'react-redux'
-import { cancelTeam } from './actions/team';
-import { MapContainer, TileLayer, ZoomControl, Marker, Tooltip} from 'react-leaflet'
+import { cancelTeam, showRouting } from './actions/team';
+import { MapContainer, TileLayer, Marker} from 'react-leaflet'
 
 class CreateCase extends React.Component{
 
@@ -70,8 +70,8 @@ class CreateCase extends React.Component{
 
     handleSendTeam = () => {
         let id = document.getElementsByClassName('questionare-teamId')[0].value
-        let name = document.getElementsByClassName('questionare-callersPhone')[0].value
-        let phone = document.getElementsByClassName('questionare-callersName')[0].value
+        let name = document.getElementsByClassName('questionare-callersName')[0].value
+        let phone = document.getElementsByClassName('questionare-callersPhone')[0].value
         let extraInformation = document.getElementsByClassName('questionare-additionalInformation')[0].value
 
         const request = {
@@ -85,6 +85,7 @@ class CreateCase extends React.Component{
         }
 
         axios.post(`http://localhost:8000/cases/`, request)
+        this.props.dispatch(showRouting({id: this.state.team.id}))
         this.handleClose()
     }
 
@@ -103,62 +104,60 @@ class CreateCase extends React.Component{
                         <Link to="/"> Home </Link>
                     </div>
                 </header>
-                <div className = "container">
-                    <div className="row">
-                        <div className="col">
-                            <div className="mapContainer">
-                                <div className="address-input">
-                                    <input name='searchLocation' placeholder='enter address' type='search' className='input-location' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
-                                    {this.state.search.length > 3 && 
-                                    <div className='results' style={{"display": this.state.display}}> 
-                                        {this.state.searchResults.map((result, key) => 
-                                            <button key={key} className='chosen-address' onClick={() => this.handleSearch(result)}> {result.label} </button>
-                                        )}
-                                    </div>
-                                    }
+                <div className="row">
+                    <div className="col">
+                        <div className="mapContainer">
+                            <div className="address-input">
+                                <input name='searchLocation' placeholder='Enter Address...' type='search' className='input-location' minLength="4" value={this.state.search} onChange={(e) => this.searchLocation(e)} />
+                                {this.state.search.length > 3 && 
+                                <div className='results' style={{"display": this.state.display}}> 
+                                    {this.state.searchResults.map((result, key) => 
+                                        <button key={key} className='chosen-address' onClick={() => this.handleSearch(result)}> {result.label} </button>
+                                    )}
                                 </div>
-                                <MapContainer className='mapid' center={[52.229, 20.970]} zoom={13} scrollWheelZoom={true} zoomControl={false}> 
-                                    <TileLayer
-                                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                        />
-                                    {this.state.searchedLocation !== undefined &&
-                                        <Marker position={[this.state.searchedLocation[0], this.state.searchedLocation[1]]}> 
-                                        </Marker>
-                                    }
-                                </MapContainer>
+                                }
                             </div>
-                            <div id="route-map"> </div> 
+                            <MapContainer className='mapid2' center={[52.229, 20.970]} zoom={13} scrollWheelZoom={true} zoomControl={false}> 
+                                <TileLayer
+                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    />
+                                {this.state.searchedLocation !== undefined &&
+                                    <Marker position={[this.state.searchedLocation[0], this.state.searchedLocation[1]]}> 
+                                    </Marker>
+                                }
+                            </MapContainer>
                         </div>
-                        <div className="col">
-                            <div className="result-label"> Team </div>
-                            {this.state.result !== "" &&
-                                <CalcDistance
-                                    result = {this.state.result}
-                                    teams = {this.state.teams} 
-                                    routingMap = {this.state.routingMap} />
-                            }
+                        <div id="route-map"> </div> 
+                    </div>
+                    <div className="col">
+                        <div className="result-label"> Team </div>
+                        {this.state.result !== "" &&
+                            <CalcDistance
+                                result = {this.state.result}
+                                teams = {this.state.teams} 
+                                routingMap = {this.state.routingMap} />
+                        }
+                        </div>
+                    <div className="col">
+                        {/* { this.props.team.choseTeam === true &&  */}
+                            {/* <p> {this.props.team.id } </p>, */}
+                            <div className="questionare-inputs"> < br/>
+                                <label className="labels"> Team ID </label> < br/>
+                                <input type="text" value={this.props.team.id} className="questionare-teamId"/> < br/>
+                                <label className="labels"> Address </label> < br/>
+                                <input type="text" value={this.state.result.label} className="questionare-address"/> < br/>
+                                <label className="labels"> Callers Name </label> < br/>
+                                <input type="text" className="questionare-callersName"/> < br/>
+                                <label className="labels"> Callers Phone </label> < br/>
+                                <input type="tel" className="questionare-callersPhone"/> < br/>
+                                <label className="labels"> Additional Information </label> < br/>
+                                <input type="text" className="questionare-additionalInformation"/> < br/>
+                                <br />
+                                <br />
+                                <input type='button' value='Send Team' onClick={()=> this.handleSendTeam()}/>
                             </div>
-                        <div className="col">
-                            {/* { this.props.team.choseTeam === true &&  */}
-                                {/* <p> {this.props.team.id } </p>, */}
-                                <div className="questionare-inputs"> < br/>
-                                    <label className="labels"> Team ID </label> < br/>
-                                    <input type="text" value={this.props.team.id} className="questionare-teamId"/> < br/>
-                                    <label className="labels"> Address </label> < br/>
-                                    <input type="text" value={this.state.result.label} className="questionare-address"/> < br/>
-                                    <label className="labels"> Callers Name </label> < br/>
-                                    <input type="text" className="questionare-callersName"/> < br/>
-                                    <label className="labels"> Callers Phone </label> < br/>
-                                    <input type="tel" className="questionare-callersPhone"/> < br/>
-                                    <label className="labels"> Additional Information </label> < br/>
-                                    <input type="text" className="questionare-additionalInformation"/> < br/>
-                                    <br />
-                                    <br />
-                                    <input type='button' value='Send Team' onClick={()=> this.handleSendTeam()}/>
-                                </div>
-                            {/* } */}
-                        </div>
+                        {/* } */}
                     </div>
                 </div>
             </div>

@@ -75,7 +75,7 @@
   opacity: 1;
   top:  13%;
   left: 6%;
-  height: 80%;
+  height: 80vh;
   width: 88%;
   background-color: #67BAC3;
   /* color: #F4F1DE; */
@@ -87,13 +87,13 @@
 }
 
 .map-frame{
-  align-items: center;
+  /* align-items: center; */
 }
 
-img {
+/* img {
   width: calc(22px + 4vmin);
   float: left;
   padding-top: 1%;
   padding-left: 2%;
   height: inherit;
-}
+} */

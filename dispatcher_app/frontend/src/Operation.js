@@ -148,7 +148,7 @@ class Operation extends React.Component{
                                     <button className='close-button' onClick={() => this.handleClose()}> X </button>
                                     <form> 
                                         <label> Name and Surname </label> <br />
-                                        <input type='text' className='nameInput' defaultValue="James Bond"/> <br />
+                                        <input type='text' className='nameInput' defaultValue="Anna Nowak"/> <br />
                                         <label> Phone number </label> <br />
                                         <input type='tel' className='phoneInput' defaultValue="678564987"/> <br />
                                         <label> Extra information </label> <br />

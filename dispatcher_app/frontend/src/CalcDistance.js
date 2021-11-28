@@ -2,6 +2,7 @@ import React from 'react'
 import L from 'leaflet'
 import {choseTeam} from './actions/team'
 import {connect} from 'react-redux'
+import './styles/CalcDistance.css'
 
 class CalcDistance extends React.Component{
     state = {
@@ -24,15 +25,27 @@ class CalcDistance extends React.Component{
             routeControl.on('routesfound', (e) => {
                 let routes = e.routes;
                 const dist = routes[0].summary.totalDistance;
-                team.distance = dist.toString()  
+                const time = routes[0].summary.totalTime;
+                team.distance = (dist/1000).toFixed(2).toString()  
+                team.time = this.convertHM(time)
                 this.setState({showTeams: true})
             })
             return team
         })
     }
 
-    handleClick(team){
+    handleClick(team, key){
         this.props.dispatch(choseTeam({id: team.id}))
+        // document.getElementsByClassName('table-row')[key].style.backgroundColor = "blue"
+    }
+
+    convertHM(value) {
+        const sec = parseInt(value, 10)
+        let hours   = Math.floor(sec / 3600)
+        let minutes = Math.floor((sec - (hours * 3600)) / 60)
+        if (hours   < 10) {hours   = "0"+hours}
+        if (minutes < 10) {minutes = "0"+minutes}
+        return hours+':'+minutes 
     }
 
     render(){
@@ -42,15 +55,23 @@ class CalcDistance extends React.Component{
                     <thead>
                         <tr>
                             <th> Id </th>
-                            <th> Distance </th>
+                            <th> Distance [km] </th>
+                            <th> Time [h] </th>
+                            {/* <th> </th> */}
                         </tr>
                     </thead>
-                    {this.state.teams.map((team) => {
+                    {this.state.teams.sort(function(a,b){
+                        let keyA = a.time
+                        let keyB = b.time
+                        return ((keyA < keyB) ? -1 : ((keyA > keyB) ? 1 : 0));
+                    }).map((team, key) => {
                         return(
                             <tbody> 
-                                <tr key = {team.id} onClick={() => this.handleClick(team)}> 
+                                <tr key = {team.id} className="table-row" onClick={() => this.handleClick(team, key)}> 
                                     <td> {team.id}  </td>
                                     <td> {team.distance} </td>
+                                    <td> {team.time} </td>
+                                    {/* <td> <input type="checkbox" onClick={() => this.handleClick(team, key)}/> </td> */}
                                     {/* <td> <button> Send </button> </td> */}
                                 </tr>
                             </tbody>

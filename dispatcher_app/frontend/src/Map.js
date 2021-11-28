@@ -53,7 +53,6 @@ class Map extends React.Component{
                         startLng = {this.state.team.long}
                         endLat = {this.state.team.endLat}
                         endLng = {this.state.team.endLong}   
-                        show = {false}
                     />
                 )
             }
@@ -101,7 +100,6 @@ class Map extends React.Component{
                         startLng = {this.state.team.long}
                         endLat = {this.state.searchedLocation[0]}
                         endLng = {this.state.searchedLocation[1]}   
-                        show = {true}
                     />
                 )
             }
