@@ -22,10 +22,10 @@ class Past extends React.Component{
                         <div className='App-name'> Dispatcher App </div>   
                     </div>
                     <div className="home">
-                        <Link to="/"> Home </Link>
+                        <Link to="/"> <button className="back-button" /> </Link>
                     </div>
                 </header>
-                <table class="table table-hover">
+                <table class="past-table">
                     <thead>
                         <tr>
                             <th> Name </th>
@@ -36,10 +36,10 @@ class Past extends React.Component{
                             <th> Extra Information </th>
                         </tr>
                     </thead>
-                    {this.state.cases.map((teamCase) => {
+                    {this.state.cases.map((teamCase, index) => {
                         return(
                             <tbody> 
-                                <tr key = {teamCase.id}> 
+                                <tr key = {index}> 
                                     <td> {teamCase.name}  </td>
                                     <td> {teamCase.state}  </td>
                                     <td> {teamCase.date}  </td>

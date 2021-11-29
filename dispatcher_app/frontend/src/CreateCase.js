@@ -85,7 +85,7 @@ class CreateCase extends React.Component{
         }
 
         axios.post(`http://localhost:8000/cases/`, request)
-        this.props.dispatch(showRouting({id: this.state.team.id}))
+        this.props.dispatch(showRouting({id: id}))
         this.handleClose()
     }
 
@@ -101,7 +101,7 @@ class CreateCase extends React.Component{
                         <div className='App-name'> Dispatcher App </div>   
                     </div>
                     <div className="home">
-                        <Link to="/"> Home </Link>
+                    <Link to="/"> <button className="back-button"> </button> </Link>
                     </div>
                 </header>
                 <div className="row">
@@ -131,7 +131,7 @@ class CreateCase extends React.Component{
                         <div id="route-map"> </div> 
                     </div>
                     <div className="col">
-                        <div className="result-label"> Team </div>
+                        {/* <div className="result-label"> Team </div> */}
                         {this.state.result !== "" &&
                             <CalcDistance
                                 result = {this.state.result}
@@ -143,19 +143,28 @@ class CreateCase extends React.Component{
                         {/* { this.props.team.choseTeam === true &&  */}
                             {/* <p> {this.props.team.id } </p>, */}
                             <div className="questionare-inputs"> < br/>
-                                <label className="labels"> Team ID </label> < br/>
-                                <input type="text" value={this.props.team.id} className="questionare-teamId"/> < br/>
-                                <label className="labels"> Address </label> < br/>
-                                <input type="text" value={this.state.result.label} className="questionare-address"/> < br/>
-                                <label className="labels"> Callers Name </label> < br/>
-                                <input type="text" className="questionare-callersName"/> < br/>
-                                <label className="labels"> Callers Phone </label> < br/>
-                                <input type="tel" className="questionare-callersPhone"/> < br/>
-                                <label className="labels"> Additional Information </label> < br/>
-                                <input type="text" className="questionare-additionalInformation"/> < br/>
+                                <label className="labels"> Team ID </label> 
+                                {/* <input type="text" defaultValue={this.props.team.id} className="questionare-teamId"/> <br /> <br /> */}
+                                {/* <input type="select" list="teams" defaultValue={this.props.team.id} className="questionare-teamId"/> */}
+                                <select className="questionare-teamId">
+                                    <option value="" selected disabled hidden> Select Team </option>
+                                    {this.state.teams.map((team) => {
+                                        return(
+                                            <option value={team.id}> {team.id} </option>
+                                        )
+                                    })}
+                                </select>
+                                <label className="labels"> Address </label> 
+                                <input type="text" value={this.state.result.label} className="questionare-address"/>  <br /> <br />
+                                <label className="labels"> Callers Name </label> 
+                                <input type="text" className="questionare-callersName"/>  <br /> <br />
+                                <label className="labels"> Callers Phone </label> 
+                                <input type="tel" className="questionare-callersPhone"/>  <br /> <br />
+                                <label className="labels"> Additional Information </label>
+                                <textarea className="questionare-additionalInformation"> </textarea>
                                 <br />
                                 <br />
-                                <input type='button' value='Send Team' onClick={()=> this.handleSendTeam()}/>
+                                <input type='button' value='Send Request' className= "send-request-button" onClick={()=> this.handleSendTeam()}/>
                             </div>
                         {/* } */}
                     </div>

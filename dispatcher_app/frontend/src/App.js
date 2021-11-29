@@ -51,9 +51,10 @@ class App extends React.Component {
             {/* <img src={ambulanceIcon} alt='icon'/>  */}
             <div className='left'> Dispatcher App </div>   
           </div>
-          <div className="past-cases">
-            <Link to="/past"> Past Cases </Link> < br />  
-            <Link to="CreateCase"> Create a new Case </Link>
+          <div className="menu">
+            <Link to="/past"> <button className="menu-button"> Past Cases </button> </Link>  
+            <Link to="CreateCase"> <button className="menu-button"> Create a new Case </button></Link>
+            <button className="menu-button"> Options </button>
           </div>
         </header>
         <div className="grid"> 

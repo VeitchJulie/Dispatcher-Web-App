@@ -28,37 +28,49 @@
   font-size: calc(10px + 1vmin);
 }
 
-table {
-    caption-side: bottom;
-    border-collapse: collapse;
+.past-table{
+  margin: 2vh auto;
+  caption-side: bottom;
+  border-collapse: collapse;
+  width: 90%;
+  margin-bottom: 1rem;
+  color: #212529;
+  vertical-align: top;
+  border-color: #dee2e6;
+  background-color: white;
 }
 
-.table {
-    --bs-table-hover-color: #212529;
-    --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
-    width: 100%;
-    margin-bottom: 1rem;
-    color: #212529;
-    vertical-align: top;
-    border-color: #dee2e6;
-  }
-  .table > :not(caption) > * > * {
-    padding: 0.5rem 0.5rem;
-    background-color: var(--bs-table-bg);
-    border-bottom-width: 1px;
-    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
-  }
-  .table > tbody {
-    vertical-align: inherit;
-  }
-  .table > thead {
-    vertical-align: bottom;
-  }
-  .table > :not(:first-child) {
-    border-top: 2px solid currentColor;
-  }
+/* table {
+    caption-side: bottom;
+    border-collapse: collapse;
+} */
 
-.table-hover > tbody > tr:hover > * {
-    --bs-table-accent-bg: var(--bs-table-hover-bg);
-    color: var(--bs-table-hover-color);
+.past-table > :not(caption) > * > * {
+  padding: 0.5rem 0.5rem;
+  background-color: white;
+  border-bottom-width: 1px;
+}
+
+.past-table > :not(:first-child) {
+  border-top: 2px solid currentColor;
+}
+
+.past-table > tbody > tr:nth-child(even) > * {
+  background-color: gray;
+}
+
+thead{
+  color: #67BAC3;
+}
+
+.back-button{
+  background: url('../images/arrowRight.png');
+  width: 5vh;
+  height: 5vh;
+  background-size: 5vh 5vh;
+  border-radius: 4px;
+  position: absolute;
+  border: none;
+  margin: 1.5vh -7vh
+
 }

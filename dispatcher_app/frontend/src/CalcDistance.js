@@ -10,6 +10,7 @@ class CalcDistance extends React.Component{
         teams: this.props.teams,
         showTeams: false,
         map: this.props.routingMap,
+        clicked: [false,''],
     }
 
     
@@ -36,7 +37,21 @@ class CalcDistance extends React.Component{
 
     handleClick(team, key){
         this.props.dispatch(choseTeam({id: team.id}))
-        // document.getElementsByClassName('table-row')[key].style.backgroundColor = "blue"
+        document.getElementsByClassName('questionare-teamId')[0].value = team.id
+        if (this.state.clicked[0] === false & this.state.clicked[1] === '') {
+            document.getElementsByClassName('tableRowTeams')[key].style.backgroundColor = "rgba(0, 0, 0, 0.075)";
+            this.setState({clicked: [true, key]})
+        } else if(this.state.clicked[0] === true & this.state.clicked[1] === key){
+            document.getElementsByClassName('tableRowTeams')[key].style.backgroundColor = "transparent";
+            this.setState({clicked: [false, '']})
+        } else if(this.state.clicked[0] === true & this.state.clicked[1] !== key){
+            document.getElementsByClassName('tableRowTeams')[this.state.clicked[1]].style.backgroundColor = "transparent";
+            document.getElementsByClassName('tableRowTeams')[key].style.backgroundColor = "rgba(0, 0, 0, 0.075)";
+            this.setState({clicked: [true, key]})
+        } else{
+            document.getElementsByClassName('tableRowTeams')[this.state.clicked[1]].style.backgroundColor = "transparent";
+        }
+        
     }
 
     convertHM(value) {
@@ -51,8 +66,8 @@ class CalcDistance extends React.Component{
     render(){
         return(
             this.state.showTeams === true && 
-                <table className="table table-hover">
-                    <thead>
+                <table className="tableOfTeams">
+                    <thead className="table-header">
                         <tr>
                             <th> Id </th>
                             <th> Distance [km] </th>
@@ -67,11 +82,11 @@ class CalcDistance extends React.Component{
                     }).map((team, key) => {
                         return(
                             <tbody> 
-                                <tr key = {team.id} className="table-row" onClick={() => this.handleClick(team, key)}> 
+                                <tr key = {team.id} className="tableRowTeams" onClick={() => this.handleClick(team, key)}> 
                                     <td> {team.id}  </td>
                                     <td> {team.distance} </td>
                                     <td> {team.time} </td>
-                                    {/* <td> <input type="checkbox" onClick={() => this.handleClick(team, key)}/> </td> */}
+                                    {/* <td> <input type="checkbox" name="check" onClick={() => this.handleClick(team, key, this)}/> </td> */}
                                     {/* <td> <button> Send </button> </td> */}
                                 </tr>
                             </tbody>

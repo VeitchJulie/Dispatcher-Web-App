@@ -33,7 +33,7 @@
   height: 5vh;
   font-size: 16px;
   padding: 2vh 1vh;
-  width: calc(200px + 10vmin);;
+  width: calc(250px + 10vmin);;
   background: #67BAC3;
   border: none;
   margin-top: 1vh;
@@ -141,7 +141,7 @@
 .results{
     color: black;
     position: absolute;
-    top: 7vh;
+    top: 8vh;
     width: 90%;
     overflow: auto;
     background-color: #67BAC3;
@@ -160,4 +160,66 @@
 
 .chosen-address:hover{
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.labels{
+  position: relative;
+  margin: 1vh;
+  left: 10vh;
+  text-align: left;
+  display: block;
+  font-size: 16px;
+  color: #212529;
+  top: 1.2vh;
+  letter-spacing: 2%;
+}
+
+.questionare-inputs{
+  /* position: absolute; */
+  width: 100%;
+}
+
+.questionare-inputs:not([type=button]) input[type=text], input[type=tel], .questionare-teamId{
+  height: 35px;
+  width: 280px;
+  font-size: 16px;
+  background-color: rgba(229, 229, 229, 0.47);
+  border-radius: 5px;
+  border: none;
+  margin-top: 1vh;
+  padding-left: 1vh;
+  -webkit-appearance: button;
+  appearance: button;
+  
+}
+
+.questionare-additionalInformation{
+  height: 100px;
+  width: 280px;
+  max-width: 350px;
+  max-height: 150px;
+  border: none;
+  background-color: rgba(229, 229, 229, 0.47);
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 1vh;
+}
+
+.questionare-teamId{
+  padding-left: 1vh;
+  width: calc(280px + 2vh);
+  margin-bottom: 2vh;
+}
+
+.send-request-button{
+  background-color: #EB8E68;
+  color: #ffffff;
+  font-size: 16px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+}
+
+.send-request-button:hover{
+  background-color: #eb8d68c5
 }

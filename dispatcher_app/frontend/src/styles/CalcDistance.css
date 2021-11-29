@@ -1,0 +1,47 @@
+.table-header{
+    color: #67BAC3;
+}
+
+.tableOfTeams {
+    margin: 2vh 2vh;
+    caption-side: bottom;
+    border-collapse: collapse;
+    --bs-table-hover-color: #212529;
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: #dee2e6;
+}
+
+.tableOfTeams  > :not(caption) > * > * {
+    padding: 0.5rem 0.5rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+  }
+
+.tableOfTeams  > tbody {
+    vertical-align: inherit;
+  }
+.tableOfTeams  > thead {
+    vertical-align: bottom;
+  }
+.tableOfTeams  > :not(:first-child) {
+    border-top: 2px solid currentColor;
+  }
+
+.tableOfTeams  > tbody > tr:hover > * {
+    --bs-table-accent-bg: var(--bs-table-hover-bg);
+    color: var(--bs-table-hover-color);
+}
+
+th {
+    font-size: 18px;
+}
+
+.tableRowTeams{
+    height: 6vh;
+    font-size: 16px;
+    vertical-align: middle;
+}
