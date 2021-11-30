@@ -32,7 +32,7 @@ class Case(models.Model):
     name = models.CharField(max_length=50, blank=True)
     phone = models.CharField(max_length=12, blank=True)
     extraInformation = models.CharField(max_length=256, blank=True)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(verbose_name=("Creation date"), auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name

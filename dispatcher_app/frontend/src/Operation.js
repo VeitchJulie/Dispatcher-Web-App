@@ -14,6 +14,7 @@ class Operation extends React.Component{
         display: "block",
         team: this.getTeam(this.props.team.id),
         searchedLocation: undefined,
+        locationLabel: undefined,
         zoom: 11,
         position: [52.229, 20.970],
         showQuestionare: false,
@@ -39,6 +40,7 @@ class Operation extends React.Component{
             display: "none",
             search: result.label,
             searchedLocation: [result.y, result.x],
+            locationLabel: [result.label],
             zoom: 13,
             position: [result.y, result.x],
         })
@@ -76,7 +78,7 @@ class Operation extends React.Component{
     handleSendTeam = () => {
         let name = document.getElementsByClassName('nameInput')[0].value
         let phone = document.getElementsByClassName('phoneInput')[0].value
-        let extraInformation = document.getElementsByClassName('extraInput')[0].value
+        let extraInformation = document.getElementsByClassName('questionare-additionalInformation')[0].value
 
         const request = {
             "team" : this.state.team.id,
@@ -144,18 +146,24 @@ class Operation extends React.Component{
                             <button type='button' className='route-button' onClick={()=> this.handleRoute()}> </button>
                             <button className='go-button' type='button' value='go' onClick={() => this.handleGo()}> </button>
                             {this.state.showQuestionare === true && 
-                                <div className='questionare'> 
-                                    <button className='close-button' onClick={() => this.handleClose()}> X </button>
-                                    <form> 
-                                        <label> Name and Surname </label> <br />
-                                        <input type='text' className='nameInput' defaultValue="Anna Nowak"/> <br />
-                                        <label> Phone number </label> <br />
-                                        <input type='tel' className='phoneInput' defaultValue="678564987"/> <br />
-                                        <label> Extra information </label> <br />
-                                        <input type = 'text' className='extraInput' defaultValue="2nd floor"/>
-                                        <br />
-                                        <input type='button' value='Send Team' onClick={()=> this.handleSendTeam()}/>
-                                    </form>
+                                <div className="cover2">
+                                    <div className='questionare'> 
+                                        <button className='close-button' onClick={() => this.handleClose()}> X </button>
+                                        <form> 
+                                            <label> Team </label> 
+                                            <input type='text' className='teamInput' value={this.state.team.id} readOnly/> 
+                                            <label> Address </label> 
+                                            <input type='text' className='AddressInput' value={this.state.locationLabel}/> 
+                                            <label> Callers Name </label> 
+                                            <input type='text' className='nameInput' defaultValue="Anna Nowak"/> 
+                                            <label> Callers Phone Number </label>
+                                            <input type='tel' className='phoneInput' defaultValue="678564987"/> 
+                                            <label> Additional Information </label> 
+                                            <textarea className='questionare-additionalInformation' > </textarea>
+                                            <br />
+                                            <input type='button' value='Send Team' className="send-request-button" onClick={()=> this.handleSendTeam()}/>
+                                        </form>
+                                    </div>
                                 </div>
                             }
                         </div>

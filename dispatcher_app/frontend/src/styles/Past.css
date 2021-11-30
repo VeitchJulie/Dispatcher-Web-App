@@ -72,5 +72,8 @@ thead{
   position: absolute;
   border: none;
   margin: 1.5vh -7vh
+}
 
+.back-button:hover{
+  background-color: #ffffff63;
 }

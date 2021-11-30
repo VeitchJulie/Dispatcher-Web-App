@@ -11,6 +11,10 @@ import React from 'react';
 
 class App extends React.Component {
 
+  state = {
+    optionsBoxVisible: false
+  }
+
   // componentDidMount(){
   //   axios.get('http://localhost:8000/teams/?format=json').then((response) => {
   //     this.props.dispatch(downloadTeam({teams: response.data}))
@@ -43,6 +47,15 @@ class App extends React.Component {
   //   showTime()
   // }, 5000);
 
+
+  onOptionsClick(){
+    this.setState({optionsBoxVisible: true})
+  }
+
+  handleClose(){
+    this.setState({optionsBoxVisible: false})
+  }
+
   render(){
     return (
       <div className="App">
@@ -54,10 +67,16 @@ class App extends React.Component {
           <div className="menu">
             <Link to="/past"> <button className="menu-button"> Past Cases </button> </Link>  
             <Link to="CreateCase"> <button className="menu-button"> Create a new Case </button></Link>
-            <button className="menu-button"> Options </button>
+            {/* <button className="menu-button" onClick={() => this.onOptionsClick()}> Options </button> */}
           </div>
         </header>
         <div className="grid"> 
+          {this.state.optionsBoxVisible === true &&
+            <div className="optionsBox">
+                <button className='close-button' onClick={() => this.handleClose()}> X </button>
+              What position?
+            </div>
+          }
           <div className='map-box'> 
           {/* {
             this.props.teams[0] !== undefined && */}

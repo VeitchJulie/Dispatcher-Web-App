@@ -8,6 +8,8 @@ class TeamSerializer(serializers.ModelSerializer):
 
 
 class CaseSerializer(serializers.ModelSerializer):
+    date = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
+    
     class Meta:
         model = Case
         fields = ("id", "state" ,"name", "date", "team", "lat", "lng", "phone", "extraInformation")

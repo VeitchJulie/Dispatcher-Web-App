@@ -155,7 +155,9 @@ class CreateCase extends React.Component{
                                     })}
                                 </select>
                                 <label className="labels"> Address </label> 
-                                <input type="text" value={this.state.result.label} className="questionare-address"/>  <br /> <br />
+                                <input type="text" value={this.state.result.label} className="questionare-address" readOnly/>  <br /> <br />
+                                <label className="radioLabel"> Caller Is Patient </label> 
+                                <input type="checkbox" className="questionare-callerIsPatient"/>  <br /> <br />
                                 <label className="labels"> Callers Name </label> 
                                 <input type="text" className="questionare-callersName"/>  <br /> <br />
                                 <label className="labels"> Callers Phone </label> 
