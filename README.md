@@ -3,9 +3,10 @@ System to support handling of requests for medical personel. In this repository 
 # Installation
 
 
-## Run
+# Run
 To run this application you will need two terminals working at once. 
-To run the backend of the app:
+
+## backend
 
 `dispatcher_app$ python3 manage.py runserver`
 
