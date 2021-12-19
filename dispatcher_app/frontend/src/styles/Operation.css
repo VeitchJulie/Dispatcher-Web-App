@@ -3,10 +3,6 @@
     font-family: 'Poppins';
 }
 
-/* .operation-body{
-    display: flex;
-} */
-
 .header {
     display: inline-block;
     width: 100%;
@@ -38,7 +34,7 @@
     left: 0vh;
     background-color: transparent;
     color: #ffffff;
-    margin: 1vh 3vh;
+    margin: -0.5vh 3vh;
 }
 
 .map{
@@ -46,11 +42,7 @@
     z-index: 1;
     height: 75vh;
     top: 1vh;
-    /* width: 130vh; */
-    /* left: 40vh; */
-    /* right: 10vh; */
     width: 100%;
-    /* margin-right: 3vh; */
 }
 
 .search-box{
@@ -66,10 +58,6 @@
     width: 40vh;
     height: 4vh;
     top: 2vh;
-    /* border: solid pink; */
-    /* margin-top: 4vh; */
-    /* top: 2vh;
-    margin: 1vh; */
 }
 
 .search-input{
@@ -125,18 +113,15 @@
     position: absolute;
     top: 6vh;
     z-index: 2;
-    /* top: 9vh;
-    height: 63vh; */
     overflow: auto;
-    background-color: #67BAC3;
+    background-color: var(--main-color);
     border-radius: 10px;
     max-height: 76vh;
 }
 
 .search-label{
     left: 0vh;
-    position: absolute;
-    /* left: 2vh; */
+    position: absolute; 
     color: #ffffff;
     font-weight: 700;
     font-size: calc(8px + 1vh);
@@ -171,39 +156,44 @@
     z-index: 10;
 }
 
-.questionare input:not([type=button]){
-  height: 35px;
-  width: 280px;
-  font-size: 16px;
-  background-color: rgba(229, 229, 229, 0.47);
-  border-radius: 5px;
-  border: none;
-  /* margin-top: 1vh; */
-  padding-left: 1vh;
-  -webkit-appearance: button;
-  appearance: button;
-  margin-bottom: 1vh;
-  /* border: 3px solid black; */
+.questionare input:not([type=button]):not([type=checkbox]) {
+    height: 35px;
+    width: 280px;
+    font-size: 16px;
+    background-color: rgba(229, 229, 229, 0.47);
+    border-radius: 5px;
+    border: none;
+    padding-left: 1vh;
+    -webkit-appearance: button;
+    appearance: button;
+}
+
+.questionare input[type=checkbox]{
+    position: relative;
+    vertical-align: top;
+    left: 4vw;
 }
 
 .questionare label{
     position: relative;
-  margin: 1vh;
-  left: 10vh;
-  text-align: left;
-  display: block;
-  font-size: 16px;
-  color: #212529;
-  top: 1.2vh;
-  letter-spacing: 2%;
+    margin: 1vh;
+    left: 10vh;
+    text-align: left;
+    display: block;
+    font-size: 16px;
+    color: #212529;
+    top: 1.2vh;
+    letter-spacing: 2%;
 }
 
-/* .cover2{
+
+
+.cover2{
     position: fixed;
     background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-} */
+    z-index: 1000;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+}

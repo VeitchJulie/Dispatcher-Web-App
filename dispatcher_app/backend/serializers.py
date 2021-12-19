@@ -8,11 +8,11 @@ class TeamSerializer(serializers.ModelSerializer):
 
 
 class CaseSerializer(serializers.ModelSerializer):
-    date = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
+    # date = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
     
     class Meta:
         model = Case
-        fields = ("id", "state" ,"name", "date", "team", "lat", "lng", "phone", "extraInformation")
+        fields = ("id", "state" ,"name", "date", "team", "lat", "lng", "phone", "extraInformation", "isPatient")
 
 class DetailedTeamSerializer(serializers.ModelSerializer):
     cases = CaseSerializer(many=True, read_only=True)

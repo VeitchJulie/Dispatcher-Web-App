@@ -1,7 +1,6 @@
 import L from 'leaflet'
 import {createControlComponent} from '@react-leaflet/core'
 import 'leaflet-routing-machine'
-// import iconRed from './images/icon-red.png'
 
 const createRoutineMachineLayer = (props) => {
 
@@ -24,7 +23,6 @@ const createRoutineMachineLayer = (props) => {
     return instance;
   };
 
-  const RoutingMachine = createControlComponent(createRoutineMachineLayer)
-
+const RoutingMachine = createControlComponent(createRoutineMachineLayer)
 
 export default RoutingMachine

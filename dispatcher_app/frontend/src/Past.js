@@ -36,20 +36,22 @@ class Past extends React.Component{
                             <th> Extra Information </th>
                         </tr>
                     </thead>
+                    <tbody className="pastTableBody">
                     {this.state.cases.map((teamCase, index) => {
+                        let time = teamCase.date.substring(11,16)
+                        let date = teamCase.date.substring(0,10)
                         return(
-                            <tbody> 
-                                <tr key = {index}> 
-                                    <td> {teamCase.name}  </td>
-                                    <td> {teamCase.state}  </td>
-                                    <td> {teamCase.date}  </td>
-                                    <td> {teamCase.team}  </td>
-                                    <td> {teamCase.phone}  </td>
-                                    <td> {teamCase.extraInformation}  </td>
-                                </tr>
-                            </tbody>
+                            <tr key = {index}> 
+                                <td> {teamCase.name}  </td>
+                                <td> {teamCase.state}  </td>
+                                <td className="caseDate"> {date + "\t" + time} </td>
+                                <td> {teamCase.team}  </td>
+                                <td> {teamCase.phone}  </td>
+                                <td> {teamCase.extraInformation}  </td>
+                            </tr>
                         )
                     })}
+                    </tbody>
                 </table>
             </div>
         )

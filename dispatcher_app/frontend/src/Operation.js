@@ -20,19 +20,9 @@ class Operation extends React.Component{
         showQuestionare: false,
     }
 
-    // componentDidMount(){
-    //     this.setState({
-    //         position: [this.state.team.lat, this.state.team.long]
-    //     })
-    // }
-
-    
-    // app = initializeApp()
-
     handleClose(){
         this.props.dispatch(cancelTeam({id: ''}))
         this.setState({showQuestionare: false})
-        // this.props.dispatch(hideRouting({id: this.state.team.id}))
     }
 
     handleSearch = (result) => {
@@ -53,23 +43,12 @@ class Operation extends React.Component{
     }
 
     handleGo =  () => {
-        this.setState({showQuestionare: true})
-        // const object = {
-        //     "id": this.state.team.id,
-        //     // "top_id": this.state.team.top_id,
-        //     "token": this.state.team.token,
-        //     "state": "Busy",
-        //     "lat": this.state.team.lat,
-        //     "long": this.state.team.long,
-        //     "endLat": this.state.searchedLocation[0],
-        //     "endLong": this.state.searchedLocation[1],
-        // }
-        // axios.put(`http://localhost:8000/teams/${object.id}/`, object).then(() => {
-        //     this.setState({team: object})
-        // })
-        // this.setState({showQuestionare: true})
+        if(this.state.searchedLocation !== undefined){
+            this.setState({showQuestionare: true})
+        }else{
+            window.alert("Please input location")
+        }
     }
-
 
     handleRoute = () => {
         this.props.dispatch(showRouting({id: this.state.team.id}))
@@ -79,6 +58,7 @@ class Operation extends React.Component{
         let name = document.getElementsByClassName('nameInput')[0].value
         let phone = document.getElementsByClassName('phoneInput')[0].value
         let extraInformation = document.getElementsByClassName('questionare-additionalInformation')[0].value
+        let callerIsPatient = document.getElementsByClassName('questionare-callerIsPatient')[0].value
 
         const request = {
             "team" : this.state.team.id,
@@ -88,23 +68,9 @@ class Operation extends React.Component{
             "name": name,
             "phone": phone,
             "extraInformation": extraInformation,
+            "isPatient": callerIsPatient
         }
-
-        // const object = {
-        //     "id": this.state.team.id,
-        //     "token": this.state.team.token,
-        //     "state": "Free",
-        //     "lat": this.state.team.lat,
-        //     "long": this.state.team.long,
-        //     "endLat": this.state.searchedLocation[0],
-        //     "endLong": this.state.searchedLocation[1],
-        // }
-        // axios.put(`http://localhost:8000/teams/${object.id}/`, object).then(() => {
-        //     this.setState({team: object})
-        // })
         axios.post(`http://localhost:8000/cases/`, request)
-
-        // axios.post(`http://localhost:8000/cases/`, object)
         this.handleClose()
     }
     
@@ -136,7 +102,6 @@ class Operation extends React.Component{
             <div className='header'> 
             {this.state.team !== undefined && 
                 <div className='team-id'> {this.state.team.id} </div> 
-                // <div className='team-status'> Status: {this.state.team.state} </div>
             }
             <div className='search-box'> 
                     <form className='search-box-form'> 
@@ -146,24 +111,23 @@ class Operation extends React.Component{
                             <button type='button' className='route-button' onClick={()=> this.handleRoute()}> </button>
                             <button className='go-button' type='button' value='go' onClick={() => this.handleGo()}> </button>
                             {this.state.showQuestionare === true && 
-                                <div className="cover2">
-                                    <div className='questionare'> 
-                                        <button className='close-button' onClick={() => this.handleClose()}> X </button>
-                                        <form> 
-                                            <label> Team </label> 
-                                            <input type='text' className='teamInput' value={this.state.team.id} readOnly/> 
-                                            <label> Address </label> 
-                                            <input type='text' className='AddressInput' value={this.state.locationLabel}/> 
-                                            <label> Callers Name </label> 
-                                            <input type='text' className='nameInput' defaultValue="Anna Nowak"/> 
-                                            <label> Callers Phone Number </label>
-                                            <input type='tel' className='phoneInput' defaultValue="678564987"/> 
-                                            <label> Additional Information </label> 
-                                            <textarea className='questionare-additionalInformation' > </textarea>
-                                            <br />
-                                            <input type='button' value='Send Team' className="send-request-button" onClick={()=> this.handleSendTeam()}/>
-                                        </form>
-                                    </div>
+                                <div className='questionare'> 
+                                    <button className='close-button' onClick={() => this.handleClose()}> X </button>
+                                    <form> 
+                                        <label> Team </label> 
+                                        <input type='text' className='teamInput' value={this.state.team.id} readOnly/> 
+                                        <label> Address </label> 
+                                        <input type='text' className='AddressInput' value={this.state.locationLabel}/> <br />
+                                        <label className="checkboxLabel"> Caller Is Patient  <input type="checkbox" className="questionare-callerIsPatient"/>   </label> 
+                                        <label> Callers Name </label> 
+                                        <input type='text' className='nameInput' defaultValue="Anna Nowak"/> 
+                                        <label> Callers Phone Number </label>
+                                        <input type='tel' className='phoneInput' defaultValue="678564987"/> 
+                                        <label> Additional Information </label> 
+                                        <textarea className='questionare-additionalInformation' > </textarea>
+                                        <br /> <br />
+                                        <input type='button' value='Send Team' className="send-request-button" onClick={()=> this.handleSendTeam()}/>
+                                    </form>
                                 </div>
                             }
                         </div>

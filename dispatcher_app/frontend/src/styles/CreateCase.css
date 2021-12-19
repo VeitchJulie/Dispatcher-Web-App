@@ -1,16 +1,13 @@
 .CreateCase{
-    text-align: center;
-    height: 100vh;
-    /* position: absolute; */
-    overflow: hidden;
-    width: 100%;
+  text-align: center;
+  height: 100vh;
+  overflow: hidden;
+  width: 100%;
 }
 
 .mapContainer{
   position: relative;
   margin: 0 1vh;
-  /* width: 33.33%; */
-  /* border: 3px solid black; */
 }
 
 .mapid2 { 
@@ -34,7 +31,7 @@
   font-size: 16px;
   padding: 2vh 1vh;
   width: calc(250px + 10vmin);;
-  background: #67BAC3;
+  background: var(--main-color);
   border: none;
   margin-top: 1vh;
   border-radius: 5px;
@@ -43,8 +40,8 @@
 }
 
 .input-location::placeholder{
-    color: white;
-    font-size: 16px;
+  color: white;
+  font-size: 16px;
 }
 
 .input-location:focus{
@@ -52,24 +49,24 @@
 }
 
 #route-map { 
-    height: 90vh; 
-    display: none;
+  height: 90vh; 
+  display: none;
 }
 
 .App-name{
-    float: left;
-    padding-left: 3%;
-    height: inherit;
-    font-size: calc(10px + 4vmin);
+  float: left;
+  padding-left: 3%;
+  height: inherit;
+  font-size: calc(10px + 4vmin);
 }
 
 .App-header {
-    height: 8vh;
-    display: inline-block;
-    width: 100%;
-    font-family: 'Poppins';
-    color: #ffffff;
-    background-color: #67BAC3;
+  height: 8vh;
+  display: inline-block;
+  width: 100%;
+  font-family: 'Poppins';
+  color: #ffffff;
+  background-color: var(--main-color);
 }
 
 .home{
@@ -78,76 +75,28 @@
   padding-top: 0px;
   font-size: calc(10px + 1vmin);
 }
-/* .container{
-  width: 100%;
-  padding-right: var(--bs-gutter-x, 0.75rem);
-  padding-left: var(--bs-gutter-x, 0.75rem);
-  margin-right: auto;
-  margin-left: auto;
-} */
-/* 
-@media (min-width: 576px) {
-  .container-sm, .container {
-    max-width: 540px;
-  }
-}
-@media (min-width: 768px) {
-  .container-md, .container-sm, .container {
-    max-width: 720px;
-  }
-}
-@media (min-width: 992px) {
-  .container-lg, .container-md, .container-sm, .container {
-    max-width: 960px;
-  }
-}
-@media (min-width: 1200px) {
-  .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1140px;
-  }
-}
-@media (min-width: 1400px) {
-  .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1320px;
-  }
-} */
+
 .row {
-  /* --bs-gutter-x: 1.5rem;
-  --bs-gutter-y: 0; */
   display: flex;
-  /* flex-wrap: wrap; */
-  /* margin-top: calc(-1 * var(--bs-gutter-y));
-  margin-right: calc(-0.5 * var(--bs-gutter-x));
-  margin-left: calc(-0.5 * var(--bs-gutter-x));
-  width: 100%; */
 }
-/* .row > * {
-  flex-shrink: 0;
-  width: 100%;
-  max-width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * 0.5);
-  padding-left: calc(var(--bs-gutter-x) * 0.5);
-  margin-top: var(--bs-gutter-y);
-} */
 
 .col {
   flex: 1 0 0%;
   flex-grow: 1;
   width: 33.33%;
-  /* border: 3px solid rgba(0, 0, 0, 0.068); */
   height: 92vh;
 }
 
 .results{
-    color: black;
-    position: absolute;
-    top: 8vh;
-    width: 90%;
-    overflow: auto;
-    background-color: #67BAC3;
-    border-radius: 10px;
-    max-height: 76vh;
-    margin: 0 5%;
+  color: black;
+  position: absolute;
+  top: 8vh;
+  width: 90%;
+  overflow: auto;
+  background-color: var(--main-color);
+  border-radius: 10px;
+  max-height: 76vh;
+  margin: 0 5%;
 }
 
 .chosen-address{
@@ -190,7 +139,6 @@
 }
 
 .questionare-inputs{
-  /* position: absolute; */
   width: 100%;
 }
 
@@ -201,11 +149,15 @@
   background-color: rgba(229, 229, 229, 0.47);
   border-radius: 5px;
   border: none;
-  /* margin-top: 1vh; */
   padding-left: 1vh;
   -webkit-appearance: button;
   appearance: button;
-  /* margin-bottom: 1vh; */
+}
+
+.questionare-inputs input[type=checkbox]{
+  position: relative;
+  vertical-align: top;
+  left: 3vw;
 }
 
 .questionare-additionalInformation{
@@ -217,8 +169,15 @@
   background-color: rgba(229, 229, 229, 0.47);
   border-radius: 5px;
   font-size: 16px;
-  /* margin-top: 1vh; */
-  /* margin-bottom: 1vh; */
+}
+
+.statusCreateCase{
+  background: #E3E7E8;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-left: 30px;
+  top: 17px;
 }
 
 .questionare-teamId{
@@ -228,7 +187,7 @@
 }
 
 .send-request-button{
-  background-color: #EB8E68;
+  background-color: var(--main-button-color);
   color: #ffffff;
   font-size: 16px;
   height: 35px;

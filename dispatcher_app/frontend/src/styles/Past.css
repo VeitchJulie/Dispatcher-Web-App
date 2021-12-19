@@ -1,9 +1,8 @@
 .Past{
     text-align: center;
-    height: 100vh;
     position: relative;
     overflow: hidden;
-  }
+}
 
 .App-name{
     float: left;
@@ -18,62 +17,65 @@
     width: 100%;
     font-family: 'Poppins';
     color: #ffffff;
-    background-color: #67BAC3;
+    background-color: var(--main-color);
 }
 
 .home{
-  float: right;
-  padding-right: 20px;
-  padding-top: 0px;
-  font-size: calc(10px + 1vmin);
+    float: right;
+    padding-right: 20px;
+    padding-top: 0px;
+    font-size: calc(10px + 1vmin);
 }
 
 .past-table{
-  margin: 2vh auto;
-  caption-side: bottom;
-  border-collapse: collapse;
-  width: 90%;
-  margin-bottom: 1rem;
-  color: #212529;
-  vertical-align: top;
-  border-color: #dee2e6;
-  background-color: white;
-}
-
-/* table {
+    margin: 2vh auto;
     caption-side: bottom;
     border-collapse: collapse;
-} */
+    width: 90%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: #dee2e6;
+    background-color: white;
+}
 
 .past-table > :not(caption) > * > * {
-  padding: 0.5rem 0.5rem;
-  background-color: white;
-  border-bottom-width: 1px;
+    padding: 0.5rem 0.5rem;
+    background-color: white;
+    border-bottom-width: 1px;
 }
 
 .past-table > :not(:first-child) {
-  border-top: 2px solid currentColor;
+    border-top: 2px solid currentColor;
 }
 
 .past-table > tbody > tr:nth-child(even) > * {
-  background-color: gray;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 thead{
-  color: #67BAC3;
+    color: var(--main-color);
 }
 
 .back-button{
-  background: url('../images/arrowRight.png');
-  width: 5vh;
-  height: 5vh;
-  background-size: 5vh 5vh;
-  border-radius: 4px;
-  position: absolute;
-  border: none;
-  margin: 1.5vh -7vh
+    background: url('../images/arrowRight.png');
+    width: 5vh;
+    height: 5vh;
+    background-size: 5vh 5vh;
+    border-radius: 4px;
+    position: absolute;
+    border: none;
+    margin: 1.5vh -7vh
 }
 
 .back-button:hover{
-  background-color: #ffffff63;
+    background-color: #ffffff63;
+}
+
+.pastTableBody{
+    overflow-y: auto;
+}
+
+.caseDate{
+    white-space: pre;
 }

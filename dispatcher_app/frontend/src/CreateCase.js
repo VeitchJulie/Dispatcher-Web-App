@@ -73,25 +73,47 @@ class CreateCase extends React.Component{
         let name = document.getElementsByClassName('questionare-callersName')[0].value
         let phone = document.getElementsByClassName('questionare-callersPhone')[0].value
         let extraInformation = document.getElementsByClassName('questionare-additionalInformation')[0].value
+        let callerIsPatient = document.getElementsByClassName('questionare-callerIsPatient')[0].checked
 
-        const request = {
-            "team" : id,
-            "state": "TOACCEPT",
-            "lat" : this.state.searchedLocation[0],
-            "lng": this.state.searchedLocation[1],
-            "name": name,
-            "phone": phone,
-            "extraInformation": extraInformation,
+        if(id === "" || this.state.searchedLocation === undefined || name === "" || phone === ""){
+            window.alert("fill in all needed fields!")
+            return
+        } else {
+            const request = {
+                "team" : id,
+                "state": "TOACCEPT",
+                "lat" : this.state.searchedLocation[0],
+                "lng": this.state.searchedLocation[1],
+                "name": name,
+                "phone": phone,
+                "extraInformation": extraInformation,
+                "isPatient": callerIsPatient
+            }
+    
+            axios.post(`http://localhost:8000/cases/`, request).then((res) => {
+                if(res.status === 201){
+                    window.alert("Request Sent")
+                }else{
+                    window.alert("Request was not sent! Error")
+                }
+            })
+            this.props.dispatch(showRouting({id: id}))
+            this.props.dispatch(cancelTeam({id: ''}))
+            this.clear()
         }
 
-        axios.post(`http://localhost:8000/cases/`, request)
-        this.props.dispatch(showRouting({id: id}))
-        this.handleClose()
+        
     }
 
-    handleClose(){
-        this.props.dispatch(cancelTeam({id: ''}))
+    clear(){
+        document.getElementsByClassName('questionare-teamId')[0].value = ""
+        document.getElementsByClassName('questionare-address')[0].value = ""
+        document.getElementsByClassName('questionare-callersName')[0].value = ""
+        document.getElementsByClassName('questionare-callersPhone')[0].value = ""
+        document.getElementsByClassName('questionare-additionalInformation')[0].value = ""
+        document.getElementsByClassName('questionare-callerIsPatient')[0].checked = false
     }
+
 
     render(){
         return(
@@ -117,7 +139,7 @@ class CreateCase extends React.Component{
                                 </div>
                                 }
                             </div>
-                            <MapContainer className='mapid2' center={[52.229, 20.970]} zoom={13} scrollWheelZoom={true} zoomControl={false}> 
+                            <MapContainer className='mapid2' center={[52.229, 20.970]} zoom={11} scrollWheelZoom={true} zoomControl={false}> 
                                 <TileLayer
                                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -140,42 +162,37 @@ class CreateCase extends React.Component{
                         }
                         </div>
                     <div className="col">
-                        {/* { this.props.team.choseTeam === true &&  */}
-                            {/* <p> {this.props.team.id } </p>, */}
-                            <div className="questionare-inputs"> < br/>
-                                <label className="labels"> Team ID </label> 
-                                {/* <input type="text" defaultValue={this.props.team.id} className="questionare-teamId"/> <br /> <br /> */}
-                                {/* <input type="select" list="teams" defaultValue={this.props.team.id} className="questionare-teamId"/> */}
-                                <select className="questionare-teamId">
-                                    <option value="" selected disabled hidden> Select Team </option>
-                                    {this.state.teams.map((team) => {
-                                        return(
-                                            <option value={team.id}> {team.id} </option>
-                                        )
-                                    })}
-                                </select>
-                                <label className="labels"> Address </label> 
-                                <input type="text" value={this.state.result.label} className="questionare-address" readOnly/>  <br /> <br />
-                                <label className="radioLabel"> Caller Is Patient </label> 
-                                <input type="checkbox" className="questionare-callerIsPatient"/>  <br /> <br />
-                                <label className="labels"> Callers Name </label> 
-                                <input type="text" className="questionare-callersName"/>  <br /> <br />
-                                <label className="labels"> Callers Phone </label> 
-                                <input type="tel" className="questionare-callersPhone"/>  <br /> <br />
-                                <label className="labels"> Additional Information </label>
-                                <textarea className="questionare-additionalInformation"> </textarea>
-                                <br />
-                                <br />
-                                <input type='button' value='Send Request' className= "send-request-button" onClick={()=> this.handleSendTeam()}/>
-                            </div>
-                        {/* } */}
+                        <div className="questionare-inputs"> < br/>
+                            <label className="labels"> Team ID </label> 
+                            <select className="questionare-teamId">
+                                <option value="" selected disabled hidden> Select Team </option>
+                                {this.state.teams.map((team) => {
+                                    return(
+                                        <option value={team.id}> {team.id} </option>
+                                    )
+                                })}
+                            </select>
+                            <label className="labels"> Address </label> 
+                            <input type="text" value={this.state.result.label} className="questionare-address" readOnly/>  <br /> <br />
+                            <label className="radioLabel"> Caller Is Patient  <input type="checkbox" className="questionare-callerIsPatient"/> </label> 
+                            <br /> <br />
+                            <label className="labels"> Callers Name </label> 
+                            <input type="text" className="questionare-callersName"/>  <br /> <br />
+                            <label className="labels"> Callers Phone </label> 
+                            <input type="tel" className="questionare-callersPhone"/>  <br /> <br />
+                            <label className="labels"> Additional Information </label>
+                            <textarea className="questionare-additionalInformation"> </textarea>
+                            <br />
+                            <br />
+                            <input type='button' value='Send Request' className= "send-request-button" onClick={()=> this.handleSendTeam()}/>
+                        </div>
                     </div>
                 </div>
             </div>
-
         )
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         team: state.team

@@ -69,10 +69,10 @@ class CalcDistance extends React.Component{
                 <table className="tableOfTeams">
                     <thead className="table-header">
                         <tr>
+                            <th> State </th>
                             <th> Id </th>
                             <th> Distance [km] </th>
                             <th> Time [h] </th>
-                            {/* <th> </th> */}
                         </tr>
                     </thead>
                     {this.state.teams.sort(function(a,b){
@@ -80,14 +80,15 @@ class CalcDistance extends React.Component{
                         let keyB = b.time
                         return ((keyA < keyB) ? -1 : ((keyA > keyB) ? 1 : 0));
                     }).map((team, key) => {
+                        let colour = ''
+                        team.state === 'Free' ? colour='#E3E7E8' : colour='#EB8E68'
                         return(
                             <tbody> 
                                 <tr key = {team.id} className="tableRowTeams" onClick={() => this.handleClick(team, key)}> 
+                                    <td> <div className='statusCreateCase' style={{"backgroundColor": colour}}>  </div>  </td>
                                     <td> {team.id}  </td>
                                     <td> {team.distance} </td>
                                     <td> {team.time} </td>
-                                    {/* <td> <input type="checkbox" name="check" onClick={() => this.handleClick(team, key, this)}/> </td> */}
-                                    {/* <td> <button> Send </button> </td> */}
                                 </tr>
                             </tbody>
                         )

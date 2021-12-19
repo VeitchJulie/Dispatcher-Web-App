@@ -33,6 +33,7 @@ class Case(models.Model):
     phone = models.CharField(max_length=12, blank=True)
     extraInformation = models.CharField(max_length=256, blank=True)
     date = models.DateTimeField(verbose_name=("Creation date"), auto_now_add=True, null=True)
+    isPatient = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

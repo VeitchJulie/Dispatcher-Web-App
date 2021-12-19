@@ -3,15 +3,9 @@ import axios from 'axios'
 import './styles/Data.css'
 import {connect} from 'react-redux'
 import {setCurrentTeam, sendTeam} from './actions/team'
-// import fetch from  'fetch'
-// import {setSend} from './actions/operation'
-// import RoutingMachine from './Routing'
-
-// import {downloadTeam} from './actions/teams'
 
 class Data extends React.Component {
     state = {
-        // teams: this.props.allTeams,
         teams: [],
         search: '',
         buttonClicked: false,
@@ -19,25 +13,11 @@ class Data extends React.Component {
 
 
     componentDidMount() {
-        // axios.get('http://localhost:8000/teams/?format=json').then((response) => {
-        //     this.setState({teams: response.data})
-        // })
-
         setInterval(() => {
             axios.get('http://localhost:8000/teams/?format=json').then((response) => {
             this.setState({teams: response.data})
-        })}, 3000)  
-
-        // console.log(this.props.teams[0])
-        // this.setState({teams: this.props.teams})
+        })}, 2000)  
     }
-
-    // componentDidUpdate(){
-    //     setInterval(() => {
-    //         axios.get('http://localhost:8000/teams/?format=json').then((response) => {
-    //         this.setState({teams: response.data})
-    //     })}, 10000)  
-    // }
 
     handleSearch(event){
         this.setState({
@@ -76,7 +56,6 @@ class Data extends React.Component {
 
         const object = {
             "id": team.id,
-            // "top_id": team.top_id,
             "token": team.token,
             "state": "Free",
             "lat": team.lat,
@@ -110,9 +89,6 @@ class Data extends React.Component {
                         team.state === 'Free' ? colour='#E3E7E8' : colour='#EB8E68'
                         return(
                             <div key={team.id} className='box'> 
-                                {/* <button type="button" className = 'table-row' key={team.id} 
-                                    onClick={() => this.handleClick(team)}
-                                    > {team.id} </button> */}
                                 <div className='table-row' key={team.id}>
                                     <div className='status' style={{"backgroundColor": colour}}>  </div> 
                                     <div className='id'> {team.id}  </div>  <br/> 
@@ -122,12 +98,10 @@ class Data extends React.Component {
                                         <button type='button' className='end-button' onClick={() => this.handleEndClick(team)}> end </button> 
                                     </div>
                                 </div>
-                                {/* <div className = 'more-inf' key={team.id + 1}> 
-                                    <button type='button' onClick={() => this.handleClick(team)}> show on map </button>
-                                </div> */}
                             </div>
                         )}
                     )}
+                    <div className="dummyBox"> </div>
                 </div>
             </div>
         )}
@@ -135,9 +109,7 @@ class Data extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        team: state.team,
-        operation: state.teamState,
-        teams: state.teams
+        team: state.team
     }
 }
 

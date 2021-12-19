@@ -6,9 +6,6 @@ import './styles/Map.css'
 import { connect } from 'react-redux'
 import ambulanceIcon from './images/ambulance.png'
 import RoutingMachine from './Routing'
-// import iconRed from './images/icon-red.png'
-// import ambulanceOnIcon from './images/ambulance-on.png'
-
 
 class Map extends React.Component{
     state = {
@@ -94,7 +91,6 @@ class Map extends React.Component{
         if(this.props.team.showRouting === true){
             if(this.state.searchedLocation !== undefined){
                 return(
-                    // <Marker position={[this.state.searchedLocation[0], this.state.searchedLocation[1]]}> </Marker>
                     <RoutingMachine 
                         startLat = {this.state.team.lat}
                         startLng = {this.state.team.long}
@@ -125,16 +121,12 @@ class Map extends React.Component{
                         </Marker>
                     )
                 }
-                {/* jeśli chce wyświetlać w zakładce 'send' ambulans, to usunąć trzeba 'this.props.team.sendTeam === false' */}
                 {(this.props.team.id !== "" ) && 
                     this.showMarker()
                 }
                 {(this.props.team.sendTeam === true & this.state.searchedLocation !== undefined) &&
                     this.setSearchMarker()
                 }
-                {/* {this.props.team.sendTeam === true &&
-                    this.setMarker()
-                } */}
                 {(this.props.team.sendTeam === true & this.props.team.showRouting === true) &&
                     this.setRouting()
                 }
@@ -147,92 +139,7 @@ class Map extends React.Component{
 const mapStateToProps = (state) => {
     return {
         team: state.team,
-        // teamState: state.teamState
-        // teams: state.teams
     }
 }
 
 export default connect(mapStateToProps)(Map)
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// function Map(props) {
-
-//     const [map, setMap] = useState(null)
-//     const position = props.position
-//     const zoom = props.zoom
-//     const visibleMarkers = props.visibleMarkers
-//     const [teams, setTeams] = useState( [] )
-
-//     useEffect(() => {
-//         const axiosTeams = async () => {
-//             const response = await axios('http://localhost:8000/teams/?format=json')
-//             setTeams(response.data)
-//         }
-//         axiosTeams()
-//     }, [])
-
-//     useEffect(() => {
-//         if(map !== null){
-//             if(props.teamState.sendTeam === true & visibleMarkers === false){
-//                 map.panInside({lat: props.teamState.searchLat, lng: props.teamState.searchLong})
-//             }
-//         }
-//     }, [props.teamState.searchLat, props.teamState.searchLong])
-    
-//     const ambulance = L.icon({
-//         iconUrl: ambulanceIcon,
-//         iconSize: [35,35]
-//     })
-
-//     const redIcon = L.icon({
-//         iconUrl: iconRed,
-//         iconSize: [35,45]
-//     })
-
-//     L.Icon.Default.prototype.options = {
-//         iconUrl: '../node_modules/leaflet/dist/images/marker-icon.png'
-//     }
-
-//     return(
-//         <MapContainer  className='mapid' whenCreated={setMap} center={position} zoom={zoom} scrollWheelZoom={true} zoomControl={false}>
-//             <TileLayer
-//             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-//             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-//             {visibleMarkers === true && 
-//                 teams.map((team) =>
-//                     <Marker position={[team.lat, team.long]} key={team.id} icon = {ambulance}>
-//                         <Tooltip > {team.top_id} </Tooltip>
-//                     </Marker>
-//                 )}
-//             {visibleMarkers === true && 
-//                 <Marker position={[props.location.lat, props.location.long]} icon = {ambulance}>
-//                     <Tooltip direction="top" opacity={0.75} permanent>
-//                         {props.location.id}
-//                     </Tooltip>
-//                 </Marker>
-//             }
-//             {visibleMarkers === false & props.teamState.sendTeam === true &&
-//                 <Marker position={[props.location.lat, props.location.long]}> </Marker>
-//             }
-//             {visibleMarkers === false & props.teamState.sendTeam === true &&
-//                 <Marker position={[props.teamState.searchLat, props.teamState.searchLong]}> </Marker>
-//             }
-//             {visibleMarkers === false & props.teamState.searchLat !== "" &&
-//                 <RoutingMachine />
-//             }
-                
-//                 <ZoomControl position="topright" />
-//             </MapContainer>
-//         )
-//     }
-
-// const mapStateToProps = (state) => {
-//     return {
-//         location: state.location,
-//         teamState: state.teamState
-//         // teams: state.teams
-//     }
-// }
-
-// export default connect(mapStateToProps)(Map)
