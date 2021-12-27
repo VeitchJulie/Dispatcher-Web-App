@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'frontend',
     'rest_framework',
     'corsheaders',
-    'openrouteservice'
+    'openrouteservice',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [

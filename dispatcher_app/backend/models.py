@@ -1,5 +1,6 @@
 from typing import Any
 from django.db import models
+from django.db.models.deletion import SET_DEFAULT
 
 class Team(models.Model):
     STATES = (
@@ -13,7 +14,6 @@ class Team(models.Model):
     long = models.DecimalField(max_digits=40, decimal_places=30, blank=False, default=20.998)
     endLat = models.DecimalField(max_digits=40, decimal_places=30, blank=True)
     endLong = models.DecimalField(max_digits=40, decimal_places=30, blank=True)
-    # distance = models.DecimalField(max_digits=10, decimal_places=1, blank=True, default=0)
     
     def __str__(self):
         return self.id
@@ -25,7 +25,7 @@ class Case(models.Model):
         ('PAST', 'PAST'),
     )
     id = models.AutoField(primary_key=True)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, default = 0000, related_name='cases')
+    team = models.ForeignKey(Team, on_delete=models.SET_DEFAULT, default = None, related_name='cases', null=True)
     state = models.CharField(max_length=8, choices=STATES, default='default')
     lat = models.DecimalField(max_digits=40, decimal_places=30, blank=True)
     lng = models.DecimalField(max_digits=40, decimal_places=30, blank=True)   
